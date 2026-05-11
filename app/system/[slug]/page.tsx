@@ -33,7 +33,7 @@ export default async function SystemProfilePage({
   );
 
   return (
-    <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+    <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
       {/* Header */}
       <div className="flex flex-col gap-4 mb-10">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
