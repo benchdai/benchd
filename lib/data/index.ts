@@ -39,21 +39,21 @@ const BENCHD_VERIFIED_SCORES: Record<string, {
   trustTier: "community-verified";
   description?: string;
 }> = {
-  // LlamaIndex Memory — 56.8% judged on LongMemEval (50q stratified)
+  // LlamaIndex Memory — 59.0% on full 500q LongMemEval
   "llamaindex-memory": {
     trustTier: "community-verified",
     scores: {
-      recallVerified: 81.2,
-      recallNuance: 81.2,
-      temporalVerified: 42.9,
-      temporalNuance: 42.9,
-      reasoningVerified: 46.2,
-      reasoningNuance: 46.2,
-      overallVerified: 56.8,
-      overallNuance: 56.8,
+      recallVerified: 59.0,
+      recallNuance: 59.0,
+      temporalVerified: 59.0,
+      temporalNuance: 59.0,
+      reasoningVerified: 59.0,
+      reasoningNuance: 59.0,
+      overallVerified: 59.0,
+      overallNuance: 59.0,
     },
   },
-  // LangChain Memory — 34.0% judged on LongMemEval (50q stratified)
+  // LangChain Memory — 34.0% on 50q sample (full run pending)
   "langchain-memory": {
     trustTier: "community-verified",
     scores: {
@@ -65,6 +65,20 @@ const BENCHD_VERIFIED_SCORES: Record<string, {
       reasoningNuance: 34.0,
       overallVerified: 34.0,
       overallNuance: 34.0,
+    },
+  },
+  // Mem0 OSS — 32.4% on full 500q LongMemEval (their managed platform claims 93.4%)
+  "mem0": {
+    trustTier: "community-verified",
+    scores: {
+      recallVerified: 32.4,
+      recallNuance: 32.4,
+      temporalVerified: 32.4,
+      temporalNuance: 32.4,
+      reasoningVerified: 32.4,
+      reasoningNuance: 32.4,
+      overallVerified: 32.4,
+      overallNuance: 32.4,
     },
   },
 };
@@ -91,14 +105,14 @@ const LLM_BASELINE_SYSTEM: System = {
   githubStars: null,
   lastTested: "2026-05-11",
   scores: {
-    recallVerified: 54.7,
-    recallNuance: 54.7,
-    temporalVerified: 54.7,
-    temporalNuance: 54.7,
-    reasoningVerified: 54.7,
-    reasoningNuance: 54.7,
-    overallVerified: 54.7,
-    overallNuance: 54.7,
+    recallVerified: 57.6,
+    recallNuance: 57.6,
+    temporalVerified: 57.6,
+    temporalNuance: 57.6,
+    reasoningVerified: 57.6,
+    reasoningNuance: 57.6,
+    overallVerified: 57.6,
+    overallNuance: 57.6,
   },
   sparklineData: [],
   createdAt: "2026-05-11T00:00:00Z",
