@@ -22,7 +22,7 @@ export function Header() {
         <div className="flex items-center justify-between h-14">
           <div className="flex items-center gap-8">
             <Link href="/" className="hover:opacity-80 transition-opacity">
-              <Logo size="sm" />
+              <Logo size="md" />
             </Link>
             <nav className="hidden sm:flex items-center gap-1">
               {navItems.map((item) => (

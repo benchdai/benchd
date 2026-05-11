@@ -27,9 +27,6 @@ export const metadata: Metadata = {
   title: "Bench'd — The neutral benchmark for AI memory systems",
   description:
     "Every score is independently run, cryptographically signed, and verifiable by anyone. Open harness, open methodology, signed receipts.",
-  icons: {
-    icon: "/icon.svg",
-  },
 };
 
 export default function RootLayout({
