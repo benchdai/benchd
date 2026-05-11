@@ -6,7 +6,7 @@ import { systems, runs } from "@/lib/data/index";
 import { TrustTierBadge } from "@/components/bench/trust-tier-badge";
 import { SourceBadge } from "@/components/bench/source-badge";
 import { Sparkline } from "@/components/bench/sparkline";
-import { ArrowRight, Info, ShieldCheck, Check, Minus, Shield, FileSearch, Fingerprint, BookOpen } from "lucide-react";
+import { ArrowRight, Info, ShieldCheck, Check, Minus, Shield, FileSearch, Fingerprint, BookOpen, BarChart3 } from "lucide-react";
 import type { System } from "@/lib/types";
 
 type QuickFilter = "all" | "open-source" | "managed" | "frameworks" | "self-reported" | "mcp-compatible";
@@ -140,34 +140,36 @@ export default function HomePage() {
     <div>
       {/* Hero — split layout */}
       <div className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber/[0.03] via-transparent to-amber/[0.015] dark:from-amber/[0.04] dark:to-transparent" />
-        <div className="absolute inset-0 opacity-[0.025] dark:opacity-[0.04]" style={{
+        <div className="absolute inset-0 bg-gradient-to-br from-amber/[0.04] via-transparent to-amber/[0.02] dark:from-amber/[0.06] dark:to-transparent" />
+        <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.035]" style={{
           backgroundImage: "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
           backgroundSize: "32px 32px",
         }} />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             {/* Left — headline */}
             <div>
-              <div className="flex items-center gap-2 mb-5">
+              {/* Brand positioning pill */}
+              <div className="flex items-center gap-2.5 mb-6">
                 <div className="h-1 w-8 rounded-full bg-amber" />
-                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-amber">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-amber border border-amber/30 rounded-full px-3 py-1 bg-amber/[0.06]">
                   Independent benchmark authority
                 </span>
               </div>
-              <h1 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold tracking-tight text-foreground leading-[1.15]">
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-foreground leading-[1.1]">
                 The scoreboard
                 <br />
-                for AI memory.
+                for AI{" "}
+                <span className="text-amber">memory</span>.
               </h1>
-              <p className="mt-4 text-sm sm:text-base text-muted-foreground max-w-md leading-relaxed">
+              <p className="mt-5 text-sm sm:text-base text-muted-foreground max-w-md leading-relaxed">
                 Bench&apos;d runs memory systems through reproducible benchmark protocols &mdash; measuring recall, temporal correctness, failure traces, and how efficiently past experience improves future performance.
               </p>
-              <p className="mt-2 text-xs text-muted-foreground/70">
+              <p className="mt-2.5 text-xs text-muted-foreground/70">
                 Every run is cryptographically signed and publicly verifiable.
               </p>
-              <div className="mt-6 flex items-center gap-3">
+              <div className="mt-7 flex items-center gap-3">
                 <Link
                   href="/leaderboard"
                   className="inline-flex items-center px-5 py-2.5 text-sm font-semibold rounded-lg bg-amber text-primary-foreground hover:bg-amber/90 transition-colors shadow-sm"
@@ -183,7 +185,7 @@ export default function HomePage() {
                 </Link>
               </div>
               {/* Trust pillars */}
-              <div className="mt-8 flex flex-wrap items-center gap-5">
+              <div className="mt-9 flex flex-wrap items-center gap-5">
                 {[
                   { icon: Shield, label: "Independent" },
                   { icon: Fingerprint, label: "Reproducible" },
@@ -203,48 +205,57 @@ export default function HomePage() {
               {/* Live Run card */}
               {topRun && (
                 <Link href={`/receipt/${topRun.id}`} className="block">
-                  <div className="border border-border rounded-xl bg-card p-5 card-md hover:border-amber/30 transition-colors">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                        Latest Verified Run
-                      </span>
-                      <span className="flex items-center gap-1.5 text-[10px] font-medium text-verified-green">
-                        <span className="w-1.5 h-1.5 rounded-full bg-verified-green animate-pulse" />
-                        VERIFIED
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs mb-4">
-                      <div>
-                        <span className="text-muted-foreground">Run ID</span>
-                        <p className="font-mono text-foreground mt-0.5">{topRun.id}</p>
+                  <div className="border border-amber/20 rounded-xl bg-card p-5 card-md hover:border-amber/40 transition-colors relative overflow-hidden">
+                    {/* Subtle amber left accent */}
+                    <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-amber via-amber/70 to-amber/40 rounded-l-xl" />
+                    {/* Subtle amber glow */}
+                    <div className="absolute -top-12 -right-12 w-32 h-32 bg-amber/[0.06] rounded-full blur-2xl pointer-events-none" />
+                    <div className="relative">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                          Latest Verified Run
+                        </span>
+                        <span className="flex items-center gap-1.5 text-[10px] font-medium text-verified-green">
+                          <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-verified-green opacity-60" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-verified-green" />
+                          </span>
+                          VERIFIED
+                        </span>
                       </div>
-                      <div>
-                        <span className="text-muted-foreground">System</span>
-                        <p className="font-semibold text-foreground mt-0.5">{topRun.systemName}</p>
+                      <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs mb-4">
+                        <div>
+                          <span className="text-muted-foreground">Run ID</span>
+                          <p className="font-mono text-foreground mt-0.5">{topRun.id}</p>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">System</span>
+                          <p className="font-semibold text-foreground mt-0.5">{topRun.systemName}</p>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Benchmark</span>
+                          <p className="text-foreground mt-0.5">{topRun.benchmarkName} v1.0</p>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Signed</span>
+                          <p className="text-foreground mt-0.5">{formatRelativeDate(topRun.completedAt)}</p>
+                        </div>
                       </div>
-                      <div>
-                        <span className="text-muted-foreground">Benchmark</span>
-                        <p className="text-foreground mt-0.5">{topRun.benchmarkName} v1.0</p>
-                      </div>
-                      <div>
-                        <span className="text-muted-foreground">Signed</span>
-                        <p className="text-foreground mt-0.5">{formatRelativeDate(topRun.completedAt)}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-end gap-6 pt-3 border-t border-border">
-                      <div>
-                        <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Verified Score</span>
-                        <p className="text-3xl font-mono font-bold text-amber tabular-nums mt-0.5">
-                          {topRun.verifiedOverall.toFixed(1)}
-                          <span className="text-sm font-normal text-muted-foreground ml-1">/100</span>
-                        </p>
-                      </div>
-                      <div>
-                        <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Judged Score</span>
-                        <p className="text-xl font-mono font-semibold text-muted-foreground tabular-nums mt-0.5">
-                          {topRun.nuanceOverall.toFixed(1)}
-                          <span className="text-sm font-normal ml-1">/100</span>
-                        </p>
+                      <div className="flex items-end gap-6 pt-3 border-t border-border">
+                        <div>
+                          <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Verified Score</span>
+                          <p className="text-3xl font-mono font-bold text-amber tabular-nums mt-0.5">
+                            {topRun.verifiedOverall.toFixed(1)}
+                            <span className="text-sm font-normal text-muted-foreground ml-1">/100</span>
+                          </p>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Judged Score</span>
+                          <p className="text-xl font-mono font-semibold text-muted-foreground tabular-nums mt-0.5">
+                            {topRun.nuanceOverall.toFixed(1)}
+                            <span className="text-sm font-normal ml-1">/100</span>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -254,7 +265,8 @@ export default function HomePage() {
               {/* Mini panels row */}
               <div className="grid grid-cols-2 gap-3">
                 {/* Failure Trace Preview */}
-                <div className="border border-border rounded-xl bg-card p-4 card-sm">
+                <div className="border border-border rounded-xl bg-card p-4 card-sm relative overflow-hidden">
+                  <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-amber/40 rounded-l-xl" />
                   <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
                     Failure Trace Preview
                   </span>
@@ -282,7 +294,8 @@ export default function HomePage() {
                 </div>
 
                 {/* How We Score mini */}
-                <div className="border border-border rounded-xl bg-card p-4 card-sm">
+                <div className="border border-border rounded-xl bg-card p-4 card-sm relative overflow-hidden">
+                  <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-amber/40 rounded-l-xl" />
                   <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
                     How We Score
                   </span>
@@ -317,8 +330,8 @@ export default function HomePage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Stats Strip — elevated */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 border border-border rounded-xl overflow-hidden -mt-6 relative z-10 bg-card card-md">
+      {/* Stats Strip — instrument panel */}
+      <div className="grid grid-cols-2 sm:grid-cols-5 border border-border rounded-xl overflow-hidden -mt-7 relative z-10 bg-card card-md">
         <IndexCell value={totalSystems} label="Systems Indexed" icon="grid" />
         <IndexCell value={benchdVerified} label="Independently Scored" color="amber" icon="shield" />
         <IndexCell value={selfReported} label="Claims Flagged" color="red" icon="alert" />
@@ -327,14 +340,17 @@ export default function HomePage() {
       </div>
 
       {/* Main content: 3/4 table + 1/4 right rail */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 pb-10 mt-8">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 pb-10 mt-10">
         {/* Left: Benchmark Index */}
         <div className="lg:col-span-3">
-          <div className="mb-4">
-            <h2 className="text-sm font-semibold text-foreground">
-              Benchmark Index
-            </h2>
-            <p className="text-[11px] text-muted-foreground mt-0.5">
+          <div className="mb-5">
+            <div className="flex items-center gap-2.5">
+              <BarChart3 className="h-4.5 w-4.5 text-amber" />
+              <h2 className="font-serif text-lg font-semibold text-foreground">
+                Benchmark Index
+              </h2>
+            </div>
+            <p className="text-[11px] text-muted-foreground mt-1">
               Systems indexed across open-source projects, managed memory layers, and agent frameworks.
             </p>
           </div>
@@ -399,8 +415,8 @@ export default function HomePage() {
                       </td>
                     </tr>
                   )}
-                  {verifiedRows.map((system) => (
-                    <SystemRow key={system.id} system={system} />
+                  {verifiedRows.map((system, idx) => (
+                    <SystemRow key={system.id} system={system} striped={idx % 2 === 1} />
                   ))}
 
                   {/* Self-reported section */}
@@ -413,8 +429,8 @@ export default function HomePage() {
                       </td>
                     </tr>
                   )}
-                  {selfReportedRows.map((system) => (
-                    <SystemRow key={system.id} system={system} />
+                  {selfReportedRows.map((system, idx) => (
+                    <SystemRow key={system.id} system={system} striped={idx % 2 === 1} />
                   ))}
 
                   {/* Listed section */}
@@ -427,8 +443,8 @@ export default function HomePage() {
                       </td>
                     </tr>
                   )}
-                  {listedRows.map((system) => (
-                    <SystemRow key={system.id} system={system} />
+                  {listedRows.map((system, idx) => (
+                    <SystemRow key={system.id} system={system} striped={idx % 2 === 1} />
                   ))}
                 </tbody>
               </table>
@@ -493,7 +509,8 @@ export default function HomePage() {
         {/* Right Rail */}
         <div className="space-y-4">
           {/* Scoring Model */}
-          <div className="border border-border rounded-xl p-4 bg-card card-sm">
+          <div className="border border-border rounded-xl p-4 bg-card card-sm relative overflow-hidden">
+            <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-amber/30 rounded-l-xl" />
             <h3 className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">
               Scoring Model
             </h3>
@@ -531,7 +548,8 @@ export default function HomePage() {
           </div>
 
           {/* Latest Signed Receipts */}
-          <div className="border border-border rounded-xl p-4 bg-card card-sm">
+          <div className="border border-border rounded-xl p-4 bg-card card-sm relative overflow-hidden">
+            <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-amber/30 rounded-l-xl" />
             <h3 className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">
               Latest Signed Receipts
             </h3>
@@ -574,7 +592,8 @@ export default function HomePage() {
           </div>
 
           {/* Run Queue */}
-          <div className="border border-border rounded-xl p-4 bg-card card-sm">
+          <div className="border border-border rounded-xl p-4 bg-card card-sm relative overflow-hidden">
+            <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-amber/30 rounded-l-xl" />
             <h3 className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">
               Run Queue
             </h3>
@@ -631,7 +650,7 @@ export default function HomePage() {
 }
 
 /* System row component */
-function SystemRow({ system }: { system: System & { rank: number | null } }) {
+function SystemRow({ system, striped }: { system: System & { rank: number | null }; striped?: boolean }) {
   const isListed = system.trustTier === "listed";
   const isSelfReported = system.trustTier === "unclaimed-self-reported";
 
@@ -642,6 +661,8 @@ function SystemRow({ system }: { system: System & { rank: number | null } }) {
           ? "bg-[#DC2626]/[0.02] hover:bg-[#DC2626]/[0.05]"
           : isListed
           ? "opacity-45 hover:opacity-65"
+          : striped
+          ? "bg-muted/[0.25] hover:bg-muted/40"
           : "hover:bg-muted/20"
       }`}
     >
@@ -734,12 +755,12 @@ function IndexCell({
 }) {
   return (
     <div
-      className={`flex flex-col items-center justify-center py-4 px-3 border-r border-border/50 last:border-r-0 ${
+      className={`flex flex-col items-center justify-center py-5 px-3 border-r border-border/50 last:border-r-0 ${
         className ?? ""
       }`}
     >
       <span
-        className={`text-2xl font-mono font-bold tabular-nums leading-none ${
+        className={`text-3xl font-mono font-extrabold tabular-nums leading-none tracking-tight ${
           color === "amber"
             ? "text-amber"
             : color === "red"
@@ -749,7 +770,7 @@ function IndexCell({
       >
         {value}
       </span>
-      <span className="text-[10px] text-muted-foreground mt-1.5 text-center leading-tight font-medium">
+      <span className="text-[9px] text-muted-foreground mt-2 text-center leading-tight font-semibold uppercase tracking-wider">
         {label}
       </span>
     </div>
