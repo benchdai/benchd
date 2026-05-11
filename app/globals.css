@@ -1,0 +1,160 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Light mode (default) — off-white warm neutral from brand guide */
+:root {
+  --background: 37 17% 96%;
+  --foreground: 0 0% 7%;
+  --card: 0 0% 100%;
+  --card-foreground: 210 10% 8%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 210 10% 8%;
+  --primary: 37 68% 51%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 40 10% 92%;
+  --secondary-foreground: 210 10% 8%;
+  --muted: 40 10% 92%;
+  --muted-foreground: 50 5% 42%;
+  --accent: 40 10% 92%;
+  --accent-foreground: 210 10% 8%;
+  --destructive: 0 84% 55%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 38 10% 86%;
+  --input: 38 10% 86%;
+  --ring: 38 62% 53%;
+  --radius: 0.5rem;
+  --code-bg: 40 8% 94%;
+  --code-bg-deep: 40 6% 91%;
+  --tooltip-bg: 210 10% 10%;
+  --tooltip-fg: 0 0% 95%;
+  --card-shadow: 0 1px 3px 0 rgba(0,0,0,0.05), 0 1px 2px -1px rgba(0,0,0,0.05);
+  --card-shadow-md: 0 4px 6px -1px rgba(0,0,0,0.06), 0 2px 4px -2px rgba(0,0,0,0.06);
+  --card-shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.06), 0 4px 6px -4px rgba(0,0,0,0.06);
+}
+
+/* Dark mode — charcoal from brand guide */
+.dark {
+  --background: 220 12% 7%;
+  --foreground: 0 0% 95%;
+  --card: 220 12% 9%;
+  --card-foreground: 0 0% 95%;
+  --popover: 220 12% 9%;
+  --popover-foreground: 0 0% 95%;
+  --primary: 37 68% 51%;
+  --primary-foreground: 0 0% 0%;
+  --secondary: 220 12% 14%;
+  --secondary-foreground: 0 0% 95%;
+  --muted: 220 12% 14%;
+  --muted-foreground: 0 0% 55%;
+  --accent: 220 12% 14%;
+  --accent-foreground: 0 0% 95%;
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 220 12% 17%;
+  --input: 220 12% 17%;
+  --ring: 38 62% 53%;
+  --code-bg: 220 12% 5%;
+  --code-bg-deep: 220 12% 3%;
+  --tooltip-bg: 220 10% 20%;
+  --tooltip-fg: 0 0% 95%;
+  --card-shadow: none;
+  --card-shadow-md: none;
+  --card-shadow-lg: none;
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Brand colors */
+  --color-amber: #D9982B;
+  --color-amber-dim: #D9982B66;
+  --color-charcoal: #111111;
+  --color-stone: #8F8F8F;
+  --color-offwhite: #F6F4F1;
+  --color-verified-green: #00C87A;
+  --color-tier-listed: #6B7280;
+  --color-tier-self-reported: #DC2626;
+  --color-tier-community: #3B82F6;
+  --color-tier-vendor: #D9982B;
+  --color-tier-partner: #7C3AED;
+
+  --color-code-bg: hsl(var(--code-bg));
+  --color-code-bg-deep: hsl(var(--code-bg-deep));
+  --color-tooltip-bg: hsl(var(--tooltip-bg));
+  --color-tooltip-fg: hsl(var(--tooltip-fg));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Typography — brand guide fonts */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ticker animation */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-ticker {
+  animation: ticker 40s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* Card elevation */
+.card-sm { box-shadow: var(--card-shadow); }
+.card-md { box-shadow: var(--card-shadow-md); }
+.card-lg { box-shadow: var(--card-shadow-lg); }
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--secondary));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.4);
+}
