@@ -339,10 +339,10 @@ export default function HomePage() {
         <IndexCell value="2h ago" label="Latest Receipt" className="hidden sm:flex" icon="check" />
       </div>
 
-      {/* Main content: 3/4 table + 1/4 right rail */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 pb-10 mt-10">
+      {/* Main content: table + right rail */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8 pb-10 mt-10">
         {/* Left: Benchmark Index */}
-        <div className="lg:col-span-3">
+        <div>
           <div className="mb-5">
             <div className="flex items-center gap-2.5">
               <BarChart3 className="h-4.5 w-4.5 text-amber" />
