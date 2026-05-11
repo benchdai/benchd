@@ -146,7 +146,7 @@ export default function HomePage() {
           backgroundSize: "32px 32px",
         }} />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+        <div className="relative max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             {/* Left — headline */}
             <div>
@@ -329,7 +329,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
       {/* Stats Strip — instrument panel */}
       <div className="grid grid-cols-2 sm:grid-cols-5 border border-border rounded-xl overflow-hidden -mt-7 relative z-10 bg-card card-md">
         <IndexCell value={totalSystems} label="Systems Indexed" icon="grid" />

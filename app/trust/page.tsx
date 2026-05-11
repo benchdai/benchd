@@ -67,7 +67,7 @@ const KEY_ROTATION_LOG = [
 
 export default function TrustPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+    <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
       {/* Page header */}
       <div className="max-w-2xl mb-16">
         <p className="text-[10px] font-semibold uppercase tracking-wider text-amber mb-2">
