@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo, LogoTagline } from "@/components/bench/logo";
+import { NewsletterSignup } from "@/components/bench/newsletter-signup";
 
 export function Footer() {
   return (
@@ -67,9 +68,16 @@ export function Footer() {
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-3">
-              Signing Keys
+              Newsletter
             </h3>
-            <div className="space-y-1">
+            <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+              New rankings, benchmark results, and methodology updates.
+            </p>
+            <NewsletterSignup variant="inline" />
+            <div className="mt-4">
+              <h4 className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5">
+                Signing Keys
+              </h4>
               <p className="font-mono text-[10px] text-muted-foreground break-all">
                 Primary: 7f8a...3d2e
               </p>

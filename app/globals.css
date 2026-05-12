@@ -140,6 +140,61 @@ body {
 .card-md { box-shadow: var(--card-shadow-md); }
 .card-lg { box-shadow: var(--card-shadow-lg); }
 
+/* Hero animated gradient orbs */
+@keyframes hero-orb-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+  33% { transform: translate(30px, -20px) scale(1.1); opacity: 0.2; }
+  66% { transform: translate(-20px, 15px) scale(0.95); opacity: 0.12; }
+}
+
+@keyframes hero-orb-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.1; }
+  50% { transform: translate(-40px, 25px) scale(1.15); opacity: 0.18; }
+}
+
+@keyframes hero-glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.hero-orb-1 {
+  animation: hero-orb-1 12s ease-in-out infinite;
+}
+
+.hero-orb-2 {
+  animation: hero-orb-2 16s ease-in-out infinite;
+}
+
+.hero-glow-pulse {
+  animation: hero-glow-pulse 4s ease-in-out infinite;
+}
+
+/* Hero grid with fade */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+}
+
+.dark .hero-grid {
+  background-image:
+    linear-gradient(to right, hsl(var(--border) / 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--border) / 0.2) 1px, transparent 1px);
+}
+
+/* Shimmer line effect */
+@keyframes shimmer-line {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.animate-shimmer {
+  animation: shimmer-line 3s ease-in-out infinite;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;

@@ -7,6 +7,7 @@ import { TrustTierBadge } from "@/components/bench/trust-tier-badge";
 import { SourceBadge } from "@/components/bench/source-badge";
 import { Sparkline } from "@/components/bench/sparkline";
 import { ArrowRight, Info, ShieldCheck, Check, Minus, Shield, FileSearch, Fingerprint, BookOpen, BarChart3 } from "lucide-react";
+import { NewsletterSignup } from "@/components/bench/newsletter-signup";
 import type { System } from "@/lib/types";
 
 type QuickFilter = "all" | "open-source" | "managed" | "frameworks" | "self-reported" | "mcp-compatible";
@@ -140,13 +141,20 @@ export default function HomePage() {
     <div>
       {/* Hero — split layout */}
       <div className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber/[0.04] via-transparent to-amber/[0.02] dark:from-amber/[0.06] dark:to-transparent" />
-        <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.035]" style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
-          backgroundSize: "32px 32px",
-        }} />
+        {/* Background layers */}
+        <div className="absolute inset-0 bg-gradient-to-br from-amber/[0.06] via-transparent to-amber/[0.03] dark:from-amber/[0.08] dark:via-amber/[0.02] dark:to-transparent" />
+        <div className="absolute inset-0 hero-grid" />
 
-        <div className="relative max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+        {/* Animated gradient orbs */}
+        <div className="absolute top-[-20%] left-[10%] w-[500px] h-[500px] rounded-full bg-amber/[0.08] dark:bg-amber/[0.12] blur-[100px] hero-orb-1 pointer-events-none" />
+        <div className="absolute bottom-[-30%] right-[5%] w-[400px] h-[400px] rounded-full bg-amber/[0.05] dark:bg-amber/[0.08] blur-[80px] hero-orb-2 pointer-events-none" />
+
+        {/* Accent line at top */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber/50 to-transparent">
+          <div className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-amber to-transparent animate-shimmer" />
+        </div>
+
+        <div className="relative max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             {/* Left — headline */}
             <div>
@@ -157,11 +165,14 @@ export default function HomePage() {
                   Independent benchmark authority
                 </span>
               </div>
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-foreground leading-[1.1]">
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.75rem] font-bold tracking-tight text-foreground leading-[1.08]">
                 The scoreboard
                 <br />
                 for AI{" "}
-                <span className="text-amber">memory</span>.
+                <span className="relative text-amber">
+                  memory
+                  <span className="absolute -inset-x-2 -inset-y-1 bg-amber/[0.08] dark:bg-amber/[0.12] rounded-lg blur-sm -z-10" />
+                </span>.
               </h1>
               <p className="mt-5 text-sm sm:text-base text-muted-foreground max-w-md leading-relaxed">
                 Bench&apos;d runs memory systems through reproducible benchmark protocols &mdash; measuring recall, temporal correctness, failure traces, and how efficiently past experience improves future performance.
@@ -242,11 +253,12 @@ export default function HomePage() {
                         </div>
                       </div>
                       <div className="flex items-end gap-6 pt-3 border-t border-border">
-                        <div>
+                        <div className="relative">
                           <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Verified Score</span>
-                          <p className="text-3xl font-mono font-bold text-amber tabular-nums mt-0.5">
+                          <p className="text-4xl font-mono font-bold text-amber tabular-nums mt-0.5 relative">
                             {topRun.verifiedOverall.toFixed(1)}
                             <span className="text-sm font-normal text-muted-foreground ml-1">/100</span>
+                            <span className="absolute -inset-2 bg-amber/[0.06] rounded-lg blur-md -z-10 hero-glow-pulse" />
                           </p>
                         </div>
                         <div>
@@ -331,7 +343,7 @@ export default function HomePage() {
 
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
       {/* Stats Strip — instrument panel */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 border border-border rounded-xl overflow-hidden -mt-7 relative z-10 bg-card card-md">
+      <div className="grid grid-cols-2 sm:grid-cols-5 border border-border rounded-xl overflow-hidden -mt-8 relative z-10 bg-card card-lg">
         <IndexCell value={totalSystems} label="Systems Indexed" icon="grid" />
         <IndexCell value={benchdVerified} label="Independently Scored" color="amber" icon="shield" />
         <IndexCell value={selfReported} label="Claims Flagged" color="red" icon="alert" />
@@ -633,6 +645,9 @@ export default function HomePage() {
               <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
+
+          {/* Newsletter */}
+          <NewsletterSignup variant="card" />
         </div>
       </div>
 

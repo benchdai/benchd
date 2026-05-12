@@ -24,9 +24,50 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Bench'd — The neutral benchmark for AI memory systems",
+  title: {
+    default: "Bench'd — The neutral benchmark for AI memory systems",
+    template: "%s | Bench'd",
+  },
   description:
     "Every score is independently run, cryptographically signed, and verifiable by anyone. Open harness, open methodology, signed receipts.",
+  metadataBase: new URL("https://benchd.ai"),
+  keywords: [
+    "AI memory benchmark",
+    "memory systems",
+    "LLM memory",
+    "AI benchmark",
+    "LongMemEval",
+    "conversational memory",
+    "LlamaIndex",
+    "LangChain",
+    "Mem0",
+    "vector memory",
+    "agent memory",
+  ],
+  authors: [{ name: "Bench'd" }],
+  creator: "Bench'd",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://benchd.ai",
+    siteName: "Bench'd",
+    title: "Bench'd — The scoreboard for AI memory",
+    description:
+      "Independent, reproducible benchmarks for AI memory systems. Cryptographically signed results. Open methodology.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bench'd — The scoreboard for AI memory",
+    description:
+      "Independent, reproducible benchmarks for AI memory systems. Cryptographically signed results.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://benchd.ai",
+  },
 };
 
 export default function RootLayout({
