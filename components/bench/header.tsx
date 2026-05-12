@@ -11,6 +11,7 @@ const navItems = [
   { href: "/leaderboard", label: "Leaderboard" },
   { href: "/methodology", label: "Methodology" },
   { href: "/trust", label: "Trust" },
+  { href: "/run", label: "Run" },
 ];
 
 export function Header() {
@@ -53,6 +54,12 @@ export function Header() {
               <Command className="h-3 w-3" />
               <span>K</span>
             </button>
+            <Link
+              href="/claim"
+              className="text-[11px] font-medium px-3 py-1 rounded-full bg-amber text-primary-foreground hover:bg-amber/90 transition-colors"
+            >
+              Claim
+            </Link>
             <ThemeToggle />
           </div>
         </div>
