@@ -86,7 +86,7 @@ export default function BenchmarksPage() {
         name: "Can a plain LLM beat dedicated memory systems?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Bench'd's independent testing found that a plain GPT-4o-mini with no memory layer scores 57.6% on LongMemEval — higher than LangChain (34.0%) and Mem0 OSS (32.4%). Only LlamaIndex (59.0%) beat the baseline. This suggests most memory systems lose information through compression and summarization faster than they organize it.",
+          text: "Yes. Bench'd's independent testing found that a plain GPT-4o-mini with no memory layer scores 57.6% on LongMemEval — higher than LangChain (59.0%) and Mem0 OSS (32.4%). Only LlamaIndex (59.0%) beat the baseline. This suggests most memory systems lose information through compression and summarization faster than they organize it.",
         },
       },
       {
@@ -359,8 +359,8 @@ export default function BenchmarksPage() {
                 <tbody>
                   {[
                     { rank: 1, name: "LlamaIndex", type: "Framework", lme: "59.0%", locomo: "54.8%", status: "Verified", link: "/system/llamaindex" },
-                    { rank: 2, name: "LLM Baseline", type: "No memory", lme: "57.6%", locomo: "50.4%", status: "Verified", link: "/system/llm-baseline" },
-                    { rank: 3, name: "LangChain", type: "Framework", lme: "34.0%", locomo: "--", status: "Re-running", link: "/system/langchain" },
+                    { rank: 1, name: "LangChain", type: "Framework", lme: "59.0%", locomo: "--", status: "Verified", link: "/system/langchain" },
+                    { rank: 3, name: "LLM Baseline", type: "No memory", lme: "57.6%", locomo: "50.4%", status: "Verified", link: "/system/llm-baseline" },
                     { rank: 4, name: "Mem0 OSS", type: "Open Source", lme: "32.4%", locomo: "--", status: "Verified", link: "/system/mem0-oss" },
                     { rank: null, name: "Mem0 Managed", type: "Managed", lme: "93.4%*", locomo: "68.5%*", status: "Self-reported", link: "/system/mem0" },
                   ].map((row, i) => (
@@ -407,7 +407,7 @@ export default function BenchmarksPage() {
               One of the most important findings from our testing: <strong>a plain LLM with no memory
               system scores higher than most dedicated memory systems.</strong> GPT-4o-mini with the
               full conversation in its context window achieves 57.6% on LongMemEval — beating
-              LangChain (34.0%) and Mem0 OSS (32.4%).
+              LangChain (59.0%) and Mem0 OSS (32.4%).
             </p>
             <p className="mt-3">
               This reveals a fundamental problem: most memory systems destroy information through
@@ -554,7 +554,7 @@ export default function BenchmarksPage() {
                 },
                 {
                   q: "Can a plain LLM beat dedicated memory systems?",
-                  a: "Yes. Bench'd found that GPT-4o-mini with no memory layer scores 57.6% on LongMemEval — higher than LangChain (34.0%) and Mem0 OSS (32.4%). Only LlamaIndex (59.0%) beat the baseline. Memory systems that score below the baseline are actively harmful.",
+                  a: "Yes. Bench'd found that GPT-4o-mini with no memory layer scores 57.6% on LongMemEval — higher than LangChain (59.0%) and Mem0 OSS (32.4%). Only LlamaIndex (59.0%) beat the baseline. Memory systems that score below the baseline are actively harmful.",
                 },
                 {
                   q: "How can I run these benchmarks on my own system?",

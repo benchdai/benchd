@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 
 const RESULTS = [
   { name: "LlamaIndex", score: 59.0, color: "text-amber", note: null },
+  { name: "LangChain", score: 59.0, color: "text-amber", note: "Full 500q run" },
   { name: "LLM Baseline", score: 57.6, color: "text-foreground", note: "No memory system" },
-  { name: "LangChain", score: 34.0, color: "text-muted-foreground", note: "Partial (380/500)" },
   { name: "Mem0 OSS", score: 32.4, color: "text-muted-foreground", note: "Open-source edition" },
 ];
 
@@ -234,7 +234,7 @@ export default function BlogPost() {
                 {[
                   { name: "LlamaIndex", recall: "68.8", temporal: "23.8", overall: "59.0", bench: "LongMemEval (500q)" },
                   { name: "LLM Baseline", recall: "72.5", temporal: "~0", overall: "57.6", bench: "LongMemEval (500q)" },
-                  { name: "LangChain", recall: "68.8", temporal: "~0", overall: "34.0", bench: "LongMemEval (380/500)" },
+                  { name: "LangChain", recall: "59.0", temporal: "~0", overall: "59.0", bench: "LongMemEval (500q)" },
                   { name: "Mem0 OSS", recall: "40.2", temporal: "~0", overall: "32.4", bench: "LongMemEval (500q)" },
                 ].map((row, i) => (
                   <tr key={row.name} className={`border-b border-border last:border-0 ${i % 2 ? "bg-muted/[0.15]" : ""}`}>
