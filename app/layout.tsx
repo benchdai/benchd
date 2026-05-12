@@ -87,6 +87,31 @@ export default function RootLayout({
             __html: `(function(){try{var t=localStorage.getItem('benchd-theme');if(t==='dark')document.documentElement.classList.add('dark')}catch(e){}})()`,
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Bench'd",
+              url: "https://benchd.ai",
+              description: "The neutral benchmark for AI memory systems",
+              sameAs: ["https://github.com/benchdai"],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Bench'd",
+              url: "https://benchd.ai",
+              description: "Independent, reproducible benchmarks for AI memory systems",
+            }),
+          }}
+        />
         <Header />
         <Ticker />
         <main className="flex-1">{children}</main>

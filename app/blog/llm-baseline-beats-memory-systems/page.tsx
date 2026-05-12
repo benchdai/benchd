@@ -23,8 +23,23 @@ const RESULTS = [
 ];
 
 export default function BlogPost() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "A Raw LLM Beats Most Memory Systems on LongMemEval",
+    datePublished: "2026-05-11T00:00:00Z",
+    author: { "@type": "Organization", name: "Bench'd", url: "https://benchd.ai" },
+    publisher: { "@type": "Organization", name: "Bench'd", url: "https://benchd.ai" },
+    description: "Our first benchmark results are in. A plain GPT-4o-mini with no memory layer scores 57.6% — higher than LangChain and Mem0 OSS.",
+    mainEntityOfPage: "https://benchd.ai/blog/llm-baseline-beats-memory-systems",
+  };
+
   return (
     <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-2xl">
         {/* Back link */}
         <Link
