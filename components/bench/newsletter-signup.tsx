@@ -18,14 +18,17 @@ export function NewsletterSignup({ variant = "card" }: { variant?: Variant }) {
     setErrorMsg("");
 
     try {
-      // TODO: Connect to Supabase or email provider (Resend, Buttondown, etc.)
-      // For now, store in localStorage as a stub
-      const existing = JSON.parse(localStorage.getItem("benchd-newsletter-signups") || "[]");
-      existing.push({ email, timestamp: new Date().toISOString() });
-      localStorage.setItem("benchd-newsletter-signups", JSON.stringify(existing));
+      const resp = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
-      // Simulate brief delay
-      await new Promise((r) => setTimeout(r, 400));
+      if (!resp.ok) {
+        const data = await resp.json().catch(() => ({}));
+        throw new Error(data.error || "Signup failed");
+      }
+
       setStatus("success");
       setEmail("");
     } catch {

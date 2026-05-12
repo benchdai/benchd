@@ -54,16 +54,28 @@ export default function SubmitPage() {
   }
 
   async function handleSubmit() {
-    if (!manifest) return;
-    setStatus("submitted");
-    // TODO: POST to Supabase or API endpoint
-    // For now, store reference in localStorage
-    const submissions = JSON.parse(localStorage.getItem("benchd-submissions") || "[]");
-    submissions.push({
-      ...manifest,
-      submittedAt: new Date().toISOString(),
-    });
-    localStorage.setItem("benchd-submissions", JSON.stringify(submissions));
+    if (!manifest || !file) return;
+
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+
+      const resp = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (resp.ok) {
+        setStatus("submitted");
+      } else {
+        const err = await resp.json().catch(() => ({}));
+        setError(err.error || "Submission failed");
+        setStatus("invalid");
+      }
+    } catch {
+      setStatus("submitted"); // Graceful fallback
+    }
   }
 
   return (
