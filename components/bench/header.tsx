@@ -12,6 +12,7 @@ const navItems = [
   { href: "/methodology", label: "Methodology" },
   { href: "/trust", label: "Trust" },
   { href: "/run", label: "Run" },
+  { href: "/blog", label: "Blog" },
 ];
 
 export function Header() {
