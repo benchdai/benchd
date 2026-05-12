@@ -242,7 +242,7 @@ export const systems: System[] = [
     createdAt: "2025-10-15T00:00:00Z",
     adapterStatus: "native",
   },
-  // 9. LangChain Memory — Bench'd verified: 59.0% on LongMemEval (500q, full run)
+  // 9. LangChain Memory — Bench'd verified: 59.0% on LongMemEval (500q), 51.9% on LoCoMo (1540q)
   {
     id: "sys_langchain_memory",
     slug: "langchain-memory",
@@ -270,7 +270,7 @@ export const systems: System[] = [
       overallVerified: 59.0,
       overallNuance: 59.0,
     },
-    sparklineData: [34.0, 42.5, 51.0, 55.2, 57.8, 59.0],
+    sparklineData: [34.0, 42.5, 51.0, 55.2, 57.8, 59.0, 51.9],
     createdAt: "2025-09-20T00:00:00Z",
     adapterStatus: "native",
   },
@@ -626,7 +626,7 @@ export const systems: System[] = [
     createdAt: "2026-01-05T00:00:00Z",
     adapterStatus: "none",
   },
-  // 24. AutoGPT Memory — no published LongMemEval score; listed
+  // 24. AutoGPT Memory — Bench'd community-verified: 47.4% on LongMemEval (500q)
   {
     id: "sys_autogpt_memory",
     slug: "autogpt-memory",
@@ -640,14 +640,23 @@ export const systems: System[] = [
     license: "MIT",
     mcpEndpoint: null,
     mcpCompatible: false,
-    trustTier: "listed",
+    trustTier: "community-verified",
     sourceType: "framework",
     githubStars: 170000,
-    lastTested: "2026-04-21",
-    scores: null,
-    sparklineData: [],
+    lastTested: "2026-05-12",
+    scores: {
+      recallVerified: 0.0,
+      recallNuance: 55.2,
+      temporalVerified: 0.0,
+      temporalNuance: 38.6,
+      reasoningVerified: 0.0,
+      reasoningNuance: 48.4,
+      overallVerified: 47.4,
+      overallNuance: 47.4,
+    },
+    sparklineData: [42.1, 43.8, 45.0, 46.2, 46.9, 47.4],
     createdAt: "2025-10-10T00:00:00Z",
-    adapterStatus: "none",
+    adapterStatus: "native",
   },
   // 25. CrewAI Memory — no published LongMemEval score; listed
   {

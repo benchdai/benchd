@@ -4,12 +4,13 @@ import { NewsletterSignup } from "@/components/bench/newsletter-signup";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Compare AI Memory Systems: Mem0 vs LlamaIndex vs LangChain",
+  title: "Compare AI Memory Systems: Mem0 vs LlamaIndex vs LangChain vs AutoGPT",
   description:
-    "Side-by-side comparison of AI memory systems with independent benchmark scores. Mem0, LlamaIndex, LangChain, and LLM Baseline tested on LongMemEval and LOCOMO.",
+    "Side-by-side comparison of AI memory systems with independent benchmark scores. Mem0, LlamaIndex, LangChain, AutoGPT, and LLM Baseline tested on LongMemEval and LOCOMO.",
   keywords: [
     "Mem0 vs LlamaIndex",
     "LangChain vs Mem0",
+    "AutoGPT memory benchmark",
     "AI memory comparison",
     "best AI memory system",
     "Mem0 benchmark results",
@@ -51,10 +52,21 @@ const SYSTEMS = [
     type: "Framework (OSS)",
     approach: "In-memory message history with LLM-powered recall and smart truncation",
     longmemeval: { score: 59.0, status: "verified" },
-    locomo: { score: null, status: "pending" },
+    locomo: { score: 51.9, status: "verified" },
     strengths: ["Tied #1 score", "Large ecosystem", "Easy integration"],
     weaknesses: ["Weak temporal reasoning", "Context truncation on long history", "No persistent storage"],
     bestFor: "Teams already using LangChain who need conversation memory",
+  },
+  {
+    name: "AutoGPT Memory",
+    slug: "autogpt-memory",
+    type: "Framework (OSS)",
+    approach: "File-backed and vector-store memory for persistent task context across agent execution cycles",
+    longmemeval: { score: 47.4, status: "verified" },
+    locomo: { score: null, status: "pending" },
+    strengths: ["Massive community", "Autonomous agent integration", "MIT licensed"],
+    weaknesses: ["Below baseline", "Weak temporal reasoning", "Agent-centric design"],
+    bestFor: "Teams building autonomous agents with AutoGPT who need persistent memory",
   },
   {
     name: "Mem0 OSS",
@@ -62,7 +74,7 @@ const SYSTEMS = [
     type: "Open Source",
     approach: "Automatic memory extraction with vector storage",
     longmemeval: { score: 32.4, status: "verified" },
-    locomo: { score: null, status: "pending" },
+    locomo: { score: 0.0, status: "verified" },
     strengths: ["Simple API", "Automatic extraction", "Active community"],
     weaknesses: ["Below baseline", "Missing managed platform features", "Weak temporal"],
     bestFor: "Quick memory integration where managed Mem0 isn't available",
@@ -84,7 +96,7 @@ export default function ComparePage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: "Compare AI Memory Systems: Mem0 vs LlamaIndex vs LangChain",
+    headline: "Compare AI Memory Systems: Mem0 vs LlamaIndex vs LangChain vs AutoGPT",
     dateModified: new Date().toISOString(),
     author: { "@type": "Organization", name: "Bench'd", url: "https://benchd.ai" },
     description: "Side-by-side comparison of AI memory systems with independent benchmark scores.",
