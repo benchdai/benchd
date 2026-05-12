@@ -9,9 +9,8 @@ import { Logo, LogoTagline } from "@/components/bench/logo";
 
 const navItems = [
   { href: "/leaderboard", label: "Leaderboard" },
-  { href: "/methodology", label: "Methodology" },
-  { href: "/trust", label: "Trust" },
-  { href: "/run", label: "Run" },
+  { href: "/benchmarks", label: "Benchmarks" },
+  { href: "/docs", label: "Docs" },
   { href: "/blog", label: "Blog" },
 ];
 
