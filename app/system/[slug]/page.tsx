@@ -173,14 +173,14 @@ export default async function SystemProfilePage({
             />
           </div>
 
+          {/* Population Distribution */}
+          <PopulationDistribution currentScores={system.scores} systemName={system.name} />
+
           {/* BMI Card */}
           <BMICard scores={system.scores} systemName={system.name} />
 
           {/* Efficiency Metrics */}
           <EfficiencyCards scores={system.scores} />
-
-          {/* Population Distribution */}
-          <PopulationDistribution currentScores={system.scores} systemName={system.name} />
 
           {/* Tabs */}
           <div className="mt-8">

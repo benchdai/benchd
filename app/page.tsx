@@ -8,7 +8,7 @@ import { SourceBadge } from "@/components/bench/source-badge";
 import { Sparkline } from "@/components/bench/sparkline";
 import { ArrowRight, Info, ShieldCheck, Check, Minus, Shield, FileSearch, Fingerprint, BookOpen, BarChart3 } from "lucide-react";
 import { NewsletterSignup } from "@/components/bench/newsletter-signup";
-import { PerformanceChart } from "@/components/bench/performance-chart";
+import { MemoryMapChart } from "@/components/bench/memory-map-chart";
 import type { System } from "@/lib/types";
 
 type QuickFilter = "all" | "open-source" | "managed" | "frameworks" | "self-reported" | "mcp-compatible";
@@ -472,9 +472,9 @@ export default function HomePage() {
             <ArrowRight className="h-3 w-3" />
           </Link>
 
-          {/* Performance Over Time */}
+          {/* Memory Performance Map */}
           <div className="mt-6 border border-border rounded-xl p-4 bg-card card-sm">
-            <PerformanceChart compact showBaseline height={180} />
+            <MemoryMapChart compact height={260} />
           </div>
 
           {/* Coverage Matrix */}
