@@ -19,4 +19,14 @@ export const posts: BlogPost[] = [
     tags: ["benchmark", "results", "LongMemEval"],
     readingTime: "6 min read",
   },
+  {
+    slug: "six-systems-one-benchmark",
+    title: "Six Memory Systems, One Benchmark: What We Learned",
+    description:
+      "We ran LlamaIndex, LangChain, AutoGPT, Mem0, Cognee, and Graphiti through 500 questions. Three tiers emerged — and most systems can't beat a plain LLM.",
+    date: "2026-05-12",
+    author: "Bench'd",
+    tags: ["benchmark", "results", "comparison"],
+    readingTime: "8 min read",
+  },
 ];

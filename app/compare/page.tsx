@@ -69,6 +69,17 @@ const SYSTEMS = [
     bestFor: "Teams building autonomous agents with AutoGPT who need persistent memory",
   },
   {
+    name: "Graphiti",
+    slug: "graphiti",
+    type: "Knowledge Graph (OSS)",
+    approach: "Temporal knowledge graph with entity and relationship extraction — graph recall returns empty on LongMemEval",
+    longmemeval: { score: 0.0, status: "verified" },
+    locomo: { score: null, status: "pending" },
+    strengths: ["Temporal knowledge graph", "Entity extraction", "Apache-2.0 licensed"],
+    weaknesses: ["0% on LongMemEval", "Graph recall returns empty", "Not suited for conversational memory"],
+    bestFor: "Structured knowledge graph use cases — not conversational memory retrieval",
+  },
+  {
     name: "Mem0 OSS",
     slug: "mem0-oss",
     type: "Open Source",

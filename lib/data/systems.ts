@@ -101,7 +101,8 @@ export const systems: System[] = [
     createdAt: "2025-10-03T00:00:00Z",
     adapterStatus: "native",
   },
-  // 4. Graphiti — no published LongMemEval score; set as listed
+  // 4. Graphiti — Bench'd community-verified: 0.0% on LongMemEval (500q)
+  // Note: Graphiti's knowledge graph doesn't return useful recall data in current adapter
   {
     id: "sys_graphiti",
     slug: "graphiti",
@@ -115,14 +116,23 @@ export const systems: System[] = [
     license: "Apache-2.0",
     mcpEndpoint: null,
     mcpCompatible: false,
-    trustTier: "listed",
+    trustTier: "community-verified",
     sourceType: "oss",
     githubStars: 4200,
-    lastTested: "2026-05-04",
-    scores: null,
-    sparklineData: [],
+    lastTested: "2026-05-12",
+    scores: {
+      recallVerified: 0.0,
+      recallNuance: 0.0,
+      temporalVerified: 0.0,
+      temporalNuance: 0.0,
+      reasoningVerified: 0.0,
+      reasoningNuance: 0.0,
+      overallVerified: 0.0,
+      overallNuance: 0.0,
+    },
+    sparklineData: [0.0],
     createdAt: "2025-11-02T00:00:00Z",
-    adapterStatus: "community",
+    adapterStatus: "native",
   },
   // 5. Mastra OM — published LongMemEval_s scores (gpt-4o judge), self-reported
   // Source: Mastra blog post
