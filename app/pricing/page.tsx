@@ -173,9 +173,9 @@ export default function PricingPage() {
                   Save {savings}/yr
                 </span>
               )}
-              {!savings && <div className="mb-3" />}
+              {!savings && <div className="mb-2" />}
 
-              <p className="text-xs text-muted-foreground mb-6">{plan.description}</p>
+              <p className="text-xs text-muted-foreground mb-5 leading-relaxed">{plan.description}</p>
 
               <Link
                 href={plan.ctaLink}
