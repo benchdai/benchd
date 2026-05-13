@@ -44,6 +44,12 @@ export interface SystemScores {
   reasoningNuance: number;
   overallVerified: number;
   overallNuance: number;
+  // Efficiency metrics (from harness runs)
+  avgLatencyMs?: number;
+  tokensPerCorrect?: number;
+  avgRecallTokens?: number;
+  // BMI = Bench'd Memory Index (weighted composite)
+  bmi?: number;
 }
 
 export interface Benchmark {

@@ -3,6 +3,11 @@ import Link from "next/link";
 import { getSystemBySlug, getRunsBySystemId, getFailuresBySystemSlug } from "@/lib/data/index";
 import { ScoreCard } from "@/components/bench/score-pair";
 import { TrustTierBadge } from "@/components/bench/trust-tier-badge";
+import { BMICard } from "@/components/bench/bmi-card";
+import { EfficiencyCards } from "@/components/bench/efficiency-cards";
+import { PopulationDistribution } from "@/components/bench/population-distribution";
+import { ComparedWith } from "@/components/bench/compared-with";
+import { EmbedBadge } from "@/components/bench/embed-badge";
 import { SystemTabs } from "./system-tabs";
 import {
   Globe,
@@ -167,12 +172,35 @@ export default async function SystemProfilePage({
             />
           </div>
 
+          {/* BMI Card */}
+          <BMICard scores={system.scores} systemName={system.name} />
+
+          {/* Efficiency Metrics */}
+          <EfficiencyCards scores={system.scores} />
+
+          {/* Population Distribution */}
+          <PopulationDistribution currentScores={system.scores} systemName={system.name} />
+
           {/* Tabs */}
-          <SystemTabs
-            system={system}
-            runs={runs}
-            failures={failures}
-          />
+          <div className="mt-8">
+            <SystemTabs
+              system={system}
+              runs={runs}
+              failures={failures}
+            />
+          </div>
+
+          {/* Compared With */}
+          <ComparedWith currentSystem={system} />
+
+          {/* Embed Badge */}
+          {system.trustTier !== "unclaimed-self-reported" && (
+            <EmbedBadge
+              systemName={system.name}
+              slug={system.slug}
+              bmi={system.scores.bmi ?? system.scores.overallVerified}
+            />
+          )}
         </>
       )}
     </div>
