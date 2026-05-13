@@ -9,6 +9,7 @@ import { PopulationDistribution } from "@/components/bench/population-distributi
 import { ComparedWith } from "@/components/bench/compared-with";
 import { EmbedBadge } from "@/components/bench/embed-badge";
 import { PerformanceChart } from "@/components/bench/performance-chart";
+import { ScoreMatrix } from "@/components/bench/score-matrix";
 import { SystemTabs } from "./system-tabs";
 import {
   Globe,
@@ -181,6 +182,9 @@ export default async function SystemProfilePage({
 
           {/* Efficiency Metrics */}
           <EfficiencyCards scores={system.scores} />
+
+          {/* Per-Capability Score Matrix */}
+          <ScoreMatrix systemSlug={system.slug} />
 
           {/* Tabs */}
           <div className="mt-8">
