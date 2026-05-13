@@ -362,8 +362,10 @@ export default function BenchmarksPage() {
                     { rank: 1, name: "LangChain", type: "Framework", lme: "59.0%", locomo: "51.9%", status: "Verified", link: "/system/langchain" },
                     { rank: 3, name: "LLM Baseline", type: "No memory", lme: "57.6%", locomo: "50.4%", status: "Verified", link: "/system/llm-baseline" },
                     { rank: 4, name: "AutoGPT Memory", type: "Framework", lme: "47.4%", locomo: "--", status: "Verified", link: "/system/autogpt-memory" },
-                    { rank: 5, name: "Mem0 OSS", type: "Open Source", lme: "32.4%", locomo: "0.0%", status: "Verified", link: "/system/mem0-oss" },
-                    { rank: 6, name: "Graphiti", type: "Knowledge Graph", lme: "0.0%", locomo: "--", status: "Verified", link: "/system/graphiti" },
+                    { rank: 5, name: "CrewAI Memory", type: "Framework", lme: "46.0%", locomo: "--", status: "Verified", link: "/system/crewai-memory" },
+                    { rank: 6, name: "Mem0 OSS", type: "Open Source", lme: "32.4%", locomo: "0.0%", status: "Verified", link: "/system/mem0-oss" },
+                    { rank: 7, name: "Graphiti", type: "Knowledge Graph", lme: "0.0%", locomo: "--", status: "Verified", link: "/system/graphiti" },
+                    { rank: 7, name: "Letta", type: "Agent Framework", lme: "0.0%", locomo: "--", status: "Verified", link: "/system/letta" },
                     { rank: null, name: "Mem0 Managed", type: "Managed", lme: "93.4%*", locomo: "68.5%*", status: "Self-reported", link: "/system/mem0" },
                   ].map((row, i) => (
                     <tr key={row.name} className={`border-b border-border last:border-0 ${!row.rank ? "bg-[#DC2626]/[0.02]" : i % 2 ? "bg-muted/[0.15]" : ""}`}>

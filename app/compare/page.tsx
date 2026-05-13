@@ -4,9 +4,9 @@ import { NewsletterSignup } from "@/components/bench/newsletter-signup";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Compare AI Memory Systems: Mem0 vs LlamaIndex vs LangChain vs AutoGPT",
+  title: "Compare AI Memory Systems: Mem0 vs LlamaIndex vs LangChain vs AutoGPT vs CrewAI vs Letta",
   description:
-    "Side-by-side comparison of AI memory systems with independent benchmark scores. Mem0, LlamaIndex, LangChain, AutoGPT, and LLM Baseline tested on LongMemEval and LOCOMO.",
+    "Side-by-side comparison of AI memory systems with independent benchmark scores. Mem0, LlamaIndex, LangChain, AutoGPT, CrewAI, Letta, and LLM Baseline tested on LongMemEval and LOCOMO.",
   keywords: [
     "Mem0 vs LlamaIndex",
     "LangChain vs Mem0",
@@ -69,6 +69,17 @@ const SYSTEMS = [
     bestFor: "Teams building autonomous agents with AutoGPT who need persistent memory",
   },
   {
+    name: "CrewAI Memory",
+    slug: "crewai-memory",
+    type: "Framework (OSS)",
+    approach: "Short-term, long-term, and entity memory for multi-agent crews — below baseline on LongMemEval",
+    longmemeval: { score: 46.0, status: "verified" },
+    locomo: { score: null, status: "pending" },
+    strengths: ["Multi-agent memory sharing", "Entity memory", "MIT licensed"],
+    weaknesses: ["Below baseline", "Weak temporal reasoning", "Agent-centric design"],
+    bestFor: "Teams using CrewAI for multi-agent orchestration who need shared crew memory",
+  },
+  {
     name: "Graphiti",
     slug: "graphiti",
     type: "Knowledge Graph (OSS)",
@@ -78,6 +89,17 @@ const SYSTEMS = [
     strengths: ["Temporal knowledge graph", "Entity extraction", "Apache-2.0 licensed"],
     weaknesses: ["0% on LongMemEval", "Graph recall returns empty", "Not suited for conversational memory"],
     bestFor: "Structured knowledge graph use cases — not conversational memory retrieval",
+  },
+  {
+    name: "Letta",
+    slug: "letta",
+    type: "Agent Framework (OSS)",
+    approach: "Self-editing memory architecture (formerly MemGPT) — interprets rather than recalls, 0/380 on partial run",
+    longmemeval: { score: 0.0, status: "verified" },
+    locomo: { score: null, status: "pending" },
+    strengths: ["Self-editing memory", "Unbounded context", "Active community"],
+    weaknesses: ["0% on LongMemEval", "Interprets rather than recalls", "Agent architecture mismatch"],
+    bestFor: "Autonomous agent tasks where interpretation matters more than verbatim recall",
   },
   {
     name: "Mem0 OSS",

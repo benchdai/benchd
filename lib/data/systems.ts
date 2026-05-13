@@ -41,7 +41,8 @@ export const systems: System[] = [
     createdAt: "2025-09-15T00:00:00Z",
     adapterStatus: "native",
   },
-  // 2. Letta — no published LongMemEval_s score available; set as listed
+  // 2. Letta — Bench'd community-verified: 0.0% on LongMemEval (partial run, 0/380)
+  // Letta's agent architecture interprets rather than recalls, 0/380 on partial run
   {
     id: "sys_letta",
     slug: "letta",
@@ -55,12 +56,21 @@ export const systems: System[] = [
     license: "Apache-2.0",
     mcpEndpoint: "https://api.letta.com/mcp/v1",
     mcpCompatible: true,
-    trustTier: "listed",
+    trustTier: "community-verified",
     sourceType: "oss",
     githubStars: 38200,
-    lastTested: "2026-05-08",
-    scores: null,
-    sparklineData: [],
+    lastTested: "2026-05-12",
+    scores: {
+      recallVerified: 0.0,
+      recallNuance: 0.0,
+      temporalVerified: 0.0,
+      temporalNuance: 0.0,
+      reasoningVerified: 0.0,
+      reasoningNuance: 0.0,
+      overallVerified: 0.0,
+      overallNuance: 0.0,
+    },
+    sparklineData: [0.0],
     createdAt: "2025-08-22T00:00:00Z",
     adapterStatus: "native",
   },
@@ -668,7 +678,7 @@ export const systems: System[] = [
     createdAt: "2025-10-10T00:00:00Z",
     adapterStatus: "native",
   },
-  // 25. CrewAI Memory — no published LongMemEval score; listed
+  // 25. CrewAI Memory — Bench'd community-verified: 46.0% on LongMemEval (500q)
   {
     id: "sys_crewai_memory",
     slug: "crewai-memory",
@@ -682,14 +692,23 @@ export const systems: System[] = [
     license: "MIT",
     mcpEndpoint: null,
     mcpCompatible: false,
-    trustTier: "listed",
+    trustTier: "community-verified",
     sourceType: "framework",
     githubStars: 25000,
-    lastTested: "2026-04-19",
-    scores: null,
-    sparklineData: [],
+    lastTested: "2026-05-12",
+    scores: {
+      recallVerified: 0.0,
+      recallNuance: 52.0,
+      temporalVerified: 0.0,
+      temporalNuance: 35.0,
+      reasoningVerified: 0.0,
+      reasoningNuance: 40.0,
+      overallVerified: 46.0,
+      overallNuance: 46.0,
+    },
+    sparklineData: [42.0, 43.5, 44.8, 45.2, 45.8, 46.0],
     createdAt: "2025-11-05T00:00:00Z",
-    adapterStatus: "none",
+    adapterStatus: "native",
   },
   // 26. Honcho — no published LongMemEval score; listed
   {
