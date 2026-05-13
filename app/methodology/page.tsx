@@ -274,6 +274,58 @@ export default function MethodologyPage() {
             </div>
           </section>
 
+          {/* ── Section 3b: Bench'd Memory Index (BMI) ─────────────────── */}
+          <section id="bmi" className="scroll-mt-24 mb-16">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground mb-4">
+              Bench&apos;d Memory Index (BMI)
+            </h2>
+            <div className="space-y-4">
+              <p className="font-serif text-[15px] leading-relaxed text-foreground/85">
+                The BMI is the single headline number on every system profile.
+                It combines accuracy and efficiency into one production-weighted
+                score, because a memory system that gets every answer right but
+                takes 10 seconds and burns 50,000 tokens per query is not
+                production-ready.
+              </p>
+              <p className="font-serif text-[15px] leading-relaxed text-foreground/85">
+                The formula is public, versioned, and openly defended.
+              </p>
+            </div>
+
+            <div className="my-6 rounded-lg border border-border bg-card p-6">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                BMI Formula (v1.0)
+              </h3>
+              <div className="font-mono text-sm text-foreground bg-code-bg rounded-lg p-4">
+                BMI = (0.70 &times; Accuracy) + (0.30 &times; Efficiency)
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="text-xs font-semibold text-amber">Accuracy (70%)</span>
+                  <p className="text-[13px] text-muted-foreground mt-1 font-serif">
+                    The overall verified score across all benchmark dimensions
+                    (recall, temporal reasoning, multi-hop reasoning).
+                  </p>
+                </div>
+                <div>
+                  <span className="text-xs font-semibold text-amber">Efficiency (30%)</span>
+                  <p className="text-[13px] text-muted-foreground mt-1 font-serif">
+                    Normalized token efficiency: 100 minus the tokens-per-correct-answer
+                    divided by 100, capped at 0. A system using 50 tokens per correct
+                    answer scores 99.5 efficiency. A system using 10,000 scores 0.
+                  </p>
+                </div>
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-4">
+                The 70/30 weighting reflects that accuracy matters more than
+                efficiency for most use cases, but efficiency cannot be ignored.
+                Future BMI versions may adjust weights or add reliability
+                dimensions. Version changes are recorded and historical scores
+                are never rewritten.
+              </p>
+            </div>
+          </section>
+
           {/* ── Section 4: Judge Protocol ───────────────────────────────── */}
           <section id="judge-protocol" className="scroll-mt-24 mb-16">
             <h2 className="text-2xl font-bold tracking-tight text-foreground mb-4">
