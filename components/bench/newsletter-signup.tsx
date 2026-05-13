@@ -95,19 +95,19 @@ export function NewsletterSignup({ variant = "card" }: { variant?: Variant }) {
             <span className="font-medium">You&apos;re subscribed. We&apos;ll be in touch.</span>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-4 flex gap-2">
+          <form onSubmit={handleSubmit} className="mt-4 flex flex-col sm:flex-row gap-2">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@company.com"
               required
-              className="flex-1 h-9 px-3 text-xs bg-card border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-amber/50 focus:border-amber/50"
+              className="flex-1 min-w-0 h-9 px-3 text-xs bg-card border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-amber/50 focus:border-amber/50"
             />
             <button
               type="submit"
               disabled={status === "loading"}
-              className="h-9 px-4 text-xs font-semibold rounded-lg bg-amber text-primary-foreground hover:bg-amber/90 transition-colors disabled:opacity-50 flex items-center gap-1.5 whitespace-nowrap"
+              className="h-9 px-4 text-xs font-semibold rounded-lg bg-amber text-primary-foreground hover:bg-amber/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 shrink-0"
             >
               {status === "loading" ? (
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
