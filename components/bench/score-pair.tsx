@@ -65,6 +65,27 @@ interface ScoreCardProps {
   className?: string;
 }
 
+const BASELINE = 57.6;
+
+function BaselineIndicator({ score }: { score: number }) {
+  if (score === 0) {
+    return (
+      <span className="text-[10px] text-muted-foreground mt-1">&mdash; No data</span>
+    );
+  }
+  if (score >= BASELINE) {
+    return (
+      <span className="text-[10px] text-emerald-500 mt-1 flex items-center gap-0.5">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="inline-block"><path d="M5 2L8 6H2L5 2Z" fill="currentColor"/></svg>
+        Above baseline
+      </span>
+    );
+  }
+  return (
+    <span className="text-[10px] text-red-500 mt-1">Below baseline</span>
+  );
+}
+
 export function ScoreCard({
   label,
   sublabel,
@@ -84,17 +105,24 @@ export function ScoreCard({
           {label}
         </span>
       </div>
-      <span className="font-mono text-4xl font-bold text-amber tabular-nums">
-        {verified.toFixed(1)}
-      </span>
+      <div className="flex items-baseline gap-1">
+        <span className="font-mono text-4xl font-bold text-amber tabular-nums">
+          {verified.toFixed(1)}
+        </span>
+        <span className="font-mono text-lg text-muted-foreground">/ 100</span>
+      </div>
       <span className="text-[10px] text-muted-foreground mt-1">
         Verified (Deterministic)
       </span>
+      <BaselineIndicator score={verified} />
       <div className="mt-3 pt-3 border-t border-border">
-        <span className="font-mono text-xl text-muted-foreground tabular-nums">
-          {nuance.toFixed(1)}
-        </span>
-        <span className="text-[10px] text-muted-foreground ml-2">
+        <div className="flex items-baseline gap-1">
+          <span className="font-mono text-xl text-muted-foreground tabular-nums">
+            {nuance.toFixed(1)}
+          </span>
+          <span className="font-mono text-sm text-muted-foreground">/ 100</span>
+        </div>
+        <span className="text-[10px] text-muted-foreground ml-0">
           Nuance (LLM Judge)
         </span>
       </div>

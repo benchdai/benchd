@@ -107,50 +107,61 @@ export default async function SystemProfilePage({
         </p>
       </div>
 
-      {/* No runs / no scores empty state */}
-      {runs.length === 0 || system.scores === null ? (
+      {/* No scores: listed or truly unbenchmarked */}
+      {system.scores === null ? (
         <div className="border border-border rounded-lg p-12 text-center">
           <p className="text-muted-foreground text-sm">
-            This system hasn&apos;t been benchmarked by Bench&apos;d yet.
+            This system is indexed but hasn&apos;t been benchmarked yet.
           </p>
-          {system.trustTier === "listed" && (
-            <p className="text-muted-foreground text-xs mt-2">
-              Listed systems are indexed but not yet scored. Check back soon.
-            </p>
-          )}
-          {system.trustTier === "unclaimed-self-reported" && system.scores !== null && (
-            <div className="mt-4 border border-[#DC2626]/30 rounded-lg p-4 bg-[#DC2626]/5 max-w-md mx-auto">
-              <p className="text-xs text-[#DC2626]">
-                This system has self-reported scores that have not been independently verified by Bench&apos;d.
-              </p>
-            </div>
-          )}
+          <p className="text-muted-foreground text-xs mt-2">
+            Want to help? Run the Bench&apos;d harness yourself{" "}
+            <Link href="/docs" className="text-amber underline underline-offset-2 hover:text-foreground transition-colors">
+              Get started &rarr;
+            </Link>
+          </p>
         </div>
       ) : (
         <>
+          {/* Self-reported warning banner */}
+          {system.trustTier === "unclaimed-self-reported" && (
+            <div className="mb-6 border border-[#DC2626]/30 rounded-lg p-4 bg-[#DC2626]/5">
+              <p className="text-sm text-[#DC2626] font-medium">
+                These scores are self-reported by the vendor and have not been independently verified by Bench&apos;d.
+              </p>
+            </div>
+          )}
+
+          {/* Score context line */}
+          <p className="text-xs text-muted-foreground mb-4">
+            Scores from 0&ndash;100. Higher is better. LLM Baseline (no memory system) scores 57.6%.{" "}
+            <Link href="/methodology" className="text-amber underline underline-offset-2 hover:text-foreground transition-colors">
+              How we calculate this &rarr;
+            </Link>
+          </p>
+
           {/* Score Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
             <ScoreCard
               label="Recall"
-              sublabel="Fact retrieval accuracy"
+              sublabel="Can it find the right facts from past conversations?"
               verified={system.scores.recallVerified}
               nuance={system.scores.recallNuance}
             />
             <ScoreCard
               label="Temporal"
-              sublabel="Time-aware ordering"
+              sublabel="Does it understand when events happened and their order?"
               verified={system.scores.temporalVerified}
               nuance={system.scores.temporalNuance}
             />
             <ScoreCard
               label="Reasoning"
-              sublabel="Multi-hop inference"
+              sublabel="Can it synthesize information across multiple memories?"
               verified={system.scores.reasoningVerified}
               nuance={system.scores.reasoningNuance}
             />
             <ScoreCard
               label="Overall"
-              sublabel="Weighted composite"
+              sublabel="Weighted composite across all dimensions"
               verified={system.scores.overallVerified}
               nuance={system.scores.overallNuance}
             />

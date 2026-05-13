@@ -81,6 +81,20 @@ function getScoreDisplay(system: System) {
   return { hasScore: true as const, scores: system.scores, tier: system.trustTier };
 }
 
+function ScoreBar({ value, baseline = 57.6, isSelfReported = false }: { value: number; baseline?: number; isSelfReported?: boolean }) {
+  const color = isSelfReported ? "bg-[#DC2626]/40" : value >= baseline ? "bg-amber/60" : "bg-muted-foreground/20";
+  return (
+    <div className="flex items-center gap-1.5">
+      <div className="w-12 h-1.5 bg-secondary rounded-full overflow-hidden">
+        <div className={`h-full rounded-full ${color}`} style={{ width: `${value}%` }} />
+      </div>
+      <span className={`font-mono tabular-nums text-xs ${isSelfReported ? "text-[#DC2626]" : value >= baseline ? "text-amber" : "text-muted-foreground"}`}>
+        {value.toFixed(1)}
+      </span>
+    </div>
+  );
+}
+
 export default function LeaderboardPage() {
   const [viewMode, setViewMode] = useState<"compact" | "detailed">("compact");
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -410,6 +424,12 @@ export default function LeaderboardPage() {
           <>
             {/* DESKTOP TABLE */}
             <div className="hidden md:block">
+              {/* Baseline legend */}
+              <div className="mb-2 text-[10px] text-muted-foreground flex items-center gap-1.5">
+                <Info className="h-3 w-3 shrink-0" />
+                Scores out of 100. LLM Baseline (no memory system): 57.6%. Systems below baseline are highlighted.
+              </div>
+
               <div className="overflow-x-auto rounded-lg border border-border">
                 <table className="w-full text-sm">
                   <thead>
@@ -427,29 +447,25 @@ export default function LeaderboardPage() {
                         Tier<SortIcon field="trustTier" />
                       </TH>
 
-                      {viewMode === "detailed" && (
-                        <>
-                          <TH onClick={() => handleSort("recallVerified")} align="right">
-                            V. Recall<SortIcon field="recallVerified" />
-                          </TH>
-                          <TH onClick={() => handleSort("temporalVerified")} align="right">
-                            V. Temporal<SortIcon field="temporalVerified" />
-                          </TH>
-                          <TH onClick={() => handleSort("reasoningVerified")} align="right">
-                            V. Reasoning<SortIcon field="reasoningVerified" />
-                          </TH>
-                        </>
-                      )}
-
-                      <TH onClick={() => handleSort("overallVerified")} align="right">
-                        Verified<SortIcon field="overallVerified" />
+                      <TH onClick={() => handleSort("recallVerified")} align="left" title="Percentage of factual questions answered correctly from memory">
+                        Recall<SortIcon field="recallVerified" />
                       </TH>
-                      <TH onClick={() => handleSort("overallNuance")} align="right">
-                        N<SortIcon field="overallNuance" />
+                      <TH onClick={() => handleSort("temporalVerified")} align="left" title="Accuracy on time-ordering and date-based questions">
+                        Temporal<SortIcon field="temporalVerified" />
+                      </TH>
+                      <TH onClick={() => handleSort("reasoningVerified")} align="left" title="Multi-hop inference and synthesis accuracy">
+                        Reasoning<SortIcon field="reasoningVerified" />
+                      </TH>
+
+                      <TH onClick={() => handleSort("overallVerified")} align="right" title="Weighted composite across all dimensions">
+                        Overall<SortIcon field="overallVerified" />
                       </TH>
 
                       {viewMode === "detailed" && (
                         <>
+                          <TH onClick={() => handleSort("overallNuance")} align="right" title="LLM-judged scoring for open-ended questions">
+                            Nuance<SortIcon field="overallNuance" />
+                          </TH>
                           <TH align="center" className="w-10">MCP</TH>
                           <TH className="w-20">Adapter</TH>
                         </>
@@ -462,167 +478,204 @@ export default function LeaderboardPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {rankedSystems.map((system) => {
-                      const info = getScoreDisplay(system);
-                      const isListed = system.trustTier === "listed";
-                      const isSelfReported = system.trustTier === "unclaimed-self-reported";
-                      const rowMuted = isListed;
+                    {(() => {
+                      let selfReportedDividerShown = false;
+                      let listedDividerShown = false;
+                      const rows: React.ReactNode[] = [];
 
-                      return (
-                        <tr
-                          key={system.id}
-                          className={`border-b border-border transition-colors group ${
-                            isSelfReported
-                              ? "bg-[#DC2626]/[0.03] hover:bg-[#DC2626]/[0.06]"
-                              : rowMuted
-                              ? "opacity-60 hover:opacity-80"
-                              : "hover:bg-muted/30"
-                          }`}
-                        >
-                          {/* Rank */}
-                          <TD sticky={viewMode === "detailed"} left="0" className={rowMuted ? "opacity-60" : ""}>
-                            <span className="font-mono tabular-nums text-muted-foreground text-xs">
-                              {system.rank ?? "--"}
-                            </span>
-                          </TD>
+                      rankedSystems.forEach((system) => {
+                        const info = getScoreDisplay(system);
+                        const isListed = system.trustTier === "listed";
+                        const isSelfReported = system.trustTier === "unclaimed-self-reported";
+                        const rowMuted = isListed;
 
-                          {/* System */}
-                          <TD sticky={viewMode === "detailed"} left="40px">
-                            <Link
-                              href={`/system/${system.slug}`}
-                              className="font-medium text-foreground hover:text-amber transition-colors"
-                            >
-                              {system.name}
-                            </Link>
-                            <span className="block text-[10px] text-muted-foreground leading-tight">
-                              {system.vendor}
-                            </span>
-                          </TD>
+                        // Section divider: self-reported
+                        if (isSelfReported && !selfReportedDividerShown) {
+                          selfReportedDividerShown = true;
+                          rows.push(
+                            <tr key="__divider-self-reported" className="border-b border-amber/30">
+                              <td colSpan={100} className="px-3 py-1.5">
+                                <div className="flex items-center gap-2">
+                                  <div className="flex-1 h-px bg-amber/30" />
+                                  <span className="text-[9px] font-semibold uppercase tracking-widest text-amber/70">Self-Reported Claims</span>
+                                  <div className="flex-1 h-px bg-amber/30" />
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        }
 
-                          {/* Source */}
-                          <TD sticky={viewMode === "detailed"} left="200px">
-                            <SourceBadge source={system.sourceType} />
-                          </TD>
+                        // Section divider: listed / awaiting adapter
+                        if (isListed && !listedDividerShown) {
+                          listedDividerShown = true;
+                          rows.push(
+                            <tr key="__divider-listed" className="border-b border-border">
+                              <td colSpan={100} className="px-3 py-1.5">
+                                <div className="flex items-center gap-2">
+                                  <div className="flex-1 h-px bg-muted-foreground/20" />
+                                  <span className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/60">Awaiting Adapter</span>
+                                  <div className="flex-1 h-px bg-muted-foreground/20" />
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        }
 
-                          {/* Trust Tier */}
-                          <TD sticky={viewMode === "detailed"} left="296px" border>
-                            <TrustTierBadge tier={system.trustTier} size="sm" />
-                          </TD>
+                        const belowBaseline = info.hasScore && info.scores.overallVerified < 57.6 && info.scores.overallVerified > 0;
 
-                          {/* Detailed dimension scores */}
-                          {viewMode === "detailed" && (
-                            <>
-                              <TD align="right">
-                                {info.hasScore ? (
-                                  <span className="font-mono tabular-nums text-amber">
-                                    {info.scores.recallVerified.toFixed(1)}
-                                  </span>
-                                ) : (
-                                  <span className="text-muted-foreground text-xs">--</span>
-                                )}
-                              </TD>
-                              <TD align="right">
-                                {info.hasScore ? (
-                                  <span className="font-mono tabular-nums text-amber">
-                                    {info.scores.temporalVerified.toFixed(1)}
-                                  </span>
-                                ) : (
-                                  <span className="text-muted-foreground text-xs">--</span>
-                                )}
-                              </TD>
-                              <TD align="right">
-                                {info.hasScore ? (
-                                  <span className="font-mono tabular-nums text-amber">
-                                    {info.scores.reasoningVerified.toFixed(1)}
-                                  </span>
-                                ) : (
-                                  <span className="text-muted-foreground text-xs">--</span>
-                                )}
-                              </TD>
-                            </>
-                          )}
-
-                          {/* Verified Overall */}
-                          <TD align="right">
-                            {info.hasScore ? (
-                              <span className={`font-mono tabular-nums font-semibold ${
-                                isSelfReported ? "text-[#DC2626]" : "text-amber"
-                              }`}>
-                                {info.scores.overallVerified.toFixed(1)}
-                                {isSelfReported && (
-                                  <span className="relative group/tip ml-1 inline-block">
-                                    <Info className="inline h-3 w-3 text-[#DC2626]/60" />
-                                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-2 py-1 text-[10px] text-tooltip-fg bg-tooltip-bg rounded shadow-lg whitespace-nowrap opacity-0 group-hover/tip:opacity-100 transition-opacity pointer-events-none z-50">
-                                      Self-reported, not verified by Bench&apos;d
-                                    </span>
-                                  </span>
-                                )}
-                              </span>
-                            ) : (
-                              <span className="text-[10px] text-muted-foreground italic">Listed</span>
-                            )}
-                          </TD>
-
-                          {/* Nuance */}
-                          <TD align="right">
-                            {info.hasScore ? (
+                        rows.push(
+                          <tr
+                            key={system.id}
+                            className={`border-b border-border transition-colors group ${
+                              isSelfReported
+                                ? "bg-[#DC2626]/[0.03] hover:bg-[#DC2626]/[0.06]"
+                                : rowMuted
+                                ? "opacity-60 hover:opacity-80"
+                                : "hover:bg-muted/30"
+                            }`}
+                          >
+                            {/* Rank */}
+                            <TD sticky={viewMode === "detailed"} left="0" className={rowMuted ? "opacity-60" : ""}>
                               <span className="font-mono tabular-nums text-muted-foreground text-xs">
-                                {info.scores.overallNuance.toFixed(1)}
+                                {system.rank ?? "--"}
                               </span>
-                            ) : (
-                              <span className="text-muted-foreground text-xs">--</span>
-                            )}
-                          </TD>
+                            </TD>
 
-                          {/* Detailed: MCP + Adapter */}
-                          {viewMode === "detailed" && (
-                            <>
-                              <TD align="center">
-                                {system.mcpCompatible ? (
-                                  <Plug className="inline h-3.5 w-3.5 text-emerald-400" />
-                                ) : (
-                                  <span className="text-muted-foreground text-xs">--</span>
-                                )}
-                              </TD>
-                              <TD>
-                                <span className={`text-[10px] ${
-                                  system.adapterStatus === "native"
-                                    ? "text-emerald-400"
-                                    : system.adapterStatus === "community"
-                                    ? "text-sky-400"
-                                    : "text-muted-foreground"
+                            {/* System */}
+                            <TD sticky={viewMode === "detailed"} left="40px">
+                              <Link
+                                href={`/system/${system.slug}`}
+                                className="font-medium text-foreground hover:text-amber transition-colors"
+                              >
+                                {system.name}
+                              </Link>
+                              <span className="block text-[10px] text-muted-foreground leading-tight">
+                                {system.vendor}
+                              </span>
+                            </TD>
+
+                            {/* Source */}
+                            <TD sticky={viewMode === "detailed"} left="200px">
+                              <SourceBadge source={system.sourceType} />
+                            </TD>
+
+                            {/* Trust Tier */}
+                            <TD sticky={viewMode === "detailed"} left="296px" border>
+                              <TrustTierBadge tier={system.trustTier} size="sm" />
+                            </TD>
+
+                            {/* Recall */}
+                            <TD>
+                              {info.hasScore ? (
+                                <ScoreBar value={info.scores.recallVerified} isSelfReported={isSelfReported} />
+                              ) : (
+                                <span className="text-muted-foreground text-xs">--</span>
+                              )}
+                            </TD>
+
+                            {/* Temporal */}
+                            <TD>
+                              {info.hasScore ? (
+                                <ScoreBar value={info.scores.temporalVerified} isSelfReported={isSelfReported} />
+                              ) : (
+                                <span className="text-muted-foreground text-xs">--</span>
+                              )}
+                            </TD>
+
+                            {/* Reasoning */}
+                            <TD>
+                              {info.hasScore ? (
+                                <ScoreBar value={info.scores.reasoningVerified} isSelfReported={isSelfReported} />
+                              ) : (
+                                <span className="text-muted-foreground text-xs">--</span>
+                              )}
+                            </TD>
+
+                            {/* Overall (Verified) */}
+                            <TD align="right">
+                              {info.hasScore ? (
+                                <span className={`font-mono tabular-nums text-base font-semibold ${
+                                  isSelfReported ? "text-[#DC2626]" : "text-amber"
                                 }`}>
-                                  {system.adapterStatus === "native"
-                                    ? "Native"
-                                    : system.adapterStatus === "community"
-                                    ? "Community"
-                                    : "None"}
+                                  {info.scores.overallVerified.toFixed(1)}
+                                  {belowBaseline && (
+                                    <ChevronDown className="inline h-3 w-3 ml-0.5 text-muted-foreground/60" />
+                                  )}
+                                  {isSelfReported && (
+                                    <span className="relative group/tip ml-1 inline-block">
+                                      <Info className="inline h-3 w-3 text-[#DC2626]/60" />
+                                      <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-2 py-1 text-[10px] text-tooltip-fg bg-tooltip-bg rounded shadow-lg whitespace-nowrap opacity-0 group-hover/tip:opacity-100 transition-opacity pointer-events-none z-50">
+                                        Self-reported, not verified by Bench&apos;d
+                                      </span>
+                                    </span>
+                                  )}
                                 </span>
-                              </TD>
-                            </>
-                          )}
+                              ) : (
+                                <span className="text-[10px] text-muted-foreground italic">Listed</span>
+                              )}
+                            </TD>
 
-                          {/* Last Tested */}
-                          <TD>
-                            <span className="text-xs text-muted-foreground whitespace-nowrap">
-                              {formatDate(system.lastTested)}
-                            </span>
-                          </TD>
-
-                          {/* Sparkline */}
-                          <TD>
-                            {system.sparklineData.length > 0 ? (
-                              <Sparkline
-                                data={system.sparklineData}
-                                strokeColor={isSelfReported ? "#DC2626" : "#FFB800"}
-                              />
-                            ) : (
-                              <span className="text-muted-foreground text-xs">--</span>
+                            {/* Detailed: Nuance + MCP + Adapter */}
+                            {viewMode === "detailed" && (
+                              <>
+                                <TD align="right">
+                                  {info.hasScore ? (
+                                    <span className="font-mono tabular-nums text-muted-foreground text-xs">
+                                      {info.scores.overallNuance.toFixed(1)}
+                                    </span>
+                                  ) : (
+                                    <span className="text-muted-foreground text-xs">--</span>
+                                  )}
+                                </TD>
+                                <TD align="center">
+                                  {system.mcpCompatible ? (
+                                    <Plug className="inline h-3.5 w-3.5 text-emerald-400" />
+                                  ) : (
+                                    <span className="text-muted-foreground text-xs">--</span>
+                                  )}
+                                </TD>
+                                <TD>
+                                  <span className={`text-[10px] ${
+                                    system.adapterStatus === "native"
+                                      ? "text-emerald-400"
+                                      : system.adapterStatus === "community"
+                                      ? "text-sky-400"
+                                      : "text-muted-foreground"
+                                  }`}>
+                                    {system.adapterStatus === "native"
+                                      ? "Native"
+                                      : system.adapterStatus === "community"
+                                      ? "Community"
+                                      : "None"}
+                                  </span>
+                                </TD>
+                              </>
                             )}
-                          </TD>
-                        </tr>
-                      );
-                    })}
+
+                            {/* Last Tested */}
+                            <TD>
+                              <span className="text-xs text-muted-foreground whitespace-nowrap">
+                                {formatDate(system.lastTested)}
+                              </span>
+                            </TD>
+
+                            {/* Sparkline */}
+                            <TD>
+                              {system.sparklineData.length > 0 ? (
+                                <Sparkline
+                                  data={system.sparklineData}
+                                  strokeColor={isSelfReported ? "#DC2626" : "#FFB800"}
+                                />
+                              ) : (
+                                <span className="text-muted-foreground text-xs">--</span>
+                              )}
+                            </TD>
+                          </tr>
+                        );
+                      });
+
+                      return rows;
+                    })()}
                   </tbody>
                 </table>
               </div>
@@ -706,6 +759,7 @@ function TH({
   border,
   align,
   className,
+  title,
 }: {
   children: React.ReactNode;
   onClick?: () => void;
@@ -714,10 +768,12 @@ function TH({
   border?: boolean;
   align?: "left" | "right" | "center";
   className?: string;
+  title?: string;
 }) {
   return (
     <th
       onClick={onClick}
+      title={title}
       className={`h-9 px-3 text-[10px] font-medium uppercase tracking-wider whitespace-nowrap select-none ${
         onClick ? "cursor-pointer hover:text-foreground" : ""
       } ${align === "right" ? "text-right" : align === "center" ? "text-center" : "text-left"} ${
