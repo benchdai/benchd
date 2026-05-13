@@ -8,6 +8,7 @@ import { EfficiencyCards } from "@/components/bench/efficiency-cards";
 import { PopulationDistribution } from "@/components/bench/population-distribution";
 import { ComparedWith } from "@/components/bench/compared-with";
 import { EmbedBadge } from "@/components/bench/embed-badge";
+import { PerformanceChart } from "@/components/bench/performance-chart";
 import { SystemTabs } from "./system-tabs";
 import {
   Globe,
@@ -187,6 +188,15 @@ export default async function SystemProfilePage({
               system={system}
               runs={runs}
               failures={failures}
+            />
+          </div>
+
+          {/* Performance Over Time */}
+          <div className="mt-6 border border-border rounded-xl p-5 bg-card">
+            <PerformanceChart
+              systems={[system.slug]}
+              showBaseline
+              height={200}
             />
           </div>
 
