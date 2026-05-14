@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createServerClient } from "@/lib/supabase";
 
-/**
- * POST /api/newsletter
- *
- * Accepts email signups. When Supabase is connected, inserts into
- * newsletter_subscribers table. For now, logs and returns success.
- */
 export async function POST(request: NextRequest) {
   try {
     const { email } = await request.json();
@@ -17,7 +12,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
@@ -26,14 +20,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: When Supabase is connected:
-    // const supabase = createServerClient();
-    // const { error } = await supabase
-    //   .from('newsletter_subscribers')
-    //   .upsert({ email, source: 'website' }, { onConflict: 'email' });
-    // if (error) throw error;
+    const supabase = createServerClient();
+    const { error } = await supabase
+      .from("newsletter_subscribers")
+      .upsert({ email, source: "website" }, { onConflict: "email" });
 
-    console.log(`[newsletter] New signup: ${email}`);
+    if (error) throw error;
 
     return NextResponse.json(
       { status: "subscribed", email },
