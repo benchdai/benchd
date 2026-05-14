@@ -423,6 +423,22 @@
     "status": "completed"
   },
   {
+    "system": "langmem",
+    "benchmark": "Reliability",
+    "run_id": "run_a1788e050b65",
+    "date": "2026-05-13",
+    "overall": 60.0,
+    "dimensions": {
+      "hallucination": 28.6,
+      "stale_memory": 100.0,
+      "entity_confusion": 100.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 15,
+    "status": "completed"
+  },
+  {
     "system": "crewai-memory",
     "benchmark": "LongMemEval",
     "run_id": "run_a2cabf200913",
@@ -435,6 +451,22 @@
     },
     "total_questions": 500,
     "correct": 230,
+    "status": "completed"
+  },
+  {
+    "system": "crewai-memory",
+    "benchmark": "Reliability",
+    "run_id": "run_ce2d34307c6c",
+    "date": "2026-05-13",
+    "overall": 60.0,
+    "dimensions": {
+      "hallucination": 28.6,
+      "stale_memory": 100.0,
+      "entity_confusion": 100.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 15,
     "status": "completed"
   },
   {
