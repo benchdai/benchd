@@ -500,5 +500,141 @@
     "total_questions": 25,
     "correct": 14,
     "status": "completed"
+  },
+  {
+    "system": "autogpt-memory",
+    "benchmark": "reliability-v1",
+    "run_id": "run_d1561ba31b9f",
+    "date": "2026-05-14",
+    "overall": 44.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 71.4,
+      "entity_confusion": 100.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 11,
+    "status": "completed"
+  },
+  {
+    "system": "cognee",
+    "benchmark": "reliability-v1",
+    "run_id": "run_8c6b825bdff3",
+    "date": "2026-05-14",
+    "overall": 0.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 0.0,
+      "entity_confusion": 0.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "crewai-memory",
+    "benchmark": "reliability-v1",
+    "run_id": "run_a3326c227dcf",
+    "date": "2026-05-14",
+    "overall": 52.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 100.0,
+      "entity_confusion": 100.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 13,
+    "status": "completed"
+  },
+  {
+    "system": "khoj",
+    "benchmark": "reliability-v1",
+    "date": "2026-05-14",
+    "overall": 0,
+    "status": "failed",
+    "error": "Cannot connect to Khoj at http://localhost:42110.\nStart Khoj with: khoj --anonymous-mode\nOr set KHOJ_URL to your Khoj instance."
+  },
+  {
+    "system": "langchain-memory",
+    "benchmark": "reliability-v1",
+    "run_id": "run_18ea19863f2a",
+    "date": "2026-05-14",
+    "overall": 52.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 100.0,
+      "entity_confusion": 100.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 13,
+    "status": "completed"
+  },
+  {
+    "system": "langmem",
+    "benchmark": "reliability-v1",
+    "run_id": "run_23a490022cff",
+    "date": "2026-05-14",
+    "overall": 48.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 85.7,
+      "entity_confusion": 100.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 12,
+    "status": "completed"
+  },
+  {
+    "system": "llamaindex-memory",
+    "benchmark": "reliability-v1",
+    "run_id": "run_29433100e8a6",
+    "date": "2026-05-14",
+    "overall": 56.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 100.0,
+      "entity_confusion": 100.0,
+      "deletion": 20.0
+    },
+    "total_questions": 25,
+    "correct": 14,
+    "status": "completed"
+  },
+  {
+    "system": "llm-baseline",
+    "benchmark": "reliability-v1",
+    "run_id": "run_1cb2746a842e",
+    "date": "2026-05-14",
+    "overall": 52.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 100.0,
+      "entity_confusion": 100.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 13,
+    "status": "completed"
+  },
+  {
+    "system": "mem0-local",
+    "benchmark": "reliability-v1",
+    "run_id": "run_bba0d960342e",
+    "date": "2026-05-14",
+    "overall": 52.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 100.0,
+      "entity_confusion": 100.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 13,
+    "status": "completed"
   }
 ]
