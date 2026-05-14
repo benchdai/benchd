@@ -29,4 +29,14 @@ export const posts: BlogPost[] = [
     tags: ["benchmark", "results", "comparison"],
     readingTime: "8 min read",
   },
+  {
+    slug: "reliability-benchmark",
+    title: "We Built 25 Trap Questions to Test If AI Memory Systems Hallucinate",
+    description:
+      "Our new Reliability benchmark plants adversarial traps: hallucination questions, changed facts, similar entities, deletion requests. The LLM baseline scores 0% on hallucination.",
+    date: "2026-05-13",
+    author: "Bench'd",
+    tags: ["benchmark", "reliability", "adversarial"],
+    readingTime: "7 min read",
+  },
 ];
