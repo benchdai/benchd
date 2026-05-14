@@ -102,6 +102,7 @@ const LLM_BASELINE_SYSTEM: System = {
   mcpCompatible: false,
   trustTier: "community-verified",
   sourceType: "research",
+  systemType: "baseline",
   githubStars: null,
   lastTested: "2026-05-11",
   scores: {

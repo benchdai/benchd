@@ -108,10 +108,20 @@ function ScoreBar({ value, baseline = 57.6, isSelfReported = false }: { value: n
   );
 }
 
+const categoryTabs = [
+  { key: "all", label: "All Systems" },
+  { key: "conversational", label: "Conversational Memory" },
+  { key: "knowledge-brain", label: "Knowledge Brains" },
+  { key: "agent-memory", label: "Agent Memory" },
+  { key: "graph", label: "Graph Systems" },
+  { key: "hybrid", label: "Hybrid" },
+] as const;
+
 export default function LeaderboardPage() {
   const [viewMode, setViewMode] = useState<"compact" | "detailed">("compact");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [categoryTab, setCategoryTab] = useState("all");
   const [quickFilter, setQuickFilter] = useState<QuickFilter>("all");
   const [showSelfReported, setShowSelfReported] = useState(false);
   const [mcpOnly, setMcpOnly] = useState(false);
@@ -120,8 +130,31 @@ export default function LeaderboardPage() {
   const [sortField, setSortField] = useState<SortField>("overallVerified");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
+  // Counts per category (computed from all systems, independent of filters)
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: systems.length };
+    for (const s of systems) {
+      counts[s.systemType] = (counts[s.systemType] || 0) + 1;
+    }
+    // Baseline systems are shown under conversational
+    if (counts["baseline"]) {
+      counts["conversational"] = (counts["conversational"] || 0) + counts["baseline"];
+    }
+    return counts;
+  }, []);
+
   const filteredSystems = useMemo(() => {
     let result = systems.filter((s) => {
+      // Category filter
+      if (categoryTab !== "all") {
+        if (categoryTab === "conversational") {
+          // Include baseline in conversational view as reference
+          if (s.systemType !== "conversational" && s.systemType !== "baseline") return false;
+        } else {
+          if (s.systemType !== categoryTab) return false;
+        }
+      }
+
       // Quick filter
       if (quickFilter === "open-source") {
         if (s.sourceType !== "oss") return false;
@@ -217,7 +250,7 @@ export default function LeaderboardPage() {
     });
 
     return result;
-  }, [search, quickFilter, showSelfReported, mcpOnly, minOverall, recencyDays, sortField, sortDirection]);
+  }, [search, categoryTab, quickFilter, showSelfReported, mcpOnly, minOverall, recencyDays, sortField, sortDirection]);
 
   // Ranks are only for scored systems
   let rank = 0;
@@ -273,6 +306,32 @@ export default function LeaderboardPage() {
       </div>
 
       <div className="mx-auto max-w-[1600px] px-4 py-5 sm:px-6 lg:px-8">
+        {/* Category tabs */}
+        <div className="flex items-center gap-1 mb-4 border-b border-border overflow-x-auto">
+          {categoryTabs.map((t) => (
+            <button
+              key={t.key}
+              onClick={() => setCategoryTab(t.key)}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors -mb-[1px] whitespace-nowrap ${
+                categoryTab === t.key
+                  ? "border-amber text-amber"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {t.label}
+              <span
+                className={`ml-1.5 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-mono rounded-full ${
+                  categoryTab === t.key
+                    ? "bg-amber/15 text-amber"
+                    : "bg-muted text-muted-foreground"
+                }`}
+              >
+                {categoryCounts[t.key] ?? 0}
+              </span>
+            </button>
+          ))}
+        </div>
+
         {/* Quick filters */}
         <div className="flex flex-wrap items-center gap-1.5 mb-4">
           {quickFilters.map((f) => (

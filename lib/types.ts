@@ -13,6 +13,14 @@ export type SourceType =
   | "framework"
   | "research";
 
+export type SystemType =
+  | "conversational"    // Buffer/context memory for chat (LlamaIndex, LangChain, Mem0)
+  | "knowledge-brain"   // Document/page storage + search (gbrain, Obsidian)
+  | "graph"             // Knowledge graph systems (Graphiti, GraphRAG, Cognee)
+  | "hybrid"            // Both conversational + knowledge (Zep, potentially Mem0 managed)
+  | "agent-memory"      // Agent-specific memory (Letta, CrewAI, AutoGPT)
+  | "baseline";         // LLM with no memory system
+
 export interface System {
   id: string;
   slug: string;
@@ -27,12 +35,15 @@ export interface System {
   mcpCompatible: boolean;
   trustTier: TrustTier;
   sourceType: SourceType;
+  systemType: SystemType;
   githubStars: number | null;
   lastTested: string; // ISO date
   scores: SystemScores | null; // null for listed systems with no Bench'd scores
   sparklineData: number[];
   createdAt: string;
   adapterStatus?: "native" | "community" | "none";
+  /** Categories this system is scored on (others show "--") */
+  applicableCategories?: string[];
 }
 
 export interface SystemScores {
@@ -50,6 +61,16 @@ export interface SystemScores {
   avgRecallTokens?: number;
   // BMI = Bench'd Memory Index (weighted composite)
   bmi?: number;
+  // Reliability scores (from adversarial benchmark)
+  reliabilityOverall?: number;
+  hallucinationResistance?: number;
+  staleMemoryHandling?: number;
+  entityConfusion?: number;
+  deletionCompliance?: number;
+  // Knowledge retrieval scores (for knowledge brains)
+  documentRetrieval?: number;
+  semanticSearchPrecision?: number;
+  knowledgeGraphAccuracy?: number;
 }
 
 export interface Benchmark {
