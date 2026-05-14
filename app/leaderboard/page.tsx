@@ -8,6 +8,7 @@ import { SourceBadge } from "@/components/bench/source-badge";
 import { Sparkline } from "@/components/bench/sparkline";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { CategoryBarChart } from "@/components/bench/category-bar-chart";
 import type { System, TrustTier, SourceType } from "@/lib/types";
 import {
   Search,
@@ -331,6 +332,9 @@ export default function LeaderboardPage() {
             </button>
           ))}
         </div>
+
+        {/* Category bar chart */}
+        <CategoryBarChart systems={filteredSystems} categoryTab={categoryTab} />
 
         {/* Quick filters */}
         <div className="flex flex-wrap items-center gap-1.5 mb-4">
