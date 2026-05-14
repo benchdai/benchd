@@ -276,6 +276,39 @@ export const systems: System[] = [
     createdAt: "2025-12-10T00:00:00Z",
     adapterStatus: "community",
   },
+  // 7b. LangMem — Bench'd community-verified: 60% reliability (15/25)
+  // Reliability only — LongMemEval run in progress
+  {
+    id: "sys_langmem_benchd",
+    slug: "langmem-benchd",
+    name: "LangMem",
+    vendor: "LangChain Inc",
+    description:
+      "Standalone long-term memory SDK from LangChain for extracting, storing, and retrieving memories across agent sessions. Supports semantic and episodic memory with configurable storage backends.",
+    githubUrl: "https://github.com/langchain-ai/langmem",
+    website: "https://langchain.com",
+    docsUrl: "https://langchain-ai.github.io/langmem/",
+    license: "MIT",
+    mcpEndpoint: null,
+    mcpCompatible: false,
+    trustTier: "community-verified",
+    sourceType: "oss",
+    githubStars: 2100,
+    lastTested: "2026-05-13",
+    scores: {
+      recallVerified: 0.0,
+      recallNuance: 0.0,
+      temporalVerified: 0.0,
+      temporalNuance: 0.0,
+      reasoningVerified: 0.0,
+      reasoningNuance: 0.0,
+      overallVerified: 60.0,
+      overallNuance: 60.0,
+    },
+    sparklineData: [60.0],
+    createdAt: "2025-12-10T00:00:00Z",
+    adapterStatus: "native",
+  },
   // 8. LlamaIndex Memory — Bench'd verified: 59.0% nuance on LongMemEval (500q)
   {
     id: "sys_llamaindex_memory",
@@ -736,7 +769,7 @@ export const systems: System[] = [
     createdAt: "2025-10-10T00:00:00Z",
     adapterStatus: "native",
   },
-  // 25. CrewAI Memory — Bench'd community-verified: 46.0% on LongMemEval (500q)
+  // 25. CrewAI Memory — Bench'd community-verified: 46.0% on LongMemEval (500q), 60% reliability (15/25)
   {
     id: "sys_crewai_memory",
     slug: "crewai-memory",
