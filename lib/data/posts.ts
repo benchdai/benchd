@@ -39,4 +39,14 @@ export const posts: BlogPost[] = [
     tags: ["benchmark", "reliability", "adversarial"],
     readingTime: "7 min read",
   },
+  {
+    slug: "benchd-protocol-v01",
+    title: "Bench'd Evaluation Protocol v0.1: How We Make Memory Benchmarks Fair",
+    description:
+      "Why we wrote a formal protocol, the adapter contract, model locking, trust tiers, the BMI formula, and versioning rules. Never rewrite history.",
+    date: "2026-05-14",
+    author: "Bench'd",
+    tags: ["protocol", "methodology", "fairness"],
+    readingTime: "9 min read",
+  },
 ];

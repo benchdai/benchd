@@ -35,7 +35,19 @@ type SortField =
   | "recallVerified"
   | "temporalVerified"
   | "reasoningVerified"
+  | "reliabilityVerified"
   | "githubStars";
+
+const RELIABILITY_SCORES: Record<string, number> = {
+  "sys_llamaindex_memory": 56.0,
+  "sys_langchain_memory": 52.0,
+  "sys_autogpt_memory": 44.0,
+  "sys_crewai_memory": 52.0,
+  "sys_mem0_oss": 52.0,
+  "sys_letta": 0.0,
+  "sys_graphiti": 0.0,
+  "sys_langmem_benchd": 48.0,
+};
 
 type SortDirection = "asc" | "desc";
 
@@ -192,6 +204,9 @@ export default function LeaderboardPage() {
           break;
         case "reasoningVerified":
           cmp = a.scores!.reasoningVerified - b.scores!.reasoningVerified;
+          break;
+        case "reliabilityVerified":
+          cmp = (RELIABILITY_SCORES[a.id] ?? -1) - (RELIABILITY_SCORES[b.id] ?? -1);
           break;
         case "githubStars":
           cmp = (a.githubStars ?? 0) - (b.githubStars ?? 0);
@@ -456,6 +471,9 @@ export default function LeaderboardPage() {
                       <TH onClick={() => handleSort("reasoningVerified")} align="left" title="Multi-hop inference and synthesis accuracy">
                         Reasoning<SortIcon field="reasoningVerified" />
                       </TH>
+                      <TH onClick={() => handleSort("reliabilityVerified")} align="left" title="Adversarial trap resistance: hallucination, stale memory, entity confusion, deletion">
+                        Reliability<SortIcon field="reliabilityVerified" />
+                      </TH>
 
                       <TH onClick={() => handleSort("overallVerified")} align="right" title="Weighted composite across all dimensions">
                         Overall<SortIcon field="overallVerified" />
@@ -586,6 +604,15 @@ export default function LeaderboardPage() {
                             <TD>
                               {info.hasScore ? (
                                 <ScoreBar value={info.scores.reasoningVerified} isSelfReported={isSelfReported} />
+                              ) : (
+                                <span className="text-muted-foreground text-xs">--</span>
+                              )}
+                            </TD>
+
+                            {/* Reliability */}
+                            <TD>
+                              {system.id in RELIABILITY_SCORES ? (
+                                <ScoreBar value={RELIABILITY_SCORES[system.id]} isSelfReported={isSelfReported} />
                               ) : (
                                 <span className="text-muted-foreground text-xs">--</span>
                               )}
