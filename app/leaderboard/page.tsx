@@ -47,6 +47,7 @@ const RELIABILITY_SCORES: Record<string, number> = {
   "sys_letta": 0.0,
   "sys_graphiti": 0.0,
   "sys_langmem_benchd": 48.0,
+  "sys_gbrain": 4.0,
 };
 
 type SortDirection = "asc" | "desc";
