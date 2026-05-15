@@ -8,7 +8,7 @@ import { SourceBadge } from "@/components/bench/source-badge";
 import { Sparkline } from "@/components/bench/sparkline";
 import { ArrowRight, Info, ShieldCheck, Check, Minus, Shield, FileSearch, Fingerprint, BookOpen, BarChart3 } from "lucide-react";
 import { NewsletterSignup } from "@/components/bench/newsletter-signup";
-import { CategoryBarChart } from "@/components/bench/category-bar-chart";
+import { CategoryLeaders } from "@/components/bench/category-leaders";
 import type { System } from "@/lib/types";
 
 type QuickFilter = "all" | "open-source" | "managed" | "frameworks" | "self-reported" | "mcp-compatible";
@@ -475,9 +475,9 @@ export default function HomePage() {
             <ArrowRight className="h-3 w-3" />
           </Link>
 
-          {/* Memory Performance Map */}
-          <div className="mt-6 border border-border rounded-xl p-4 bg-card card-sm">
-            <CategoryBarChart systems={systems} categoryTab="all" />
+          {/* Category Leaders */}
+          <div className="mt-6">
+            <CategoryLeaders />
           </div>
 
           {/* Coverage Matrix */}
