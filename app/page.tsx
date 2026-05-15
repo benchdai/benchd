@@ -398,6 +398,9 @@ export default function HomePage() {
                       System
                     </th>
                     <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden sm:table-cell">
+                      Type
+                    </th>
+                    <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden sm:table-cell">
                       Source
                     </th>
                     <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden sm:table-cell">
@@ -699,6 +702,25 @@ function SystemRow({ system, striped }: { system: System & { rank: number | null
         >
           {system.name}
         </Link>
+      </td>
+      <td className="px-3 py-2.5 hidden sm:table-cell">
+        <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded-full ${
+          system.systemType === "conversational" ? "bg-amber/10 text-amber" :
+          system.systemType === "knowledge-brain" ? "bg-blue-500/10 text-blue-500" :
+          system.systemType === "agent-memory" ? "bg-purple-500/10 text-purple-500" :
+          system.systemType === "graph" ? "bg-cyan-500/10 text-cyan-500" :
+          system.systemType === "hybrid" ? "bg-emerald-500/10 text-emerald-500" :
+          system.systemType === "baseline" ? "bg-stone-500/10 text-stone-500" :
+          "bg-muted text-muted-foreground"
+        }`}>
+          {system.systemType === "conversational" ? "Conversational" :
+           system.systemType === "knowledge-brain" ? "Knowledge Brain" :
+           system.systemType === "agent-memory" ? "Agent Memory" :
+           system.systemType === "graph" ? "Graph" :
+           system.systemType === "hybrid" ? "Hybrid" :
+           system.systemType === "baseline" ? "Baseline" :
+           system.systemType}
+        </span>
       </td>
       <td className="px-3 py-2.5 hidden sm:table-cell">
         <SourceBadge source={system.sourceType} />
