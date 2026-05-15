@@ -81,8 +81,7 @@ export const systems: System[] = [
     createdAt: "2025-09-15T00:00:00Z",
     adapterStatus: "native",
   },
-  // 2. Letta — Bench'd community-verified: 0.0% on LongMemEval (partial run, 0/380)
-  // Letta's agent architecture interprets rather than recalls, 0/380 on partial run
+  // Letta — 80% Knowledge Retrieval (16/20), 0% LongMemEval (agent architecture). Agent memory system that works well for document-style queries.
   {
     id: "sys_letta",
     slug: "letta",
@@ -102,20 +101,20 @@ export const systems: System[] = [
     githubStars: 38200,
     lastTested: "2026-05-12",
     scores: {
-      recallVerified: 0.0,
-      recallNuance: 0.0,
+      recallVerified: 80.0,
+      recallNuance: 80.0,
       temporalVerified: 0.0,
       temporalNuance: 0.0,
       reasoningVerified: 0.0,
       reasoningNuance: 0.0,
-      overallVerified: 0.0,
-      overallNuance: 0.0,
+      overallVerified: 80.0,
+      overallNuance: 80.0,
       avgLatencyMs: 5814,
       tokensPerCorrect: 0,
       avgRecallTokens: 45,
-      bmi: 0.0,
+      bmi: 80.0,
     },
-    sparklineData: [0.0],
+    sparklineData: [0.0, 0.0, 80.0],
     createdAt: "2025-08-22T00:00:00Z",
     adapterStatus: "native",
   },
