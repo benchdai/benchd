@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { systems } from "@/lib/data/index";
 import { TrustTierBadge } from "@/components/bench/trust-tier-badge";
@@ -123,6 +123,12 @@ export default function LeaderboardPage() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [categoryTab, setCategoryTab] = useState("all");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const track = params.get("track");
+    if (track) setCategoryTab(track);
+  }, []);
   const [quickFilter, setQuickFilter] = useState<QuickFilter>("all");
   const [showSelfReported, setShowSelfReported] = useState(false);
   const [mcpOnly, setMcpOnly] = useState(false);
