@@ -343,8 +343,13 @@ export default function HomePage() {
       </div>
 
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Stats Strip — instrument panel */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 border border-border rounded-xl overflow-hidden -mt-8 relative z-10 bg-card card-lg">
+      {/* Category Leaders — who's winning in each category */}
+      <div className="-mt-8 relative z-10 mb-4">
+        <CategoryLeaders />
+      </div>
+
+      {/* Stats Strip — compact sub-hero */}
+      <div className="grid grid-cols-2 sm:grid-cols-5 border border-border/60 rounded-lg overflow-hidden bg-card/80">
         <IndexCell value={totalSystems} label="Systems Indexed" icon="grid" />
         <IndexCell value={benchdVerified} label="Independently Scored" color="amber" icon="shield" />
         <IndexCell value={selfReported} label="Claims Flagged" color="red" icon="alert" />
@@ -474,11 +479,6 @@ export default function HomePage() {
             Full leaderboard with detailed view
             <ArrowRight className="h-3 w-3" />
           </Link>
-
-          {/* Category Leaders */}
-          <div className="mt-6">
-            <CategoryLeaders />
-          </div>
 
           {/* Coverage Matrix */}
           <div className="mt-6 border border-border rounded-xl p-4 bg-card card-sm">
@@ -798,12 +798,12 @@ function IndexCell({
 }) {
   return (
     <div
-      className={`flex flex-col items-center justify-center py-5 px-3 border-r border-border/50 last:border-r-0 ${
+      className={`flex flex-col items-center justify-center py-2.5 px-2 border-r border-border/30 last:border-r-0 ${
         className ?? ""
       }`}
     >
       <span
-        className={`text-3xl font-mono font-extrabold tabular-nums leading-none tracking-tight ${
+        className={`text-xl font-mono font-bold tabular-nums leading-none tracking-tight ${
           color === "amber"
             ? "text-amber"
             : color === "red"
@@ -813,7 +813,7 @@ function IndexCell({
       >
         {value}
       </span>
-      <span className="text-[9px] text-muted-foreground mt-2 text-center leading-tight font-semibold uppercase tracking-wider">
+      <span className="text-[8px] text-muted-foreground mt-1 text-center leading-tight font-medium uppercase tracking-wider">
         {label}
       </span>
     </div>
