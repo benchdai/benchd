@@ -235,7 +235,7 @@ export const systems: System[] = [
     createdAt: "2025-12-01T00:00:00Z",
     adapterStatus: "native",
   },
-  // 6. Cognee — no published LongMemEval score; set as listed
+  // Cognee — 0% on Knowledge Retrieval, Truth Arbitration, Budget Curves. Graph pipeline doesn't produce retrievable answers.
   {
     id: "sys_cognee",
     slug: "cognee",
@@ -249,15 +249,24 @@ export const systems: System[] = [
     license: "Apache-2.0",
     mcpEndpoint: null,
     mcpCompatible: false,
-    trustTier: "listed",
+    trustTier: "community-verified",
     sourceType: "oss",
     systemType: "graph",
     githubStars: 3800,
-    lastTested: "2026-05-03",
-    scores: null,
-    sparklineData: [],
+    lastTested: "2026-05-16",
+    scores: {
+      recallVerified: 0.0,
+      recallNuance: 0.0,
+      temporalVerified: 0.0,
+      temporalNuance: 0.0,
+      reasoningVerified: 0.0,
+      reasoningNuance: 0.0,
+      overallVerified: 0.0,
+      overallNuance: 0.0,
+    },
+    sparklineData: [0.0],
     createdAt: "2025-11-20T00:00:00Z",
-    adapterStatus: "community",
+    adapterStatus: "native",
   },
   // 7. LangMem — no published LongMemEval score; set as listed
   {
@@ -1156,7 +1165,7 @@ export const systems: System[] = [
     createdAt: "2026-05-14T00:00:00Z",
     adapterStatus: "none",
   },
-  // 38. Quivr — no published LongMemEval score; listed
+  // Quivr — 0% KR, 0% Truth, 0% Budget, 4% Reliability. quivr-core Brain.ask() returns empty.
   {
     id: "sys_quivr",
     slug: "quivr",
@@ -1170,15 +1179,24 @@ export const systems: System[] = [
     license: "Apache-2.0",
     mcpEndpoint: null,
     mcpCompatible: false,
-    trustTier: "listed",
+    trustTier: "community-verified",
     sourceType: "oss",
     systemType: "knowledge-brain",
     githubStars: 39200,
-    lastTested: "2026-05-14",
-    scores: null,
-    sparklineData: [],
+    lastTested: "2026-05-16",
+    scores: {
+      recallVerified: 0.0,
+      recallNuance: 0.0,
+      temporalVerified: 0.0,
+      temporalNuance: 0.0,
+      reasoningVerified: 0.0,
+      reasoningNuance: 0.0,
+      overallVerified: 0.0,
+      overallNuance: 0.0,
+    },
+    sparklineData: [0.0],
     createdAt: "2026-05-14T00:00:00Z",
-    adapterStatus: "none",
+    adapterStatus: "native",
   },
   // 39. CAMEL — no published LongMemEval score; listed
   {
