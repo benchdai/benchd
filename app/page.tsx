@@ -62,8 +62,8 @@ export default function HomePage() {
   // Coverage matrix
   const coverageMatrix = buildCoverageMatrix();
 
-  // All systems sorted: scored first (by score desc), then self-reported, then listed
-  const indexSystems = useMemo(() => {
+  // Apply quick filter to all systems
+  const filteredSystems = useMemo(() => {
     let filtered = [...systems];
 
     if (quickFilter === "open-source") {
@@ -80,44 +80,49 @@ export default function HomePage() {
       filtered = filtered.filter((s) => s.mcpCompatible);
     }
 
-    // Sort: verified > self-reported > listed, then by score desc within each group
-    filtered.sort((a, b) => {
-      const tierOrder = (s: System) => {
-        if (s.trustTier === "vendor-verified" || s.trustTier === "community-verified") return 0;
-        if (s.trustTier === "unclaimed-self-reported") return 1;
-        return 2;
-      };
-      const ta = tierOrder(a);
-      const tb = tierOrder(b);
-      if (ta !== tb) return ta - tb;
-      if (a.scores && b.scores) return b.scores.overallVerified - a.scores.overallVerified;
-      if (a.scores) return -1;
-      if (b.scores) return 1;
-      return a.name.localeCompare(b.name);
-    });
-
     return filtered;
   }, [quickFilter]);
 
-  // Assign ranks only to verified systems
-  let rank = 0;
-  const rankedSystems = indexSystems.map((s) => {
-    const isVerified = s.trustTier === "vendor-verified" || s.trustTier === "community-verified";
-    if (isVerified && s.scores) {
-      rank++;
-      return { ...s, rank };
-    }
-    return { ...s, rank: null as number | null };
-  });
+  // Track-grouped sections: only scored/verified systems, ranked per-track
+  const conversationalSystems = useMemo(() => {
+    return filteredSystems
+      .filter((s) => (s.systemType === "conversational" || s.systemType === "baseline") && s.scores !== null && (s.trustTier === "community-verified" || s.trustTier === "vendor-verified"))
+      .sort((a, b) => b.scores!.overallVerified - a.scores!.overallVerified)
+      .slice(0, 6)
+      .map((s, i) => ({ ...s, rank: i + 1 as number | null }));
+  }, [filteredSystems]);
 
-  // Group systems for section headers
-  const verifiedRows = rankedSystems.filter(
-    (s) => s.trustTier === "vendor-verified" || s.trustTier === "community-verified"
-  );
-  const selfReportedRows = rankedSystems.filter(
-    (s) => s.trustTier === "unclaimed-self-reported"
-  );
-  const listedRows = rankedSystems.filter((s) => s.trustTier === "listed");
+  const knowledgeBrainSystems = useMemo(() => {
+    return filteredSystems
+      .filter((s) => (s.systemType === "knowledge-brain" || s.systemType === "graph") && s.scores !== null && (s.trustTier === "community-verified" || s.trustTier === "vendor-verified"))
+      .sort((a, b) => b.scores!.overallVerified - a.scores!.overallVerified)
+      .slice(0, 6)
+      .map((s, i) => ({ ...s, rank: i + 1 as number | null }));
+  }, [filteredSystems]);
+
+  const agentMemorySystems = useMemo(() => {
+    return filteredSystems
+      .filter((s) => s.systemType === "agent-memory" && s.scores !== null && (s.trustTier === "community-verified" || s.trustTier === "vendor-verified"))
+      .sort((a, b) => b.scores!.overallVerified - a.scores!.overallVerified)
+      .slice(0, 6)
+      .map((s, i) => ({ ...s, rank: i + 1 as number | null }));
+  }, [filteredSystems]);
+
+  const selfReportedRows = useMemo(() => {
+    return filteredSystems
+      .filter((s) => s.trustTier === "unclaimed-self-reported")
+      .sort((a, b) => {
+        if (a.scores && b.scores) return b.scores.overallVerified - a.scores.overallVerified;
+        if (a.scores) return -1;
+        if (b.scores) return 1;
+        return a.name.localeCompare(b.name);
+      })
+      .map((s) => ({ ...s, rank: null as number | null }));
+  }, [filteredSystems]);
+
+  const listedCount = useMemo(() => {
+    return filteredSystems.filter((s) => s.trustTier === "listed").length;
+  }, [filteredSystems]);
 
   const quickFilters: { key: QuickFilter; label: string }[] = [
     { key: "all", label: "All" },
@@ -331,95 +336,129 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Table */}
-          <div className="border border-border rounded-xl overflow-hidden bg-card card-sm">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border bg-muted/40">
-                    <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 w-10">
-                      #
-                    </th>
-                    <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5">
-                      System
-                    </th>
-                    <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden sm:table-cell">
-                      Type
-                    </th>
-                    <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden sm:table-cell">
-                      Source
-                    </th>
-                    <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden sm:table-cell">
-                      Tier
-                    </th>
-                    <th className="text-right text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5">
-                      Verified
-                    </th>
-                    <th className="text-right text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden md:table-cell">
-                      Nuance
-                    </th>
-                    <th className="text-right text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden lg:table-cell">
-                      Tested
-                    </th>
-                    <th className="text-right text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden md:table-cell w-20">
-                      Trend
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* Verified section */}
-                  {verifiedRows.length > 0 && (
-                    <tr>
-                      <td colSpan={8} className="px-3 py-1.5 bg-amber/[0.03] border-b border-border">
-                        <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-amber/70">
-                          Bench&apos;d Verified
-                        </span>
-                      </td>
-                    </tr>
-                  )}
-                  {verifiedRows.map((system, idx) => (
-                    <SystemRow key={system.id} system={system} striped={idx % 2 === 1} />
-                  ))}
+          {/* Track-grouped sections */}
+          <div className="space-y-6">
+            {/* CONVERSATIONAL MEMORY */}
+            {conversationalSystems.length > 0 && (
+              <div className="border border-border rounded-xl overflow-hidden bg-card card-sm">
+                <div className="px-3 py-2 bg-amber/[0.03] border-b border-border">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-amber">
+                    Conversational Memory
+                  </span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <TrackTableHeader />
+                    </thead>
+                    <tbody>
+                      {conversationalSystems.map((system, idx) => (
+                        <SystemRow key={system.id} system={system} striped={idx % 2 === 1} />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="px-3 py-2 border-t border-border/50">
+                  <Link href="/leaderboard" className="inline-flex items-center gap-1 text-[10px] text-amber hover:text-amber/80 transition-colors">
+                    View full track <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              </div>
+            )}
 
-                  {/* Self-reported section */}
-                  {selfReportedRows.length > 0 && (
-                    <tr>
-                      <td colSpan={8} className="px-3 py-1.5 bg-[#DC2626]/[0.03] border-b border-border border-t">
-                        <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#DC2626]/70">
-                          Self-Reported Claims
-                        </span>
-                      </td>
-                    </tr>
-                  )}
-                  {selfReportedRows.map((system, idx) => (
-                    <SystemRow key={system.id} system={system} striped={idx % 2 === 1} />
-                  ))}
+            {/* KNOWLEDGE BRAIN */}
+            {knowledgeBrainSystems.length > 0 && (
+              <div className="border border-border rounded-xl overflow-hidden bg-card card-sm">
+                <div className="px-3 py-2 bg-blue-500/[0.03] border-b border-border">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-blue-500">
+                    Knowledge Brain
+                  </span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <TrackTableHeader />
+                    </thead>
+                    <tbody>
+                      {knowledgeBrainSystems.map((system, idx) => (
+                        <SystemRow key={system.id} system={system} striped={idx % 2 === 1} />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="px-3 py-2 border-t border-border/50">
+                  <Link href="/leaderboard" className="inline-flex items-center gap-1 text-[10px] text-blue-500 hover:text-blue-500/80 transition-colors">
+                    View full track <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              </div>
+            )}
 
-                  {/* Listed section */}
-                  {listedRows.length > 0 && (
-                    <tr>
-                      <td colSpan={8} className="px-3 py-1.5 bg-muted/20 border-b border-border border-t">
-                        <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/50">
-                          Listed / Awaiting Run
-                        </span>
-                      </td>
-                    </tr>
-                  )}
-                  {listedRows.map((system, idx) => (
-                    <SystemRow key={system.id} system={system} striped={idx % 2 === 1} />
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            {/* AGENT MEMORY */}
+            {agentMemorySystems.length > 0 && (
+              <div className="border border-border rounded-xl overflow-hidden bg-card card-sm">
+                <div className="px-3 py-2 bg-purple-500/[0.03] border-b border-border">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-purple-500">
+                    Agent Memory
+                  </span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <TrackTableHeader />
+                    </thead>
+                    <tbody>
+                      {agentMemorySystems.map((system, idx) => (
+                        <SystemRow key={system.id} system={system} striped={idx % 2 === 1} />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="px-3 py-2 border-t border-border/50">
+                  <Link href="/leaderboard" className="inline-flex items-center gap-1 text-[10px] text-purple-500 hover:text-purple-500/80 transition-colors">
+                    View full track <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {/* SELF-REPORTED CLAIMS */}
+            {selfReportedRows.length > 0 && (
+              <div className="border border-border rounded-xl overflow-hidden bg-card card-sm">
+                <div className="px-3 py-2 bg-[#DC2626]/[0.03] border-b border-border">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#DC2626]">
+                    Self-Reported Claims
+                  </span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <TrackTableHeader />
+                    </thead>
+                    <tbody>
+                      {selfReportedRows.map((system, idx) => (
+                        <SystemRow key={system.id} system={system} striped={idx % 2 === 1} />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* LISTED / AWAITING RUN — collapsed to count */}
+            {listedCount > 0 && (
+              <div className="border border-border rounded-xl bg-card card-sm px-3 py-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/50">
+                    Listed / Awaiting Run
+                  </span>
+                  <Link href="/leaderboard" className="inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-amber transition-colors">
+                    <span className="font-mono tabular-nums">{listedCount}</span> systems awaiting adapters. View all <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
-
-          <Link
-            href="/leaderboard"
-            className="inline-flex items-center gap-1 mt-3 text-xs text-muted-foreground hover:text-amber transition-colors"
-          >
-            Full leaderboard with detailed view
-            <ArrowRight className="h-3 w-3" />
-          </Link>
 
           {/* Coverage Matrix */}
           <div className="mt-6 border border-border rounded-xl p-4 bg-card card-sm">
@@ -614,7 +653,39 @@ export default function HomePage() {
   );
 }
 
-/* System row component */
+/* Track table header — shared across all track sections (no Type column) */
+function TrackTableHeader() {
+  return (
+    <tr className="border-b border-border bg-muted/40">
+      <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 w-10">
+        #
+      </th>
+      <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5">
+        System
+      </th>
+      <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden sm:table-cell">
+        Source
+      </th>
+      <th className="text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden sm:table-cell">
+        Tier
+      </th>
+      <th className="text-right text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5">
+        Verified
+      </th>
+      <th className="text-right text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden md:table-cell">
+        Nuance
+      </th>
+      <th className="text-right text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden lg:table-cell">
+        Tested
+      </th>
+      <th className="text-right text-[10px] font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 hidden md:table-cell w-20">
+        Trend
+      </th>
+    </tr>
+  );
+}
+
+/* System row component — no Type column (grouped by track) */
 function SystemRow({ system, striped }: { system: System & { rank: number | null }; striped?: boolean }) {
   const isListed = system.trustTier === "listed";
   const isSelfReported = system.trustTier === "unclaimed-self-reported";
@@ -643,25 +714,6 @@ function SystemRow({ system, striped }: { system: System & { rank: number | null
         >
           {system.name}
         </Link>
-      </td>
-      <td className="px-3 py-2.5 hidden sm:table-cell">
-        <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded-full ${
-          system.systemType === "conversational" ? "bg-amber/10 text-amber" :
-          system.systemType === "knowledge-brain" ? "bg-blue-500/10 text-blue-500" :
-          system.systemType === "agent-memory" ? "bg-purple-500/10 text-purple-500" :
-          system.systemType === "graph" ? "bg-cyan-500/10 text-cyan-500" :
-          system.systemType === "hybrid" ? "bg-emerald-500/10 text-emerald-500" :
-          system.systemType === "baseline" ? "bg-stone-500/10 text-stone-500" :
-          "bg-muted text-muted-foreground"
-        }`}>
-          {system.systemType === "conversational" ? "Conversational" :
-           system.systemType === "knowledge-brain" ? "Knowledge Brain" :
-           system.systemType === "agent-memory" ? "Agent Memory" :
-           system.systemType === "graph" ? "Graph" :
-           system.systemType === "hybrid" ? "Hybrid" :
-           system.systemType === "baseline" ? "Baseline" :
-           system.systemType}
-        </span>
       </td>
       <td className="px-3 py-2.5 hidden sm:table-cell">
         <SourceBadge source={system.sourceType} />
