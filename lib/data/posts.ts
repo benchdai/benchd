@@ -49,4 +49,24 @@ export const posts: BlogPost[] = [
     tags: ["protocol", "methodology", "fairness"],
     readingTime: "9 min read",
   },
+  {
+    slug: "poisoning-resistance",
+    title: "Zero Memory Systems Resist Injection Attacks — Except One",
+    description:
+      "We built 5 adversarial injection tests. Every system fell for them except Letta, which blocked 1 out of 5. Here's what that means for production agents.",
+    date: "2026-05-16",
+    author: "Bench'd",
+    tags: ["security", "poisoning", "adversarial"],
+    readingTime: "5 min read",
+  },
+  {
+    slug: "knowledge-brain-track",
+    title: "We Stopped Comparing Filing Cabinets to Chatbots",
+    description:
+      "gbrain scores 100% when tested on what it's built for. Here's why we created separate tracks for Knowledge Brains vs Conversational Memory.",
+    date: "2026-05-16",
+    author: "Bench'd",
+    tags: ["tracks", "knowledge-brain", "methodology"],
+    readingTime: "6 min read",
+  },
 ];
