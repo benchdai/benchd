@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getSystemBySlug, getRunsBySystemId, getFailuresBySystemSlug } from "@/lib/data/index";
-import { ScoreCard } from "@/components/bench/score-pair";
 import { TrustTierBadge } from "@/components/bench/trust-tier-badge";
 import { BMICard } from "@/components/bench/bmi-card";
 import { EfficiencyCards } from "@/components/bench/efficiency-cards";
@@ -11,13 +10,106 @@ import { EmbedBadge } from "@/components/bench/embed-badge";
 import { PerformanceChart } from "@/components/bench/performance-chart";
 import { ScoreMatrix } from "@/components/bench/score-matrix";
 import { SystemTabs } from "./system-tabs";
+import type { SystemType } from "@/lib/types";
 import {
   Globe,
   GitFork,
   BookOpen,
   Calendar,
   Network,
+  ExternalLink,
+  CheckCircle2,
+  Clock,
+  MinusCircle,
 } from "lucide-react";
+
+/* ------------------------------------------------------------------ */
+/*  Track-to-benchmark mapping                                        */
+/* ------------------------------------------------------------------ */
+
+const ALL_BENCHMARKS = [
+  "LongMemEval",
+  "LoCoMo",
+  "Reliability",
+  "Truth Arbitration",
+  "Memory Poisoning",
+  "Budget Curves",
+  "Knowledge Retrieval",
+  "Knowledge Scale",
+] as const;
+
+type BenchmarkName = (typeof ALL_BENCHMARKS)[number];
+
+const TRACK_BENCHMARKS: Record<string, BenchmarkName[]> = {
+  conversational: ["LongMemEval", "LoCoMo", "Reliability", "Truth Arbitration", "Memory Poisoning", "Budget Curves"],
+  baseline:       ["LongMemEval", "LoCoMo", "Reliability", "Truth Arbitration", "Memory Poisoning", "Budget Curves"],
+  "knowledge-brain": ["Knowledge Retrieval", "Knowledge Scale", "Truth Arbitration", "Budget Curves", "Reliability"],
+  graph:          ["Knowledge Retrieval", "Knowledge Scale", "Truth Arbitration", "Budget Curves", "Reliability"],
+  "agent-memory": ["Knowledge Retrieval", "Truth Arbitration", "Memory Poisoning", "Budget Curves", "Reliability"],
+  hybrid:         [...ALL_BENCHMARKS],
+};
+
+/* ------------------------------------------------------------------ */
+/*  Hardcoded benchmark results from actual runs                      */
+/* ------------------------------------------------------------------ */
+
+const BENCHMARK_RESULTS: Record<string, Record<string, number | null>> = {
+  "llamaindex-memory": { "LongMemEval": 59.0, "LoCoMo": 65.3, "Reliability": 56.0, "Truth Arbitration": 100.0, "Memory Poisoning": 0.0, "Budget Curves": 100.0, "Knowledge Retrieval": 95.0 },
+  "langchain-memory":  { "LongMemEval": 59.0, "LoCoMo": 51.9, "Reliability": 52.0, "Truth Arbitration": 80.0, "Memory Poisoning": 0.0, "Budget Curves": 100.0, "Knowledge Retrieval": 95.0 },
+  "llm-baseline":      { "LongMemEval": 57.6, "LoCoMo": 61.2, "Reliability": 52.0, "Truth Arbitration": 80.0, "Memory Poisoning": 0.0, "Budget Curves": 100.0, "Knowledge Retrieval": 95.0, "Knowledge Scale": 100.0 },
+  "autogpt-memory":    { "LongMemEval": 47.4, "Reliability": 44.0, "Truth Arbitration": 80.0, "Memory Poisoning": 0.0, "Budget Curves": 100.0, "Knowledge Retrieval": 100.0 },
+  "crewai-memory":     { "LongMemEval": 46.0, "Reliability": 52.0, "Truth Arbitration": 80.0, "Memory Poisoning": 0.0, "Budget Curves": 100.0, "Knowledge Retrieval": 100.0 },
+  "mem0-oss":          { "LongMemEval": 32.4, "LoCoMo": 0.0, "Reliability": 52.0, "Truth Arbitration": 40.0, "Memory Poisoning": 0.0, "Budget Curves": 100.0, "Knowledge Retrieval": 100.0 },
+  "gbrain":            { "Knowledge Retrieval": 100.0, "Knowledge Scale": 100.0, "Reliability": 4.0, "Truth Arbitration": 80.0, "Memory Poisoning": 0.0, "Budget Curves": 100.0 },
+  "letta":             { "Knowledge Retrieval": 80.0, "Truth Arbitration": 80.0, "Memory Poisoning": 20.0, "Budget Curves": 0.0 },
+  "graphiti":          { "LongMemEval": 0.0, "Truth Arbitration": 0.0, "Memory Poisoning": 0.0, "Budget Curves": 0.0, "Knowledge Retrieval": 0.0 },
+  "langmem-benchd":    { "Reliability": 60.0 },
+  "memoripy":          { "LongMemEval": 0.0, "Reliability": 0.0 },
+};
+
+/* ------------------------------------------------------------------ */
+/*  Helpers                                                           */
+/* ------------------------------------------------------------------ */
+
+function trackLabel(t: SystemType): string {
+  const labels: Record<SystemType, string> = {
+    conversational: "Conversational Memory",
+    baseline: "LLM Baseline",
+    "knowledge-brain": "Knowledge Brain",
+    graph: "Knowledge Graph",
+    "agent-memory": "Agent Memory",
+    hybrid: "Hybrid",
+  };
+  return labels[t] ?? t;
+}
+
+function trackColor(t: SystemType): string {
+  const colors: Record<SystemType, string> = {
+    conversational: "bg-blue-500/15 text-blue-400 border-blue-500/30",
+    baseline: "bg-zinc-500/15 text-zinc-400 border-zinc-500/30",
+    "knowledge-brain": "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+    graph: "bg-purple-500/15 text-purple-400 border-purple-500/30",
+    "agent-memory": "bg-amber-500/15 text-amber-400 border-amber-500/30",
+    hybrid: "bg-pink-500/15 text-pink-400 border-pink-500/30",
+  };
+  return colors[t] ?? "bg-zinc-500/15 text-zinc-400 border-zinc-500/30";
+}
+
+function scoreColor(score: number): string {
+  if (score >= 70) return "text-emerald-400";
+  if (score >= 40) return "text-amber-400";
+  return "text-red-400";
+}
+
+function scoreBg(score: number): string {
+  if (score >= 70) return "bg-emerald-500/10";
+  if (score >= 40) return "bg-amber-500/10";
+  return "bg-red-500/10";
+}
+
+/* ------------------------------------------------------------------ */
+/*  Page                                                              */
+/* ------------------------------------------------------------------ */
 
 export default async function SystemProfilePage({
   params,
@@ -39,9 +131,35 @@ export default async function SystemProfilePage({
     { year: "numeric", month: "short", day: "numeric" }
   );
 
+  /* ---- Track logic ---- */
+  const applicableBenchmarks: BenchmarkName[] =
+    TRACK_BENCHMARKS[system.systemType] ?? [...ALL_BENCHMARKS];
+
+  const otherBenchmarks = ALL_BENCHMARKS.filter(
+    (b) => !applicableBenchmarks.includes(b)
+  );
+
+  const results = BENCHMARK_RESULTS[system.slug] ?? {};
+
+  // Compute track index: average of applicable benchmark scores that have been run
+  const applicableScores = applicableBenchmarks
+    .map((b) => results[b])
+    .filter((v): v is number => v !== null && v !== undefined);
+
+  const trackIndex =
+    applicableScores.length > 0
+      ? Math.round(
+          (applicableScores.reduce((a, b) => a + b, 0) / applicableScores.length) * 10
+        ) / 10
+      : null;
+
+  const pendingCount = applicableBenchmarks.length - applicableScores.length;
+
   return (
     <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-      {/* Header */}
+      {/* ============================================================ */}
+      {/* SECTION 1: Header                                            */}
+      {/* ============================================================ */}
       <div className="flex flex-col gap-4 mb-10">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
@@ -53,7 +171,6 @@ export default async function SystemProfilePage({
         <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
           <span className="text-xs text-muted-foreground">{system.vendor}</span>
 
-          {/* Vendor links */}
           {system.website && (
             <a
               href={system.website}
@@ -115,7 +232,7 @@ export default async function SystemProfilePage({
       </div>
 
       {/* No scores: listed or truly unbenchmarked */}
-      {system.scores === null ? (
+      {system.scores === null && Object.keys(results).length === 0 ? (
         <div className="border border-border rounded-lg p-12 text-center">
           <p className="text-muted-foreground text-sm">
             This system is indexed but hasn&apos;t been benchmarked yet.
@@ -139,95 +256,195 @@ export default async function SystemProfilePage({
           )}
 
           {/* Score context line */}
-          <p className="text-xs text-muted-foreground mb-4">
+          <p className="text-xs text-muted-foreground mb-6">
             Scores from 0&ndash;100. Higher is better. LLM Baseline (no memory system) scores 57.6%.{" "}
             <Link href="/methodology" className="text-amber underline underline-offset-2 hover:text-foreground transition-colors">
               How we calculate this &rarr;
             </Link>
           </p>
 
-          {/* Score Cards — only show dimensions this system is tested on */}
-          {(() => {
-            const cards = [];
-
-            // Overall always shows
-            cards.push(
-              <ScoreCard
-                key="overall"
-                label="Overall"
-                sublabel="Composite score across tested dimensions"
-                verified={system.scores.overallVerified}
-                nuance={system.scores.overallNuance}
-              />
-            );
-
-            // Recall — show if > 0 or if conversational/baseline
-            if (system.scores.recallVerified > 0 || system.systemType === "conversational" || system.systemType === "baseline") {
-              cards.push(
-                <ScoreCard
-                  key="recall"
-                  label="Recall"
-                  sublabel="Can it find the right facts?"
-                  verified={system.scores.recallVerified}
-                  nuance={system.scores.recallNuance}
-                />
-              );
-            }
-
-            // Temporal — show if > 0 or if conversational/baseline
-            if (system.scores.temporalVerified > 0 || system.systemType === "conversational" || system.systemType === "baseline") {
-              cards.push(
-                <ScoreCard
-                  key="temporal"
-                  label="Temporal"
-                  sublabel="Does it understand when events happened?"
-                  verified={system.scores.temporalVerified}
-                  nuance={system.scores.temporalNuance}
-                />
-              );
-            }
-
-            // Reasoning — show if > 0 or if conversational/baseline
-            if (system.scores.reasoningVerified > 0 || system.systemType === "conversational" || system.systemType === "baseline") {
-              cards.push(
-                <ScoreCard
-                  key="reasoning"
-                  label="Reasoning"
-                  sublabel="Can it synthesize across memories?"
-                  verified={system.scores.reasoningVerified}
-                  nuance={system.scores.reasoningNuance}
-                />
-              );
-            }
-
-            // Knowledge retrieval — show for knowledge brains and systems tested on KR
-            if (system.systemType === "knowledge-brain" || system.systemType === "graph") {
-              cards.push(
-                <ScoreCard
-                  key="knowledge"
-                  label="Knowledge Retrieval"
-                  sublabel="Can it find stored documents and pages?"
-                  verified={system.scores.overallVerified}
-                  nuance={system.scores.overallNuance}
-                />
-              );
-            }
-
-            return (
-              <div className={`grid grid-cols-2 ${cards.length <= 2 ? "lg:grid-cols-2" : "lg:grid-cols-4"} gap-4 mb-10`}>
-                {cards}
+          {/* ============================================================ */}
+          {/* SECTION 2: Track badge + Track Index                         */}
+          {/* ============================================================ */}
+          <div className="border border-border rounded-xl p-6 mb-8 bg-card">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+              {/* Track badge */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Track
+                </span>
+                <span
+                  className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold border ${trackColor(system.systemType)}`}
+                >
+                  {trackLabel(system.systemType)}
+                </span>
               </div>
-            );
-          })()}
+
+              {/* Track index hero number */}
+              <div className="flex-1 flex flex-col items-center sm:items-end gap-1">
+                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Track Index
+                </span>
+                {trackIndex !== null ? (
+                  <>
+                    <div className="flex items-baseline gap-1">
+                      <span className={`text-5xl font-bold tabular-nums ${scoreColor(trackIndex)}`}>
+                        {trackIndex.toFixed(1)}
+                      </span>
+                      <span className="text-lg text-muted-foreground font-medium">
+                        /100
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Based on {applicableScores.length} benchmark{applicableScores.length !== 1 ? "s" : ""}.
+                      {pendingCount > 0 && (
+                        <span className="ml-1 text-amber-400">
+                          {pendingCount} pending.
+                        </span>
+                      )}
+                    </p>
+                  </>
+                ) : (
+                  <span className="text-2xl text-muted-foreground font-medium">
+                    No results yet
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* ============================================================ */}
+          {/* SECTION 3: Benchmark Results Matrix                          */}
+          {/* ============================================================ */}
+          <div className="border border-border rounded-xl bg-card mb-8 overflow-hidden">
+            <div className="px-6 py-4 border-b border-border">
+              <h2 className="text-sm font-semibold text-foreground uppercase tracking-wider">
+                Benchmark Results
+              </h2>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border text-xs text-muted-foreground uppercase tracking-wider">
+                    <th className="text-left px-6 py-3 font-medium">Benchmark</th>
+                    <th className="text-right px-6 py-3 font-medium">Score</th>
+                    <th className="text-center px-6 py-3 font-medium">Status</th>
+                    <th className="text-right px-6 py-3 font-medium">Receipt</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Applicable benchmarks */}
+                  {applicableBenchmarks.map((benchmark) => {
+                    const score = results[benchmark];
+                    const hasScore = score !== null && score !== undefined;
+
+                    return (
+                      <tr
+                        key={benchmark}
+                        className="border-b border-border/50 hover:bg-secondary/30 transition-colors"
+                      >
+                        <td className="px-6 py-3 font-medium text-foreground">
+                          {benchmark}
+                        </td>
+                        <td className="px-6 py-3 text-right">
+                          {hasScore ? (
+                            <span
+                              className={`inline-flex items-center justify-end px-2 py-0.5 rounded font-mono text-sm font-semibold tabular-nums ${scoreColor(score)} ${scoreBg(score)}`}
+                            >
+                              {score.toFixed(1)}
+                            </span>
+                          ) : (
+                            <span className="text-muted-foreground/50 text-xs">
+                              Pending
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-6 py-3 text-center">
+                          {hasScore ? (
+                            <span className="inline-flex items-center gap-1 text-emerald-400 text-xs font-medium">
+                              <CheckCircle2 className="h-3.5 w-3.5" />
+                              Verified
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-muted-foreground/50 text-xs">
+                              <Clock className="h-3.5 w-3.5" />
+                              Pending
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-6 py-3 text-right">
+                          {hasScore ? (
+                            <Link
+                              href={`/receipts/${system.slug}/${benchmark.toLowerCase().replace(/\s+/g, "-")}`}
+                              className="inline-flex items-center gap-1 text-xs text-amber hover:text-foreground transition-colors"
+                            >
+                              <ExternalLink className="h-3 w-3" />
+                              View
+                            </Link>
+                          ) : (
+                            <span className="text-muted-foreground/30 text-xs">
+                              --
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+
+                  {/* Separator + other benchmarks */}
+                  {otherBenchmarks.length > 0 && (
+                    <>
+                      <tr>
+                        <td
+                          colSpan={4}
+                          className="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground/60 bg-secondary/20 border-y border-border"
+                        >
+                          Other Benchmarks
+                        </td>
+                      </tr>
+                      {otherBenchmarks.map((benchmark) => (
+                        <tr
+                          key={benchmark}
+                          className="border-b border-border/50"
+                        >
+                          <td className="px-6 py-3 text-muted-foreground/50">
+                            {benchmark}
+                          </td>
+                          <td
+                            colSpan={3}
+                            className="px-6 py-3 text-right"
+                          >
+                            <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground/40">
+                              <MinusCircle className="h-3 w-3" />
+                              Not applicable — outside {trackLabel(system.systemType)} track
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* ============================================================ */}
+          {/* SECTION 4: Existing cards, charts, comparisons               */}
+          {/* ============================================================ */}
 
           {/* Population Distribution */}
-          <PopulationDistribution currentScores={system.scores} systemName={system.name} />
+          {system.scores && (
+            <PopulationDistribution currentScores={system.scores} systemName={system.name} />
+          )}
 
           {/* BMI Card */}
-          <BMICard scores={system.scores} systemName={system.name} />
+          {system.scores && (
+            <BMICard scores={system.scores} systemName={system.name} />
+          )}
 
           {/* Efficiency Metrics */}
-          <EfficiencyCards scores={system.scores} />
+          {system.scores && <EfficiencyCards scores={system.scores} />}
 
           {/* Per-Capability Score Matrix */}
           <ScoreMatrix systemSlug={system.slug} />
@@ -254,7 +471,7 @@ export default async function SystemProfilePage({
           <ComparedWith currentSystem={system} />
 
           {/* Embed Badge */}
-          {system.trustTier !== "unclaimed-self-reported" && (
+          {system.trustTier !== "unclaimed-self-reported" && system.scores && (
             <EmbedBadge
               systemName={system.name}
               slug={system.slug}
