@@ -215,6 +215,50 @@ class MyMemoryAdapter(BaseAdapter):
           </p>
         </section>
 
+        {/* System Categories */}
+        <section id="categories" className="mb-12">
+          <h2 className="font-serif text-2xl font-semibold mb-4 flex items-center gap-2">
+            <Package className="h-5 w-5 text-amber" />
+            System Categories
+          </h2>
+          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+            Systems are grouped by what they do. Each category has its own leaderboard and question set.
+          </p>
+          <div className="overflow-x-auto border border-border rounded-lg">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="border-b border-border bg-secondary/30">
+                  <th className="text-left px-4 py-2.5 font-semibold text-foreground">Category</th>
+                  <th className="text-left px-4 py-2.5 font-semibold text-foreground">What it tests</th>
+                  <th className="text-left px-4 py-2.5 font-semibold text-foreground">Example Systems</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                <tr>
+                  <td className="px-4 py-2.5 font-medium text-foreground whitespace-nowrap">Conversational Memory</td>
+                  <td className="px-4 py-2.5 text-muted-foreground">Chat recall across sessions</td>
+                  <td className="px-4 py-2.5 text-muted-foreground">Mem0, LangChain, LlamaIndex</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-2.5 font-medium text-foreground whitespace-nowrap">Knowledge Brain</td>
+                  <td className="px-4 py-2.5 text-muted-foreground">Document storage + retrieval</td>
+                  <td className="px-4 py-2.5 text-muted-foreground">gbrain, Quivr, AnythingLLM</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-2.5 font-medium text-foreground whitespace-nowrap">Agent Memory</td>
+                  <td className="px-4 py-2.5 text-muted-foreground">Task/action persistence</td>
+                  <td className="px-4 py-2.5 text-muted-foreground">Letta, AutoGPT, claude-mem</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-2.5 font-medium text-foreground whitespace-nowrap">Graph/RAG</td>
+                  <td className="px-4 py-2.5 text-muted-foreground">Entity graphs + retrieval</td>
+                  <td className="px-4 py-2.5 text-muted-foreground">Graphiti, Cognee, GraphRAG</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         {/* Available Benchmarks */}
         <section id="benchmarks" className="mb-12">
           <h2 className="font-serif text-2xl font-semibold mb-4 flex items-center gap-2">

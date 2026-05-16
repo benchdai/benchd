@@ -326,6 +326,89 @@ export default function MethodologyPage() {
             </div>
           </section>
 
+          {/* ── Section 3c: System Categories ────────────────────────── */}
+          <section id="categories" className="scroll-mt-24 mb-16">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground mb-4">
+              System Categories
+            </h2>
+            <div className="space-y-4">
+              <p className="font-serif text-[15px] leading-relaxed text-foreground/85">
+                Not all memory systems solve the same problem. Bench&apos;d organizes
+                systems into five track types based on what they do. Each track has
+                its own leaderboard, its own question set, and its own baseline.
+              </p>
+            </div>
+
+            <div className="space-y-3 my-6">
+              <div className="rounded-lg border border-border p-4 bg-card">
+                <p className="text-sm font-semibold text-foreground mb-1">
+                  Conversational Memory
+                </p>
+                <p className="text-[13px] text-muted-foreground font-serif">
+                  Systems that ingest chat turns and recall facts across sessions.
+                  Examples: Mem0, LangChain Memory, LlamaIndex Memory.
+                </p>
+              </div>
+              <div className="rounded-lg border border-border p-4 bg-card">
+                <p className="text-sm font-semibold text-foreground mb-1">
+                  Knowledge Brain
+                </p>
+                <p className="text-[13px] text-muted-foreground font-serif">
+                  Systems that store documents, pages, or notes and retrieve them
+                  via search. Examples: gbrain, Quivr, AnythingLLM, Obsidian Smart
+                  Connections, RagFlow.
+                </p>
+              </div>
+              <div className="rounded-lg border border-border p-4 bg-card">
+                <p className="text-sm font-semibold text-foreground mb-1">
+                  Agent Memory
+                </p>
+                <p className="text-[13px] text-muted-foreground font-serif">
+                  Systems that help agents remember tasks, decisions, and actions.
+                  Examples: Letta, AutoGPT, CrewAI, claude-mem, Phantom.
+                </p>
+              </div>
+              <div className="rounded-lg border border-border p-4 bg-card">
+                <p className="text-sm font-semibold text-foreground mb-1">
+                  Graph/RAG
+                </p>
+                <p className="text-[13px] text-muted-foreground font-serif">
+                  Systems that build knowledge graphs or retrieval-augmented
+                  generation pipelines. Examples: Graphiti, Cognee, Microsoft
+                  GraphRAG, Chroma, Qdrant.
+                </p>
+              </div>
+              <div className="rounded-lg border border-border p-4 bg-card">
+                <p className="text-sm font-semibold text-foreground mb-1">
+                  Hybrid
+                </p>
+                <p className="text-[13px] text-muted-foreground font-serif">
+                  Systems that span multiple categories. Examples: Zep (conversation
+                  + entity graphs).
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-lg border border-amber/20 bg-amber/[0.03] p-4 space-y-3 mt-6">
+              <p className="font-serif text-[14px] leading-relaxed text-foreground/85">
+                <strong className="font-sans font-semibold text-foreground">
+                  Why categories matter:
+                </strong>{" "}
+                Systems are only benchmarked against others in their category. A
+                Knowledge Brain is not ranked against Conversational Memory systems
+                because they solve different problems.
+              </p>
+              <p className="font-serif text-[14px] leading-relaxed text-foreground/85">
+                <strong className="font-sans font-semibold text-foreground">
+                  LLM Baseline:
+                </strong>{" "}
+                Every track includes the LLM Baseline (GPT-4o-mini with no memory
+                system) as the reference point. A memory system that scores below
+                the baseline is actively losing information.
+              </p>
+            </div>
+          </section>
+
           {/* ── Section 4: Judge Protocol ───────────────────────────────── */}
           <section id="judge-protocol" className="scroll-mt-24 mb-16">
             <h2 className="text-2xl font-bold tracking-tight text-foreground mb-4">

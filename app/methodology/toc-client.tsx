@@ -8,6 +8,7 @@ const sections = [
   { id: "why-benchmarks", label: "Why These Benchmarks" },
   { id: "how-we-score", label: "How We Score" },
   { id: "two-score-model", label: "The Two-Score Model" },
+  { id: "categories", label: "System Categories" },
   { id: "judge-protocol", label: "Judge Protocol" },
   { id: "versioning", label: "Versioning Policy" },
   { id: "signing", label: "How Signing Works" },
