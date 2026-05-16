@@ -156,8 +156,7 @@ export const systems: System[] = [
     createdAt: "2025-10-03T00:00:00Z",
     adapterStatus: "native",
   },
-  // 4. Graphiti — Bench'd community-verified: 0.0% on LongMemEval (500q)
-  // Note: Graphiti's knowledge graph doesn't return useful recall data in current adapter
+  // Graphiti — BLOCKED: graphiti-core uses responses.parse (OpenAI API mismatch). Score pending adapter fix.
   {
     id: "sys_graphiti",
     slug: "graphiti",
@@ -171,28 +170,15 @@ export const systems: System[] = [
     license: "Apache-2.0",
     mcpEndpoint: null,
     mcpCompatible: false,
-    trustTier: "community-verified",
+    trustTier: "listed",
     sourceType: "oss",
     systemType: "graph",
     githubStars: 4200,
     lastTested: "2026-05-12",
-    scores: {
-      recallVerified: 0.0,
-      recallNuance: 0.0,
-      temporalVerified: 0.0,
-      temporalNuance: 0.0,
-      reasoningVerified: 0.0,
-      reasoningNuance: 0.0,
-      overallVerified: 0.0,
-      overallNuance: 0.0,
-      avgLatencyMs: 0,
-      tokensPerCorrect: 0,
-      avgRecallTokens: 30,
-      bmi: 0.0,
-    },
-    sparklineData: [0.0],
+    scores: null,
+    sparklineData: [],
     createdAt: "2025-11-02T00:00:00Z",
-    adapterStatus: "native",
+    adapterStatus: "community",
   },
   // 5. Mastra OM — published LongMemEval_s scores (gpt-4o judge), self-reported
   // Source: Mastra blog post
@@ -1165,7 +1151,7 @@ export const systems: System[] = [
     createdAt: "2026-05-14T00:00:00Z",
     adapterStatus: "none",
   },
-  // Quivr — 0% KR, 0% Truth, 0% Budget, 4% Reliability. quivr-core Brain.ask() returns empty.
+  // Quivr — BLOCKED: quivr-core Brain.ask() returns empty. Score pending library investigation.
   {
     id: "sys_quivr",
     slug: "quivr",
@@ -1179,24 +1165,15 @@ export const systems: System[] = [
     license: "Apache-2.0",
     mcpEndpoint: null,
     mcpCompatible: false,
-    trustTier: "community-verified",
+    trustTier: "listed",
     sourceType: "oss",
     systemType: "knowledge-brain",
     githubStars: 39200,
     lastTested: "2026-05-16",
-    scores: {
-      recallVerified: 0.0,
-      recallNuance: 0.0,
-      temporalVerified: 0.0,
-      temporalNuance: 0.0,
-      reasoningVerified: 0.0,
-      reasoningNuance: 0.0,
-      overallVerified: 0.0,
-      overallNuance: 0.0,
-    },
-    sparklineData: [0.0],
+    scores: null,
+    sparklineData: [],
     createdAt: "2026-05-14T00:00:00Z",
-    adapterStatus: "native",
+    adapterStatus: "community",
   },
   // 39. CAMEL — no published LongMemEval score; listed
   {
