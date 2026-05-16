@@ -146,33 +146,79 @@ export default async function SystemProfilePage({
             </Link>
           </p>
 
-          {/* Score Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-            <ScoreCard
-              label="Recall"
-              sublabel="Can it find the right facts from past conversations?"
-              verified={system.scores.recallVerified}
-              nuance={system.scores.recallNuance}
-            />
-            <ScoreCard
-              label="Temporal"
-              sublabel="Does it understand when events happened and their order?"
-              verified={system.scores.temporalVerified}
-              nuance={system.scores.temporalNuance}
-            />
-            <ScoreCard
-              label="Reasoning"
-              sublabel="Can it synthesize information across multiple memories?"
-              verified={system.scores.reasoningVerified}
-              nuance={system.scores.reasoningNuance}
-            />
-            <ScoreCard
-              label="Overall"
-              sublabel="Weighted composite across all dimensions"
-              verified={system.scores.overallVerified}
-              nuance={system.scores.overallNuance}
-            />
-          </div>
+          {/* Score Cards — only show dimensions this system is tested on */}
+          {(() => {
+            const cards = [];
+
+            // Overall always shows
+            cards.push(
+              <ScoreCard
+                key="overall"
+                label="Overall"
+                sublabel="Composite score across tested dimensions"
+                verified={system.scores.overallVerified}
+                nuance={system.scores.overallNuance}
+              />
+            );
+
+            // Recall — show if > 0 or if conversational/baseline
+            if (system.scores.recallVerified > 0 || system.systemType === "conversational" || system.systemType === "baseline") {
+              cards.push(
+                <ScoreCard
+                  key="recall"
+                  label="Recall"
+                  sublabel="Can it find the right facts?"
+                  verified={system.scores.recallVerified}
+                  nuance={system.scores.recallNuance}
+                />
+              );
+            }
+
+            // Temporal — show if > 0 or if conversational/baseline
+            if (system.scores.temporalVerified > 0 || system.systemType === "conversational" || system.systemType === "baseline") {
+              cards.push(
+                <ScoreCard
+                  key="temporal"
+                  label="Temporal"
+                  sublabel="Does it understand when events happened?"
+                  verified={system.scores.temporalVerified}
+                  nuance={system.scores.temporalNuance}
+                />
+              );
+            }
+
+            // Reasoning — show if > 0 or if conversational/baseline
+            if (system.scores.reasoningVerified > 0 || system.systemType === "conversational" || system.systemType === "baseline") {
+              cards.push(
+                <ScoreCard
+                  key="reasoning"
+                  label="Reasoning"
+                  sublabel="Can it synthesize across memories?"
+                  verified={system.scores.reasoningVerified}
+                  nuance={system.scores.reasoningNuance}
+                />
+              );
+            }
+
+            // Knowledge retrieval — show for knowledge brains and systems tested on KR
+            if (system.systemType === "knowledge-brain" || system.systemType === "graph") {
+              cards.push(
+                <ScoreCard
+                  key="knowledge"
+                  label="Knowledge Retrieval"
+                  sublabel="Can it find stored documents and pages?"
+                  verified={system.scores.overallVerified}
+                  nuance={system.scores.overallNuance}
+                />
+              );
+            }
+
+            return (
+              <div className={`grid grid-cols-2 ${cards.length <= 2 ? "lg:grid-cols-2" : "lg:grid-cols-4"} gap-4 mb-10`}>
+                {cards}
+              </div>
+            );
+          })()}
 
           {/* Population Distribution */}
           <PopulationDistribution currentScores={system.scores} systemName={system.name} />
