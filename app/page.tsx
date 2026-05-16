@@ -212,130 +212,76 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right — Live Run card + mini panels */}
-            <div className="space-y-3">
-              {/* Live Run card */}
-              {topRun && (
-                <Link href={`/receipt/${topRun.id}`} className="block">
-                  <div className="border border-amber/20 rounded-xl bg-card p-5 card-md hover:border-amber/40 transition-colors relative overflow-hidden">
-                    {/* Subtle amber left accent */}
-                    <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-amber via-amber/70 to-amber/40 rounded-l-xl" />
-                    {/* Subtle amber glow */}
-                    <div className="absolute -top-12 -right-12 w-32 h-32 bg-amber/[0.06] rounded-full blur-2xl pointer-events-none" />
-                    <div className="relative">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                          Latest Verified Run
-                        </span>
-                        <span className="flex items-center gap-1.5 text-[10px] font-medium text-verified-green">
-                          <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-verified-green opacity-60" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-verified-green" />
-                          </span>
-                          VERIFIED
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs mb-4">
-                        <div>
-                          <span className="text-muted-foreground">Run ID</span>
-                          <p className="font-mono text-foreground mt-0.5">{topRun.id}</p>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">System</span>
-                          <p className="font-semibold text-foreground mt-0.5">{topRun.systemName}</p>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">Benchmark</span>
-                          <p className="text-foreground mt-0.5">{topRun.benchmarkName} v1.0</p>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">Signed</span>
-                          <p className="text-foreground mt-0.5">{formatRelativeDate(topRun.completedAt)}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-end gap-6 pt-3 border-t border-border">
-                        <div className="relative">
-                          <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Verified Score</span>
-                          <p className="text-4xl font-mono font-bold text-amber tabular-nums mt-0.5 relative">
-                            {topRun.verifiedOverall.toFixed(1)}
-                            <span className="text-sm font-normal text-muted-foreground ml-1">/100</span>
-                            <span className="absolute -inset-2 bg-amber/[0.06] rounded-lg blur-md -z-10 hero-glow-pulse" />
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Judged Score</span>
-                          <p className="text-xl font-mono font-semibold text-muted-foreground tabular-nums mt-0.5">
-                            {topRun.nuanceOverall.toFixed(1)}
-                            <span className="text-sm font-normal ml-1">/100</span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              )}
+            {/* Right — Track Leaders panel */}
+            <div className="border border-amber/20 rounded-xl bg-card p-5 card-md relative overflow-hidden">
+              <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-amber via-amber/70 to-amber/40 rounded-l-xl" />
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-amber/[0.06] rounded-full blur-2xl pointer-events-none" />
 
-              {/* Mini panels row */}
-              <div className="grid grid-cols-2 gap-3">
-                {/* Failure Trace Preview */}
-                <div className="border border-border rounded-xl bg-card p-4 card-sm relative overflow-hidden">
-                  <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-amber/40 rounded-l-xl" />
-                  <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
-                    Failure Trace Preview
+              <div className="relative">
+                <div className="flex items-center justify-between mb-5">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-amber">
+                    Track Leaders
                   </span>
-                  <div className="mt-2 space-y-1.5 text-[11px]">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Query</span>
-                      <span className="text-foreground font-medium">{sampleFailure.query}</span>
+                  <span className="flex items-center gap-1.5 text-[10px] font-medium text-verified-green">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-verified-green opacity-60" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-verified-green" />
+                    </span>
+                    VERIFIED
+                  </span>
+                </div>
+
+                <div className="space-y-4">
+                  {/* Conversational Memory */}
+                  <Link href="/leaderboard" className="block group">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="text-[9px] font-semibold uppercase tracking-wider text-amber/70">Conversational Memory</span>
+                        <p className="text-sm font-semibold text-foreground group-hover:text-amber transition-colors mt-0.5">LlamaIndex Memory</p>
+                      </div>
+                      <div className="text-right">
+                        <span className="font-mono text-2xl font-bold text-amber tabular-nums">59.0</span>
+                        <span className="text-[10px] text-muted-foreground ml-0.5">/100</span>
+                      </div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Expected</span>
-                      <span className="text-foreground">{sampleFailure.expected}</span>
+                  </Link>
+
+                  <div className="border-t border-border/50" />
+
+                  {/* Knowledge Brain */}
+                  <Link href="/leaderboard" className="block group">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="text-[9px] font-semibold uppercase tracking-wider text-blue-500/70">Knowledge Brain</span>
+                        <p className="text-sm font-semibold text-foreground group-hover:text-blue-500 transition-colors mt-0.5">gbrain</p>
+                      </div>
+                      <div className="text-right">
+                        <span className="font-mono text-2xl font-bold text-blue-500 tabular-nums">100.0</span>
+                        <span className="text-[10px] text-muted-foreground ml-0.5">/100</span>
+                      </div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Returned</span>
-                      <span className="text-foreground">{sampleFailure.returned}</span>
+                  </Link>
+
+                  <div className="border-t border-border/50" />
+
+                  {/* Agent Memory */}
+                  <Link href="/leaderboard" className="block group">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="text-[9px] font-semibold uppercase tracking-wider text-purple-500/70">Agent Memory</span>
+                        <p className="text-sm font-semibold text-foreground group-hover:text-purple-500 transition-colors mt-0.5">Letta</p>
+                      </div>
+                      <div className="text-right">
+                        <span className="font-mono text-2xl font-bold text-purple-500 tabular-nums">80.0</span>
+                        <span className="text-[10px] text-muted-foreground ml-0.5">/100</span>
+                      </div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Result</span>
-                      <span className="text-[#DC2626] font-medium text-[10px]">{sampleFailure.result}</span>
-                    </div>
-                  </div>
-                  <Link href="/methodology#failures" className="flex items-center gap-1 mt-3 text-[10px] text-amber hover:text-amber/80">
-                    View full traces <ArrowRight className="h-3 w-3" />
                   </Link>
                 </div>
 
-                {/* How We Score mini */}
-                <div className="border border-border rounded-xl bg-card p-4 card-sm relative overflow-hidden">
-                  <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-amber/40 rounded-l-xl" />
-                  <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
-                    How We Score
-                  </span>
-                  <div className="mt-2 space-y-2">
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber" />
-                        <span className="text-[11px] font-semibold text-foreground">Verified Score</span>
-                      </div>
-                      <p className="text-[10px] text-muted-foreground mt-0.5 leading-relaxed">
-                        Deterministic exact-match and retrieval quality. Pure math.
-                      </p>
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40" />
-                        <span className="text-[11px] font-semibold text-foreground">Judged Score</span>
-                      </div>
-                      <p className="text-[10px] text-muted-foreground mt-0.5 leading-relaxed">
-                        LLM-judged synthesis and open-ended recall.
-                      </p>
-                    </div>
-                  </div>
-                  <Link href="/methodology#two-score-model" className="flex items-center gap-1 mt-3 text-[10px] text-amber hover:text-amber/80">
-                    Read scoring model <ArrowRight className="h-3 w-3" />
-                  </Link>
-                </div>
+                <p className="text-[9px] text-muted-foreground/60 mt-4 pt-3 border-t border-border/50">
+                  Independently run, cryptographically signed receipts.
+                </p>
               </div>
             </div>
           </div>
@@ -343,11 +289,6 @@ export default function HomePage() {
       </div>
 
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Category Leaders — who's winning in each category */}
-      <div className="mt-6 mb-4">
-        <CategoryLeaders />
-      </div>
-
       {/* Stats Strip — compact sub-hero */}
       <div className="grid grid-cols-2 sm:grid-cols-5 border border-border/60 rounded-lg overflow-hidden bg-card/80">
         <IndexCell value={totalSystems} label="Systems Indexed" icon="grid" />
