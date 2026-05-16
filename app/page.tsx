@@ -344,7 +344,7 @@ export default function HomePage() {
 
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
       {/* Category Leaders — who's winning in each category */}
-      <div className="-mt-8 relative z-10 mb-4">
+      <div className="mt-6 mb-4">
         <CategoryLeaders />
       </div>
 
