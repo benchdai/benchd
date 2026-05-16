@@ -270,6 +270,96 @@
     "status": "completed"
   },
   {
+    "system": "cognee",
+    "benchmark": "LongMemEval",
+    "run_id": "run_093a3aef800a",
+    "date": "2026-05-12",
+    "overall": 20.0,
+    "dimensions": {
+      "temporal": 0.0,
+      "reasoning": 0.0,
+      "recall": 50.0
+    },
+    "total_questions": 5,
+    "correct": 1,
+    "status": "completed"
+  },
+  {
+    "system": "langchain-memory",
+    "benchmark": "LongMemEval",
+    "run_id": "run_0eb20a978d15",
+    "date": "2026-05-12",
+    "overall": 80.0,
+    "dimensions": {
+      "temporal": 100.0,
+      "reasoning": 100.0,
+      "recall": 50.0
+    },
+    "total_questions": 5,
+    "correct": 4,
+    "status": "completed"
+  },
+  {
+    "system": "graphiti",
+    "benchmark": "LongMemEval",
+    "run_id": "run_2b6bd19b6110",
+    "date": "2026-05-12",
+    "overall": 0.0,
+    "dimensions": {
+      "temporal": 0.0,
+      "reasoning": 0.0,
+      "recall": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "cognee",
+    "benchmark": "LongMemEval",
+    "run_id": "run_45e4da4a255e",
+    "date": "2026-05-12",
+    "overall": 20.0,
+    "dimensions": {
+      "temporal": 0.0,
+      "reasoning": 0.0,
+      "recall": 50.0
+    },
+    "total_questions": 5,
+    "correct": 1,
+    "status": "completed"
+  },
+  {
+    "system": "letta",
+    "benchmark": "LongMemEval",
+    "run_id": "run_4ae4f2fc073a",
+    "date": "2026-05-12",
+    "overall": 0.0,
+    "dimensions": {
+      "temporal": 0.0,
+      "reasoning": 0.0,
+      "recall": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "crewai-memory",
+    "benchmark": "LongMemEval",
+    "run_id": "run_4e79cf478f74",
+    "date": "2026-05-12",
+    "overall": 60.0,
+    "dimensions": {
+      "temporal": 100.0,
+      "reasoning": 0.0,
+      "recall": 50.0
+    },
+    "total_questions": 5,
+    "correct": 3,
+    "status": "completed"
+  },
+  {
     "system": "autogpt-memory",
     "benchmark": "LongMemEval",
     "run_id": "run_5066e7081ce4",
@@ -311,6 +401,51 @@
       "recall": 0.0
     },
     "total_questions": 1540,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "langchain-memory",
+    "benchmark": "LoCoMo",
+    "run_id": "run_8d8bf954d2c5",
+    "date": "2026-05-12",
+    "overall": 60.0,
+    "dimensions": {
+      "temporal": 0.0,
+      "reasoning": 66.7,
+      "recall": 100.0
+    },
+    "total_questions": 5,
+    "correct": 3,
+    "status": "completed"
+  },
+  {
+    "system": "autogpt-memory",
+    "benchmark": "LongMemEval",
+    "run_id": "run_9e450d22e65a",
+    "date": "2026-05-12",
+    "overall": 40.0,
+    "dimensions": {
+      "temporal": 50.0,
+      "reasoning": 0.0,
+      "recall": 50.0
+    },
+    "total_questions": 5,
+    "correct": 2,
+    "status": "completed"
+  },
+  {
+    "system": "letta",
+    "benchmark": "Smoke Memory v0",
+    "run_id": "run_a569dace1a45",
+    "date": "2026-05-12",
+    "overall": 0.0,
+    "dimensions": {
+      "recall": 0.0,
+      "temporal": 0.0,
+      "reasoning": 0.0
+    },
+    "total_questions": 10,
     "correct": 0,
     "status": "completed"
   },
@@ -388,6 +523,19 @@
     },
     "total_questions": 25,
     "correct": 13,
+    "status": "completed"
+  },
+  {
+    "system": "langmem",
+    "benchmark": "Reliability",
+    "run_id": "run_62fa8650735a",
+    "date": "2026-05-13",
+    "overall": 20.0,
+    "dimensions": {
+      "hallucination": 20.0
+    },
+    "total_questions": 5,
+    "correct": 1,
     "status": "completed"
   },
   {
@@ -486,6 +634,21 @@
     "status": "completed"
   },
   {
+    "system": "crewai-memory",
+    "benchmark": "LongMemEval",
+    "run_id": "run_e170b156c1c0",
+    "date": "2026-05-13",
+    "overall": 40.0,
+    "dimensions": {
+      "temporal": 50.0,
+      "reasoning": 0.0,
+      "recall": 50.0
+    },
+    "total_questions": 5,
+    "correct": 2,
+    "status": "completed"
+  },
+  {
     "system": "llamaindex-memory",
     "benchmark": "Reliability",
     "run_id": "run_fe673d888c34",
@@ -502,41 +665,25 @@
     "status": "completed"
   },
   {
-    "system": "autogpt-memory",
-    "benchmark": "reliability-v1",
-    "run_id": "run_d1561ba31b9f",
+    "system": "gbrain",
+    "benchmark": "Reliability",
+    "run_id": "run_009f4f5dbc68",
     "date": "2026-05-14",
-    "overall": 44.0,
-    "dimensions": {
-      "hallucination": 0.0,
-      "stale_memory": 71.4,
-      "entity_confusion": 100.0,
-      "deletion": 0.0
-    },
-    "total_questions": 25,
-    "correct": 11,
-    "status": "completed"
-  },
-  {
-    "system": "cognee",
-    "benchmark": "reliability-v1",
-    "run_id": "run_8c6b825bdff3",
-    "date": "2026-05-14",
-    "overall": 0.0,
+    "overall": 4.0,
     "dimensions": {
       "hallucination": 0.0,
       "stale_memory": 0.0,
-      "entity_confusion": 0.0,
+      "entity_confusion": 16.7,
       "deletion": 0.0
     },
     "total_questions": 25,
-    "correct": 0,
+    "correct": 1,
     "status": "completed"
   },
   {
-    "system": "crewai-memory",
-    "benchmark": "reliability-v1",
-    "run_id": "run_a3326c227dcf",
+    "system": "llm-baseline",
+    "benchmark": "Reliability",
+    "run_id": "run_0d3ee78407b2",
     "date": "2026-05-14",
     "overall": 52.0,
     "dimensions": {
@@ -550,16 +697,8 @@
     "status": "completed"
   },
   {
-    "system": "khoj",
-    "benchmark": "reliability-v1",
-    "date": "2026-05-14",
-    "overall": 0,
-    "status": "failed",
-    "error": "Cannot connect to Khoj at http://localhost:42110.\nStart Khoj with: khoj --anonymous-mode\nOr set KHOJ_URL to your Khoj instance."
-  },
-  {
     "system": "langchain-memory",
-    "benchmark": "reliability-v1",
+    "benchmark": "Reliability",
     "run_id": "run_18ea19863f2a",
     "date": "2026-05-14",
     "overall": 52.0,
@@ -574,8 +713,24 @@
     "status": "completed"
   },
   {
+    "system": "llm-baseline",
+    "benchmark": "Reliability",
+    "run_id": "run_1cb2746a842e",
+    "date": "2026-05-14",
+    "overall": 52.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 100.0,
+      "entity_confusion": 100.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 13,
+    "status": "completed"
+  },
+  {
     "system": "langmem",
-    "benchmark": "reliability-v1",
+    "benchmark": "Reliability",
     "run_id": "run_23a490022cff",
     "date": "2026-05-14",
     "overall": 48.0,
@@ -591,7 +746,7 @@
   },
   {
     "system": "llamaindex-memory",
-    "benchmark": "reliability-v1",
+    "benchmark": "Reliability",
     "run_id": "run_29433100e8a6",
     "date": "2026-05-14",
     "overall": 56.0,
@@ -606,9 +761,72 @@
     "status": "completed"
   },
   {
+    "system": "gbrain",
+    "benchmark": "LongMemEval",
+    "run_id": "run_5993b6da7548",
+    "date": "2026-05-14",
+    "overall": 0.0,
+    "dimensions": {
+      "temporal": 0.0,
+      "reasoning": 0.0,
+      "recall": 0.0
+    },
+    "total_questions": 500,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
     "system": "llm-baseline",
-    "benchmark": "reliability-v1",
-    "run_id": "run_1cb2746a842e",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_77e93ea741c9",
+    "date": "2026-05-14",
+    "overall": 95.0,
+    "dimensions": {
+      "document_retrieval": 100.0,
+      "semantic_search": 100.0,
+      "knowledge_update": 80.0,
+      "multi_page": 100.0
+    },
+    "total_questions": 20,
+    "correct": 19,
+    "status": "completed"
+  },
+  {
+    "system": "gbrain",
+    "benchmark": "Reliability",
+    "run_id": "run_7bf807337af0",
+    "date": "2026-05-14",
+    "overall": 4.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 0.0,
+      "entity_confusion": 16.7,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 1,
+    "status": "completed"
+  },
+  {
+    "system": "cognee",
+    "benchmark": "Reliability",
+    "run_id": "run_8c6b825bdff3",
+    "date": "2026-05-14",
+    "overall": 0.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 0.0,
+      "entity_confusion": 0.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "crewai-memory",
+    "benchmark": "Reliability",
+    "run_id": "run_a3326c227dcf",
     "date": "2026-05-14",
     "overall": 52.0,
     "dimensions": {
@@ -622,8 +840,24 @@
     "status": "completed"
   },
   {
+    "system": "gbrain",
+    "benchmark": "Reliability",
+    "run_id": "run_b846e96d97e5",
+    "date": "2026-05-14",
+    "overall": 4.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 0.0,
+      "entity_confusion": 16.7,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 1,
+    "status": "completed"
+  },
+  {
     "system": "mem0-local",
-    "benchmark": "reliability-v1",
+    "benchmark": "Reliability",
     "run_id": "run_bba0d960342e",
     "date": "2026-05-14",
     "overall": 52.0,
@@ -635,6 +869,700 @@
     },
     "total_questions": 25,
     "correct": 13,
+    "status": "completed"
+  },
+  {
+    "system": "gbrain",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_bcdb8ba18c43",
+    "date": "2026-05-14",
+    "overall": 0.0,
+    "dimensions": {
+      "document_retrieval": 0.0,
+      "semantic_search": 0.0,
+      "knowledge_update": 0.0,
+      "multi_page": 0.0
+    },
+    "total_questions": 20,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "gbrain",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_cf7573cada84",
+    "date": "2026-05-14",
+    "overall": 0.0,
+    "dimensions": {
+      "document_retrieval": 0.0,
+      "semantic_search": 0.0,
+      "knowledge_update": 0.0,
+      "multi_page": 0.0
+    },
+    "total_questions": 20,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "autogpt-memory",
+    "benchmark": "Reliability",
+    "run_id": "run_d1561ba31b9f",
+    "date": "2026-05-14",
+    "overall": 44.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 71.4,
+      "entity_confusion": 100.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 11,
+    "status": "completed"
+  },
+  {
+    "system": "llamaindex-memory",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_dbabce734b24",
+    "date": "2026-05-14",
+    "overall": 95.0,
+    "dimensions": {
+      "document_retrieval": 100.0,
+      "semantic_search": 100.0,
+      "knowledge_update": 80.0,
+      "multi_page": 100.0
+    },
+    "total_questions": 20,
+    "correct": 19,
+    "status": "completed"
+  },
+  {
+    "system": "letta",
+    "benchmark": "Memory Poisoning",
+    "run_id": "run_10c89b560b70",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "injection_resistance": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "mem0-local",
+    "benchmark": "Memory Poisoning",
+    "run_id": "run_198ed5992aef",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "injection_resistance": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "langchain-memory",
+    "benchmark": "Memory Poisoning",
+    "run_id": "run_1a16e74c9f58",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "injection_resistance": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "letta",
+    "benchmark": "Memory Poisoning",
+    "run_id": "run_1e9481802b26",
+    "date": "2026-05-15",
+    "overall": 20.0,
+    "dimensions": {
+      "injection_resistance": 20.0
+    },
+    "total_questions": 5,
+    "correct": 1,
+    "status": "completed"
+  },
+  {
+    "system": "mem0-local",
+    "benchmark": "Truth Arbitration",
+    "run_id": "run_2ac3ffddac25",
+    "date": "2026-05-15",
+    "overall": 40.0,
+    "dimensions": {
+      "conflict_resolution": 40.0
+    },
+    "total_questions": 5,
+    "correct": 2,
+    "status": "completed"
+  },
+  {
+    "system": "gbrain",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_3b4bc7034c9c",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "document_retrieval": 0.0,
+      "semantic_search": 0.0,
+      "knowledge_update": 0.0,
+      "multi_page": 0.0
+    },
+    "total_questions": 20,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "memoripy",
+    "benchmark": "LongMemEval",
+    "run_id": "run_493b0add7afc",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "temporal": 0.0,
+      "reasoning": 0.0,
+      "recall": 0.0
+    },
+    "total_questions": 10,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "letta",
+    "benchmark": "Truth Arbitration",
+    "run_id": "run_4f15d1e3c77e",
+    "date": "2026-05-15",
+    "overall": 80.0,
+    "dimensions": {
+      "conflict_resolution": 80.0
+    },
+    "total_questions": 5,
+    "correct": 4,
+    "status": "completed"
+  },
+  {
+    "system": "letta",
+    "benchmark": "Truth Arbitration",
+    "run_id": "run_563c88424c15",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "conflict_resolution": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "llamaindex-memory",
+    "benchmark": "Memory Poisoning",
+    "run_id": "run_59ca781ba902",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "injection_resistance": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "gbrain",
+    "benchmark": "Knowledge Scale",
+    "run_id": "run_62457a1b71bf",
+    "date": "2026-05-15",
+    "overall": 100.0,
+    "dimensions": {
+      "scale_small": 100.0,
+      "scale_medium": 100.0,
+      "scale_large": 100.0
+    },
+    "total_questions": 15,
+    "correct": 15,
+    "status": "completed"
+  },
+  {
+    "system": "memoripy",
+    "benchmark": "LongMemEval",
+    "run_id": "run_6a429c40de02",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "temporal": 0.0,
+      "reasoning": 0.0,
+      "recall": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "llm-baseline",
+    "benchmark": "Budget Curves",
+    "run_id": "run_745ece1f384b",
+    "date": "2026-05-15",
+    "overall": 100.0,
+    "dimensions": {
+      "budget_500": 100.0,
+      "budget_1000": 100.0,
+      "budget_2000": 100.0,
+      "budget_5000": 100.0,
+      "budget_10000": 100.0
+    },
+    "total_questions": 25,
+    "correct": 25,
+    "status": "completed"
+  },
+  {
+    "system": "letta",
+    "benchmark": "Budget Curves",
+    "run_id": "run_7ef957bb509c",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "budget_500": 0.0,
+      "budget_1000": 0.0,
+      "budget_2000": 0.0,
+      "budget_5000": 0.0,
+      "budget_10000": 0.0
+    },
+    "total_questions": 25,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "llm-baseline",
+    "benchmark": "Truth Arbitration",
+    "run_id": "run_8f0eb77f0e2e",
+    "date": "2026-05-15",
+    "overall": 80.0,
+    "dimensions": {
+      "conflict_resolution": 80.0
+    },
+    "total_questions": 5,
+    "correct": 4,
+    "status": "completed"
+  },
+  {
+    "system": "graphiti",
+    "benchmark": "Budget Curves",
+    "run_id": "run_992b702919d7",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "budget_500": 0.0,
+      "budget_1000": 0.0,
+      "budget_2000": 0.0,
+      "budget_5000": 0.0,
+      "budget_10000": 0.0
+    },
+    "total_questions": 25,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "graphiti",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_a82358251c64",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "document_retrieval": 0.0,
+      "semantic_search": 0.0,
+      "knowledge_update": 0.0,
+      "multi_page": 0.0
+    },
+    "total_questions": 20,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "graphiti",
+    "benchmark": "Memory Poisoning",
+    "run_id": "run_a86d310a5fe9",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "injection_resistance": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "graphiti",
+    "benchmark": "Truth Arbitration",
+    "run_id": "run_a96f1ee220c0",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "conflict_resolution": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "llamaindex-memory",
+    "benchmark": "Truth Arbitration",
+    "run_id": "run_aa73d357712f",
+    "date": "2026-05-15",
+    "overall": 100.0,
+    "dimensions": {
+      "conflict_resolution": 100.0
+    },
+    "total_questions": 5,
+    "correct": 5,
+    "status": "completed"
+  },
+  {
+    "system": "llm-baseline",
+    "benchmark": "Memory Poisoning",
+    "run_id": "run_bb7edc6d208c",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "injection_resistance": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "memoripy",
+    "benchmark": "Reliability",
+    "run_id": "run_bf174f3c8030",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "hallucination": 0.0,
+      "stale_memory": 0.0,
+      "entity_confusion": 0.0,
+      "deletion": 0.0
+    },
+    "total_questions": 25,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "gbrain",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_bf9353ba984e",
+    "date": "2026-05-15",
+    "overall": 100.0,
+    "dimensions": {
+      "document_retrieval": 100.0,
+      "semantic_search": 100.0,
+      "knowledge_update": 100.0,
+      "multi_page": 100.0
+    },
+    "total_questions": 20,
+    "correct": 20,
+    "status": "completed"
+  },
+  {
+    "system": "llm-baseline",
+    "benchmark": "Knowledge Scale",
+    "run_id": "run_c45497b6b96c",
+    "date": "2026-05-15",
+    "overall": 100.0,
+    "dimensions": {
+      "scale_small": 100.0,
+      "scale_medium": 100.0,
+      "scale_large": 100.0
+    },
+    "total_questions": 15,
+    "correct": 15,
+    "status": "completed"
+  },
+  {
+    "system": "langchain-memory",
+    "benchmark": "Truth Arbitration",
+    "run_id": "run_d2f2f040d65e",
+    "date": "2026-05-15",
+    "overall": 80.0,
+    "dimensions": {
+      "conflict_resolution": 80.0
+    },
+    "total_questions": 5,
+    "correct": 4,
+    "status": "completed"
+  },
+  {
+    "system": "letta",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_e29eeeb8808c",
+    "date": "2026-05-15",
+    "overall": 80.0,
+    "dimensions": {
+      "document_retrieval": 80.0,
+      "semantic_search": 100.0,
+      "knowledge_update": 60.0,
+      "multi_page": 80.0
+    },
+    "total_questions": 20,
+    "correct": 16,
+    "status": "completed"
+  },
+  {
+    "system": "llm-baseline",
+    "benchmark": "Semantic RBAC",
+    "run_id": "run_f98ef5c3057f",
+    "date": "2026-05-15",
+    "overall": 0.0,
+    "dimensions": {
+      "access_control": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "crewai-memory",
+    "benchmark": "Memory Poisoning",
+    "run_id": "run_08fbd85e5d76",
+    "date": "2026-05-16",
+    "overall": 0.0,
+    "dimensions": {
+      "injection_resistance": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "autogpt-memory",
+    "benchmark": "Truth Arbitration",
+    "run_id": "run_2dbf0c48e149",
+    "date": "2026-05-16",
+    "overall": 80.0,
+    "dimensions": {
+      "conflict_resolution": 80.0
+    },
+    "total_questions": 5,
+    "correct": 4,
+    "status": "completed"
+  },
+  {
+    "system": "langchain-memory",
+    "benchmark": "Budget Curves",
+    "run_id": "run_31c0a409c75c",
+    "date": "2026-05-16",
+    "overall": 100.0,
+    "dimensions": {
+      "budget_500": 100.0,
+      "budget_1000": 100.0,
+      "budget_2000": 100.0,
+      "budget_5000": 100.0,
+      "budget_10000": 100.0
+    },
+    "total_questions": 25,
+    "correct": 25,
+    "status": "completed"
+  },
+  {
+    "system": "autogpt-memory",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_41a104224c0a",
+    "date": "2026-05-16",
+    "overall": 100.0,
+    "dimensions": {
+      "document_retrieval": 100.0,
+      "semantic_search": 100.0,
+      "knowledge_update": 100.0,
+      "multi_page": 100.0
+    },
+    "total_questions": 20,
+    "correct": 20,
+    "status": "completed"
+  },
+  {
+    "system": "crewai-memory",
+    "benchmark": "Truth Arbitration",
+    "run_id": "run_466455c150fe",
+    "date": "2026-05-16",
+    "overall": 80.0,
+    "dimensions": {
+      "conflict_resolution": 80.0
+    },
+    "total_questions": 5,
+    "correct": 4,
+    "status": "completed"
+  },
+  {
+    "system": "mem0-local",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_5afb469be425",
+    "date": "2026-05-16",
+    "overall": 100.0,
+    "dimensions": {
+      "document_retrieval": 100.0,
+      "semantic_search": 100.0,
+      "knowledge_update": 100.0,
+      "multi_page": 100.0
+    },
+    "total_questions": 20,
+    "correct": 20,
+    "status": "completed"
+  },
+  {
+    "system": "autogpt-memory",
+    "benchmark": "Budget Curves",
+    "run_id": "run_7bd7ac08dd43",
+    "date": "2026-05-16",
+    "overall": 100.0,
+    "dimensions": {
+      "budget_500": 100.0,
+      "budget_1000": 100.0,
+      "budget_2000": 100.0,
+      "budget_5000": 100.0,
+      "budget_10000": 100.0
+    },
+    "total_questions": 25,
+    "correct": 25,
+    "status": "completed"
+  },
+  {
+    "system": "autogpt-memory",
+    "benchmark": "Memory Poisoning",
+    "run_id": "run_8e64b49935b6",
+    "date": "2026-05-16",
+    "overall": 0.0,
+    "dimensions": {
+      "injection_resistance": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "crewai-memory",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_a17a36524378",
+    "date": "2026-05-16",
+    "overall": 100.0,
+    "dimensions": {
+      "document_retrieval": 100.0,
+      "semantic_search": 100.0,
+      "knowledge_update": 100.0,
+      "multi_page": 100.0
+    },
+    "total_questions": 20,
+    "correct": 20,
+    "status": "completed"
+  },
+  {
+    "system": "gbrain",
+    "benchmark": "Truth Arbitration",
+    "run_id": "run_b8fbc9a7744b",
+    "date": "2026-05-16",
+    "overall": 80.0,
+    "dimensions": {
+      "conflict_resolution": 80.0
+    },
+    "total_questions": 5,
+    "correct": 4,
+    "status": "completed"
+  },
+  {
+    "system": "gbrain",
+    "benchmark": "Budget Curves",
+    "run_id": "run_be60321353f8",
+    "date": "2026-05-16",
+    "overall": 100.0,
+    "dimensions": {
+      "budget_500": 100.0,
+      "budget_1000": 100.0,
+      "budget_2000": 100.0,
+      "budget_5000": 100.0,
+      "budget_10000": 100.0
+    },
+    "total_questions": 25,
+    "correct": 25,
+    "status": "completed"
+  },
+  {
+    "system": "mem0-local",
+    "benchmark": "Budget Curves",
+    "run_id": "run_be719b2abf45",
+    "date": "2026-05-16",
+    "overall": 100.0,
+    "dimensions": {
+      "budget_500": 100.0,
+      "budget_1000": 100.0,
+      "budget_2000": 100.0,
+      "budget_5000": 100.0,
+      "budget_10000": 100.0
+    },
+    "total_questions": 25,
+    "correct": 25,
+    "status": "completed"
+  },
+  {
+    "system": "crewai-memory",
+    "benchmark": "Budget Curves",
+    "run_id": "run_c407d44bfec8",
+    "date": "2026-05-16",
+    "overall": 100.0,
+    "dimensions": {
+      "budget_500": 100.0,
+      "budget_1000": 100.0,
+      "budget_2000": 100.0,
+      "budget_5000": 100.0,
+      "budget_10000": 100.0
+    },
+    "total_questions": 25,
+    "correct": 25,
+    "status": "completed"
+  },
+  {
+    "system": "gbrain",
+    "benchmark": "Memory Poisoning",
+    "run_id": "run_d0931cf9e982",
+    "date": "2026-05-16",
+    "overall": 0.0,
+    "dimensions": {
+      "injection_resistance": 0.0
+    },
+    "total_questions": 5,
+    "correct": 0,
+    "status": "completed"
+  },
+  {
+    "system": "langchain-memory",
+    "benchmark": "Knowledge Retrieval",
+    "run_id": "run_ed75cd677a5a",
+    "date": "2026-05-16",
+    "overall": 95.0,
+    "dimensions": {
+      "document_retrieval": 100.0,
+      "semantic_search": 100.0,
+      "knowledge_update": 80.0,
+      "multi_page": 100.0
+    },
+    "total_questions": 20,
+    "correct": 19,
+    "status": "completed"
+  },
+  {
+    "system": "llamaindex-memory",
+    "benchmark": "Budget Curves",
+    "run_id": "run_efe82612ac2b",
+    "date": "2026-05-16",
+    "overall": 100.0,
+    "dimensions": {
+      "budget_500": 100.0,
+      "budget_1000": 100.0,
+      "budget_2000": 100.0,
+      "budget_5000": 100.0,
+      "budget_10000": 100.0
+    },
+    "total_questions": 25,
+    "correct": 25,
     "status": "completed"
   }
 ]
