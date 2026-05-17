@@ -182,7 +182,7 @@ export default function TrustBoundariesPage() {
               benchd.ai/methodology/trust-boundaries
             </code>
             <br />
-            Version: <strong>1.0</strong> | ProofMeter v1.1. Patent pending.
+            Version: <strong>1.0</strong> | ProofMeter v1.1. Patent Pending.
           </p>
         </section>
       </div>

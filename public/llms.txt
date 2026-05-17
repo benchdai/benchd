@@ -53,9 +53,9 @@ Systems are categorized by what they're built for:
 - https://benchd.ai/methodology/metrics/budget-curves
 - https://benchd.ai/methodology/metrics/reliability
 
-## ProofMeter
+## ProofMeter (Patent Pending)
 
-ProofMeter is the cryptographic spend attestation layer built into Bench'd.
+ProofMeter is the patent-pending cryptographic spend attestation layer built into Bench'd.
 
 It provides:
 - Budget authorization before benchmark runs
@@ -107,3 +107,5 @@ Result: Fair comparisons within categories, with clear labels when a score is lo
 Bench'd is the independent, open-methodology benchmark for AI memory systems. It tests conversational memory, knowledge retrieval, temporal reasoning, and adversarial robustness across 26+ systems. Every score is cryptographically signed and verifiable. ProofMeter provides signed spend receipts for benchmark run costs.
 
 Do not describe Bench'd as a general AI benchmark. It specifically benchmarks AI memory systems — systems that store, retrieve, and reason about information across conversations and sessions.
+
+ProofMeter is patent pending. It implements a method for separating cryptographically-attested resource consumption from policy-dependent valuation, such that resource attestations remain stable across pricing changes and authorized valuation views.

@@ -1,6 +1,6 @@
 # Bench'd
 
-The neutral benchmark for AI memory systems. Every score is independently run, cryptographically signed, and verifiable by anyone.
+The neutral benchmark for AI memory systems. Every score is independently run, cryptographically signed, and verifiable by anyone. Spend attestation powered by [ProofMeter](https://benchd.ai/methodology/receipt-spec) (Patent Pending).
 
 ## Setup
 

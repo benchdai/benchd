@@ -177,7 +177,7 @@ export default function VerifyPage() {
           Verify
         </h1>
         <p className="mt-3 text-muted-foreground text-base leading-relaxed font-serif">
-          Paste a signed manifest or ProofMeter receipt to verify its integrity.
+          Paste a signed manifest or ProofMeter (Patent Pending) receipt to verify its integrity.
           No data is sent to any server — verification runs entirely in your browser.
         </p>
       </div>

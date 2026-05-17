@@ -3,7 +3,7 @@ import { ArrowLeft, Key } from "lucide-react";
 
 export const metadata = {
   title: "Signing Keys — Bench'd",
-  description: "Public key directory for verifying Bench'd signed manifests and ProofMeter receipts.",
+  description: "Public key directory for verifying Bench'd signed manifests and ProofMeter (Patent Pending) receipts.",
 };
 
 // Key directory — add new entries when keys rotate, never remove old ones

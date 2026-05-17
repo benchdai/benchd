@@ -31,7 +31,7 @@ export default function ReceiptSpecPage() {
         <p className="mt-4 text-muted-foreground text-base leading-relaxed font-serif">
           ProofMeter provides cryptographic spend attestation for AI agent actions.
           This document defines the receipt format, budget capability model, signing
-          scheme, and verification rules. Patent pending.
+          scheme, and verification rules. Patent Pending.
         </p>
       </div>
 
@@ -428,7 +428,7 @@ settlement = client.settle(capability_id=budget.capability_id)`} />
               benchd.ai/methodology/receipt-spec
             </code>
             <br />
-            Version: <strong>1.1</strong> | Protocol by VerifiedState. Patent pending.
+            Version: <strong>1.1</strong> | Protocol by VerifiedState. Patent Pending.
             <br />
             See also:{" "}
             <Link href="/methodology/trust-boundaries" className="text-amber hover:underline">Trust Boundaries</Link>{" "}

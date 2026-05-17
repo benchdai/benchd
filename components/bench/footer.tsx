@@ -95,18 +95,32 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-8 pt-4 border-t border-border flex items-center justify-between">
-          <p className="text-[10px] text-muted-foreground">
-            Verification powered by{" "}
-            <a
-              href="https://verifiedstate.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground underline underline-offset-2"
-            >
-              VerifiedState
-            </a>
-          </p>
+        <div className="mt-8 pt-4 border-t border-border flex items-center justify-between flex-wrap gap-2">
+          <div className="flex items-center gap-3">
+            <p className="text-[10px] text-muted-foreground">
+              Verification powered by{" "}
+              <a
+                href="https://verifiedstate.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground underline underline-offset-2"
+              >
+                VerifiedState
+              </a>
+            </p>
+            <span className="text-[10px] text-muted-foreground/50">|</span>
+            <p className="text-[10px] text-muted-foreground">
+              Spend attestation by{" "}
+              <Link
+                href="/methodology/receipt-spec"
+                className="text-muted-foreground hover:text-foreground underline underline-offset-2"
+              >
+                ProofMeter
+              </Link>
+              {" "}
+              <span className="text-[9px] text-muted-foreground/60">(Patent Pending)</span>
+            </p>
+          </div>
           <p className="text-[10px] text-muted-foreground">
             &copy; {new Date().getFullYear()} Bench&apos;d
           </p>
