@@ -156,7 +156,7 @@ export const systems: System[] = [
     createdAt: "2025-10-03T00:00:00Z",
     adapterStatus: "native",
   },
-  // Graphiti — BLOCKED: graphiti-core uses responses.parse (OpenAI API mismatch). Score pending adapter fix.
+  // Graphiti — 80% KR, 60% Truth, 72% Budget, 48% Reliability. Temporal knowledge graph with Neo4j backend. #2 Knowledge Brain.
   {
     id: "sys_graphiti",
     slug: "graphiti",
@@ -170,15 +170,28 @@ export const systems: System[] = [
     license: "Apache-2.0",
     mcpEndpoint: null,
     mcpCompatible: false,
-    trustTier: "listed",
+    trustTier: "community-verified",
     sourceType: "oss",
     systemType: "graph",
     githubStars: 4200,
-    lastTested: "2026-05-12",
-    scores: null,
-    sparklineData: [],
+    lastTested: "2026-05-16",
+    scores: {
+      recallVerified: 80.0,
+      recallNuance: 80.0,
+      temporalVerified: 60.0,
+      temporalNuance: 60.0,
+      reasoningVerified: 72.0,
+      reasoningNuance: 72.0,
+      overallVerified: 65.0,
+      overallNuance: 65.0,
+      avgLatencyMs: 0,
+      tokensPerCorrect: 0,
+      bmi: 65.0,
+      reliabilityOverall: 48.0,
+    },
+    sparklineData: [0.0, 0.0, 65.0],
     createdAt: "2025-11-02T00:00:00Z",
-    adapterStatus: "community",
+    adapterStatus: "native",
   },
   // 5. Mastra OM — published LongMemEval_s scores (gpt-4o judge), self-reported
   // Source: Mastra blog post
