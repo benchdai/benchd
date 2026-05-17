@@ -343,6 +343,115 @@ class MyMemoryAdapter(BaseAdapter):
           </div>
         </section>
 
+        {/* How Bench'd Uses VerifiedState + ProofMeter */}
+        <section id="how-we-use-it" className="mb-12">
+          <h2 className="font-serif text-2xl font-semibold mb-4 flex items-center gap-2">
+            <Shield className="h-5 w-5 text-amber" />
+            How Bench&apos;d Uses VerifiedState &amp; ProofMeter
+          </h2>
+          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+            Bench&apos;d is a real-world example of how VerifiedState memory verification
+            and ProofMeter spend attestation work together in production. Here&apos;s
+            exactly how we use them.
+          </p>
+
+          <div className="space-y-4">
+            {/* VerifiedState use case */}
+            <div className="border border-border rounded-xl p-5 bg-card">
+              <h3 className="text-sm font-semibold mb-2">VerifiedState — Memory verification for benchmark results</h3>
+              <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+                Every benchmark score on Bench&apos;d is a claim: &ldquo;System X scored 80% on Knowledge Retrieval.&rdquo;
+                That claim needs to be independently verifiable. We use VerifiedState to:
+              </p>
+              <ul className="space-y-1.5 text-xs text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-0.5 shrink-0">-</span>
+                  <span><strong className="text-foreground">Ingest benchmark manifests</strong> into verified memory so the full trace of every run is queryable and auditable</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-0.5 shrink-0">-</span>
+                  <span><strong className="text-foreground">Run verification ladders</strong> on score claims — checking that the manifest hash matches, the signature is valid, and the traces support the reported score</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-0.5 shrink-0">-</span>
+                  <span><strong className="text-foreground">Generate signed receipts</strong> for each verified score, creating an audit trail from raw question to published leaderboard number</span>
+                </li>
+              </ul>
+              <pre className="bg-code-bg rounded-lg p-3 text-[11px] font-mono mt-3 overflow-x-auto">
+                <code>{`# VerifiedState is also benchmarked AS a memory system:
+benchd run -a verifiedstate -b knowledge-retrieval-v0
+# This tests VS's own memory_ingest + memory_query capabilities`}</code>
+              </pre>
+            </div>
+
+            {/* ProofMeter use case */}
+            <div className="border border-border rounded-xl p-5 bg-card">
+              <h3 className="text-sm font-semibold mb-2">ProofMeter — Spend tracking for benchmark runs</h3>
+              <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+                Running benchmarks costs real money — LLM judge calls, embedding API calls, model inference.
+                ProofMeter tracks every dollar so benchmark costs are transparent and verifiable:
+              </p>
+              <ul className="space-y-1.5 text-xs text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-500 mt-0.5 shrink-0">-</span>
+                  <span><strong className="text-foreground">Budget authorization</strong> — before a run starts, a signed budget cap is set (e.g., $5.00 max)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-500 mt-0.5 shrink-0">-</span>
+                  <span><strong className="text-foreground">Per-call receipts</strong> — every LLM judge call records provider, model, tokens, and cost as a signed receipt</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-500 mt-0.5 shrink-0">-</span>
+                  <span><strong className="text-foreground">Budget enforcement</strong> — if spend exceeds the budget, the run pauses automatically</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-500 mt-0.5 shrink-0">-</span>
+                  <span><strong className="text-foreground">Settlement</strong> — after the run, all receipts are Merkle-rooted into a settlement attached to the manifest</span>
+                </li>
+              </ul>
+              <pre className="bg-code-bg rounded-lg p-3 text-[11px] font-mono mt-3 overflow-x-auto">
+                <code>{`# Run reliability benchmark with $5 budget and spend tracking:
+benchd run -a graphiti -b reliability-v1 --budget 5.00
+
+# Manifest includes proofmeter section:
+# {
+#   "proofmeter": {
+#     "total_spend_usd": "3.81",
+#     "receipt_count": 294,
+#     "by_model": {
+#       "openai/gpt-4o-mini": { "calls": 294, "cost_usd": "3.81" }
+#     },
+#     "settlement_merkle_root": "sha256:...",
+#     "settlement_status": "settled"
+#   }
+# }`}</code>
+              </pre>
+            </div>
+
+            {/* Why this matters */}
+            <div className="border border-amber/20 rounded-xl p-5 bg-amber/5">
+              <h3 className="text-sm font-semibold mb-2">Why this matters for AI agents and developers</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                When an AI agent runs a benchmark, deploys a workflow, or calls an API on your behalf,
+                you need answers to three questions: <em>What happened?</em> (VerifiedState memory),{" "}
+                <em>What did it cost?</em> (ProofMeter receipts), and <em>Can I verify this without trusting the runner?</em>{" "}
+                (cryptographic signatures). Bench&apos;d is the first production system that answers all three.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <Link href="/methodology/receipt-spec" className="text-[11px] text-amber hover:underline">
+                  ProofMeter Spec &rarr;
+                </Link>
+                <Link href="/methodology/trust-tiers" className="text-[11px] text-amber hover:underline">
+                  Trust Tiers &rarr;
+                </Link>
+                <Link href="/methodology" className="text-[11px] text-amber hover:underline">
+                  Full Methodology &rarr;
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* GitHub Action */}
         <section id="ci" className="mb-12">
           <h2 className="font-serif text-2xl font-semibold mb-4 flex items-center gap-2">

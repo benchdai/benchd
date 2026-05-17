@@ -61,23 +61,102 @@ export interface ScoreInterpretation {
   summary: string;
 }
 
+// Item 11: Who wrote and signed the adapter
+export type AdapterAuthor =
+  | "benchd"                // written by Bench'd team
+  | "vendor"                // written by the system vendor
+  | "community_contributor" // written by OSS contributor
+  | "partner_audited";      // co-developed with auditor
+
+// Item 9: Confidence metadata — how complete was the run
+export interface ConfidenceMetadata {
+  sampleSize: number;          // questions actually run
+  questionsTotal: number;      // questions in full benchmark
+  completionRate: number;      // sampleSize / questionsTotal (0-1)
+}
+
+// Item 10: Compute metadata — Bench'd's own operational cost
+export interface ComputeMetadata {
+  judgeTokensUsed: number;
+  judgeCostUsd: number;
+  totalLatencyMs: number;
+  harnessRuntimeSeconds: number;
+}
+
+// Item 5: Run context — makes every score self-contained for verification
+export interface RunContext {
+  runId: string;
+  harnessVersion: string;
+  judgeModel: string;
+  judgeTemperature: number;
+  adapterVersion: string;
+  runtimeClass: string;          // S1, L1, etc.
+  containerImageHash?: string;
+  scoredAt: string;              // ISO timestamp
+}
+
+// Item 6: Freshness — is this score current or stale?
+export type ScoreFreshness =
+  | "current"              // scored with latest harness + methodology + adapter
+  | "stale_harness"        // harness version has been updated since this run
+  | "stale_methodology"    // scoring methodology changed since this run
+  | "stale_adapter";       // adapter has been updated since this run
+
 export interface StructuredScore {
+  // Identity
   metricId: string;
   metricVersion: string;
   trackId: string;
+
+  // Values
   rawValue: number | null;
   status: ScoreStatus;
   capabilityClaim: CapabilityClaim;
+
+  // Context
   expectationProfile: ExpectationProfile;
   subDimensions: SubDimension[];
   interpretation: ScoreInterpretation;
+
+  // Item 3: Purpose alignment versioning
+  purposeAlignmentVersion: string;  // e.g. "1.0" — which alignment table was used
+
+  // Item 5: Run context
+  runContext?: RunContext;
+
+  // Item 6: Freshness
+  freshness?: ScoreFreshness;
+
+  // Item 7: Score history
+  previousScoreId?: string;
+  deltaFromPrevious?: number;       // +2.3 or -1.1
+
+  // Item 8: Disputes and vendor notes
+  activeDisputeIds?: string[];
+  vendorNoteIds?: string[];
+
+  // Item 9: Confidence
+  confidenceMetadata?: ConfidenceMetadata;
+
+  // Item 10: Compute cost
+  computeMetadata?: ComputeMetadata;
+
+  // Item 11: Adapter provenance
+  adapterAuthor?: AdapterAuthor;
+  adapterSignature?: string;
+
+  // References
   methodologyUrl: string;
   receiptUrl?: string;
+  traceUrls?: string[];
 }
 
 // ─────────────────────────────────────────────────────────
 // Purpose alignment table: which metrics matter for which tracks
 // ─────────────────────────────────────────────────────────
+
+// Item 3: Versioned purpose alignment table
+export const PURPOSE_ALIGNMENT_VERSION = "1.0";
 
 export const PURPOSE_ALIGNMENT: Record<string, Record<string, PurposeAlignment>> = {
   // Conversational Memory track
@@ -172,6 +251,29 @@ export const RELIABILITY_SUB_DIMENSIONS: Record<string, SubDimension[]> = {
 // Compute interpretation from raw data
 // ─────────────────────────────────────────────────────────
 
+/**
+ * Get the interpretation for a score.
+ *
+ * Prefers the persisted interpretation from the signed manifest (computed
+ * at scoring time by the harness). Falls back to local computation for
+ * legacy scores that don't have a persisted interpretation.
+ */
+export function getInterpretation(
+  score: StructuredScore,
+): ScoreInterpretation {
+  // Use persisted interpretation if available (Item 1: computed at scoring time)
+  if (score.interpretation?.label && score.interpretation?.summary) {
+    return score.interpretation;
+  }
+  // Fallback: compute locally for legacy scores
+  return computeInterpretation(score.rawValue, score.capabilityClaim, score.subDimensions);
+}
+
+/**
+ * @deprecated Use getInterpretation(score) which reads the persisted
+ * interpretation from the manifest. This function is kept as a fallback
+ * for legacy scores without persisted interpretations.
+ */
 export function computeInterpretation(
   rawValue: number | null,
   capabilityClaim: CapabilityClaim,
@@ -203,4 +305,27 @@ export function computeInterpretation(
   if (rawValue >= 40) return { label: "average", summary: "Moderate performance with room for improvement." };
   if (rawValue > 0) return { label: "weak", summary: "Below average. Review failure traces for specific issues." };
   return { label: "weak", summary: "System did not pass any test items in this benchmark." };
+}
+
+// ─────────────────────────────────────────────────────────
+// Freshness computation
+// ─────────────────────────────────────────────────────────
+
+// Pinned latest versions — update these when harness/methodology/adapters change
+export const LATEST_HARNESS_VERSION = "0.1.0";
+export const LATEST_METHODOLOGY_VERSION = "1.0";
+
+/**
+ * Compute freshness status by comparing run context against latest versions.
+ */
+export function computeFreshness(score: StructuredScore): ScoreFreshness {
+  if (!score.runContext) return "stale_harness";
+
+  if (score.runContext.harnessVersion !== LATEST_HARNESS_VERSION) {
+    return "stale_harness";
+  }
+  if (score.purposeAlignmentVersion !== LATEST_METHODOLOGY_VERSION) {
+    return "stale_methodology";
+  }
+  return score.freshness ?? "current";
 }
