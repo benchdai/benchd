@@ -184,7 +184,7 @@ export default function HomePage() {
                 Bench&apos;d runs memory systems through reproducible benchmark protocols &mdash; measuring recall, temporal correctness, failure traces, and how efficiently past experience improves future performance.
               </p>
               <p className="mt-2.5 text-xs text-muted-foreground/70">
-                Every run is cryptographically signed and publicly verifiable.
+                Every run is cryptographically signed and publicly verifiable. Spend attestation by ProofMeter (Patent Pending).
               </p>
               <div className="mt-7 flex items-center gap-3">
                 <Link
@@ -592,28 +592,31 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Run Queue */}
+          {/* Methodology + ProofMeter */}
           <div className="border border-border rounded-xl p-4 bg-card card-sm relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-amber/30 rounded-l-xl" />
             <h3 className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-              Run Queue
+              Open Methodology
             </h3>
             <div className="space-y-1.5 text-xs">
-              <div className="text-muted-foreground">
-                <span className="font-mono tabular-nums text-foreground">{listed}</span> awaiting adapters
-              </div>
-              <div className="text-muted-foreground">
-                <span className="font-mono tabular-nums text-foreground">4</span> missing wrappers
-              </div>
-              <div className="text-[#DC2626]">
-                <span className="font-mono tabular-nums">{selfReported}</span> flagged claims
-              </div>
+              <Link href="/methodology/metrics/knowledge-retrieval" className="block text-muted-foreground hover:text-foreground transition-colors">
+                <span className="font-mono tabular-nums text-foreground">8</span> benchmark specs published
+              </Link>
+              <Link href="/methodology/failure-taxonomy" className="block text-muted-foreground hover:text-foreground transition-colors">
+                <span className="font-mono tabular-nums text-foreground">23</span> failure codes documented
+              </Link>
+              <Link href="/methodology/trust-tiers" className="block text-muted-foreground hover:text-foreground transition-colors">
+                <span className="font-mono tabular-nums text-foreground">4</span> trust tiers defined
+              </Link>
+              <Link href="/methodology/receipt-spec" className="block text-muted-foreground hover:text-foreground transition-colors">
+                ProofMeter spend attestation <span className="text-[9px] text-muted-foreground/60">(Patent Pending)</span>
+              </Link>
             </div>
             <Link
               href="/methodology"
               className="inline-flex items-center gap-1 mt-3 text-[10px] text-muted-foreground hover:text-amber transition-colors"
             >
-              View methodology
+              Full methodology
               <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
@@ -645,7 +648,11 @@ export default function HomePage() {
         <p className="text-[10px] text-muted-foreground">
           All scores are independently run when marked Community-Verified,
           Vendor-Verified, or Partner-Audited. Listed and Self-Reported systems
-          are clearly labeled.
+          are clearly labeled. Spend attestation by{" "}
+          <Link href="/methodology/receipt-spec" className="text-muted-foreground hover:text-foreground underline underline-offset-2">
+            ProofMeter
+          </Link>{" "}
+          <span className="text-muted-foreground/60">(Patent Pending)</span>.
         </p>
       </div>
       </div>
