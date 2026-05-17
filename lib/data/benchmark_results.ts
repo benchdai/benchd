@@ -74,11 +74,10 @@ export const BENCHMARK_RESULTS: Record<string, Record<string, number | null>> = 
     "Budget Curves": 0.0,
   },
   "graphiti": {
-    "LongMemEval": 0.0,
-    "Truth Arbitration": 0.0,
-    "Memory Poisoning": 0.0,
-    "Budget Curves": 0.0,
-    "Knowledge Retrieval": 0.0,
+    "Knowledge Retrieval": 80.0,
+    "Truth Arbitration": 60.0,
+    "Budget Curves": 72.0,
+    "Reliability": 48.0,
   },
   "langmem-benchd": {
     "Reliability": 60.0,
