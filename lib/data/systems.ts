@@ -1164,7 +1164,7 @@ export const systems: System[] = [
     createdAt: "2026-05-14T00:00:00Z",
     adapterStatus: "none",
   },
-  // Quivr — BLOCKED: quivr-core Brain.ask() returns empty. Score pending library investigation.
+  // Quivr — 5% KR, 20% Truth, 4% Budget, 0% Reliability. Real scores from working adapter. quivr-core struggles on exact-match scoring.
   {
     id: "sys_quivr",
     slug: "quivr",
@@ -1178,15 +1178,25 @@ export const systems: System[] = [
     license: "Apache-2.0",
     mcpEndpoint: null,
     mcpCompatible: false,
-    trustTier: "listed",
+    trustTier: "community-verified",
     sourceType: "oss",
     systemType: "knowledge-brain",
     githubStars: 39200,
     lastTested: "2026-05-16",
-    scores: null,
-    sparklineData: [],
+    scores: {
+      recallVerified: 5.0,
+      recallNuance: 5.0,
+      temporalVerified: 20.0,
+      temporalNuance: 20.0,
+      reasoningVerified: 4.0,
+      reasoningNuance: 4.0,
+      overallVerified: 7.3,
+      overallNuance: 7.3,
+      bmi: 7.3,
+    },
+    sparklineData: [0.0, 0.0, 7.3],
     createdAt: "2026-05-14T00:00:00Z",
-    adapterStatus: "community",
+    adapterStatus: "native",
   },
   // 39. CAMEL — no published LongMemEval score; listed
   {

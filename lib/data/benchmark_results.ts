@@ -94,10 +94,10 @@ export const BENCHMARK_RESULTS: Record<string, Record<string, number | null>> = 
     "Budget Curves": 0.0,
   },
   "quivr": {
-    "Knowledge Retrieval": 0.0,
-    "Truth Arbitration": 0.0,
-    "Budget Curves": 0.0,
-    "Reliability": 4.0,
+    "Knowledge Retrieval": 5.0,
+    "Truth Arbitration": 20.0,
+    "Budget Curves": 4.0,
+    "Reliability": 0.0,
   },
 };
 
