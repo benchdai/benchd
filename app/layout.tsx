@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s | Bench'd",
   },
   description:
-    "Every score is independently run, cryptographically signed, and verifiable by anyone. Open harness, open methodology, signed receipts.",
+    "Every score is independently run, signed, and verifiable by anyone. Open harness, open methodology, signed receipts. Spend attestation by ProofMeter (Patent Pending).",
   metadataBase: new URL("https://benchd.ai"),
   keywords: [
     "AI memory benchmark",
@@ -43,6 +43,11 @@ export const metadata: Metadata = {
     "Mem0",
     "vector memory",
     "agent memory",
+    "ProofMeter",
+    "AI spend receipts",
+    "AI usage attestation",
+    "knowledge brain",
+    "graph RAG",
   ],
   authors: [{ name: "Bench'd" }],
   creator: "Bench'd",
@@ -53,13 +58,22 @@ export const metadata: Metadata = {
     siteName: "Bench'd",
     title: "Bench'd — The scoreboard for AI memory",
     description:
-      "Independent, reproducible benchmarks for AI memory systems. Cryptographically signed results. Open methodology.",
+      "Independent, reproducible benchmarks for AI memory systems. Signed, verifiable results. Open methodology. Spend attestation by ProofMeter (Patent Pending).",
+    images: [
+      {
+        url: "https://benchd.ai/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Bench'd — The neutral benchmark for AI memory systems",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bench'd — The scoreboard for AI memory",
     description:
-      "Independent, reproducible benchmarks for AI memory systems. Cryptographically signed results.",
+      "Independent, reproducible benchmarks for AI memory systems. Signed, verifiable results.",
+    images: ["https://benchd.ai/opengraph-image"],
   },
   robots: {
     index: true,

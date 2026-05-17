@@ -1,0 +1,16 @@
+{
+  "name": "Bench'd",
+  "short_name": "Bench'd",
+  "description": "The neutral benchmark for AI memory systems. Every score signed and verifiable.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#D9982B",
+  "icons": [
+    {
+      "src": "/icon",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}

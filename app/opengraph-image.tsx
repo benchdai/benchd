@@ -133,9 +133,9 @@ export default async function Image() {
             }}
           >
             {[
-              { value: "36", label: "Systems Indexed" },
-              { value: "4", label: "Independently Scored" },
-              { value: "13", label: "Signed Manifests" },
+              { value: "64", label: "Systems Indexed" },
+              { value: "10", label: "Independently Scored" },
+              { value: "8", label: "Benchmark Specs" },
             ].map((stat) => (
               <div
                 key={stat.label}
@@ -195,7 +195,7 @@ export default async function Image() {
               color: "rgba(255,255,255,0.25)",
             }}
           >
-            Every score cryptographically signed & verifiable
+            Every score signed & verifiable | ProofMeter (Patent Pending)
           </span>
         </div>
       </div>
