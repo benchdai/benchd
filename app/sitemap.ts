@@ -45,12 +45,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const systemPages = systems.map((s) => ({
-    url: `${baseUrl}/system/${s.slug}`,
-    lastModified: new Date(s.lastTested || s.createdAt),
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
+  // Only include systems that have actual scores — scoreless pages are thin content
+  const systemPages = systems
+    .filter((s) => s.scores !== null)
+    .map((s) => ({
+      url: `${baseUrl}/system/${s.slug}`,
+      lastModified: new Date(s.lastTested || s.createdAt),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }));
 
   const blogPages = posts.map((p) => ({
     url: `${baseUrl}/blog/${p.slug}`,

@@ -111,6 +111,27 @@ function scoreBg(score: number): string {
 /*  Page                                                              */
 /* ------------------------------------------------------------------ */
 
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const system = getSystemBySlug(slug);
+  if (!system) return { title: "System Not Found" };
+
+  const hasScores = system.scores !== null;
+  return {
+    title: `${system.name} — AI Memory Benchmark`,
+    description: hasScores
+      ? `${system.name} scored ${system.scores!.overallVerified}/100 on Bench'd. Independently verified AI memory benchmark results.`
+      : `${system.name} is listed on Bench'd. Benchmark results pending.`,
+    robots: hasScores ? { index: true, follow: true } : { index: false, follow: true },
+  };
+}
+
 export default async function SystemProfilePage({
   params,
 }: {
